@@ -1,0 +1,25 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true
+  },
+  "extends": ["airbnb/base"],
+  "rules": {
+    "semi": "error",
+    "no-console": "error",
+    "no-plusplus": "off",
+    "eol-last": "off",
+    "no-tabs": "off",
+    "no-alert": "off",
+    "prefer-destructuring": "off",
+    "no-param-reassign": "off",
+    "quotes": "off",
+    "prefer-arrow-callback": "off",
+    "linebreak-style": "off",
+    "prefer-const": "off",
+    "func-names": "off",
+    "comma-dangle": "off",
+    "indent": "off"
+  }
+}
