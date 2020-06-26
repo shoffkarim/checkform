@@ -8,14 +8,14 @@ const sass = require("gulp-sass");
 
 let src = {
   dev: {
-    pug: "app/dev/pug",
-    sass: "app/dev/sass",
-    js: "app/dev/js",
+    pug: "app/dev/pug/*.pug",
+    sass: "app/dev/sass/*.sass",
+    js: "app/dev/js/*.js",
   },
   prod: {
     html: "app/prod/",
-    css: "app/prod/css",
-    js: "app/prod/js",
+    css: "app/prod/css/",
+    js: "app/prod/js/",
   },
 };
 
