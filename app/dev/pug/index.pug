@@ -1,7 +1,29 @@
 include bemto/bemto.pug
 doctype html
 html
-  head(lang="ru")
-    include layouts/__head
-  body
-     
+	head(lang="ru")
+		include layouts/__head
+	body
+		+b('main').main
+			+b.validator-wrapper
+				+b('form').validator-form
+					+b.block
+						+e.INPUT(type='text' placeholder='name').name#name
+						+e.LABEL.label-name Name
+					+b.block
+						+e.INPUT(type='text' placeholder='email').email#email
+						+e.LABEL.label-email Email
+					+b.block
+						+e.INPUT(type='password' placeholder='password').password#password
+						+e.LABEL.label-pass Password
+					+b.block
+						+e.INPUT(type='tel' placeholder='telephone').tel#tel
+						+e.LABEL.label-tel Number
+					+b.block
+						+e.INPUT(type='checkbox').check#check
+						+e.LABEL.label-check Rights
+					+b.block
+						+e.INPUT(type='file').file#file 
+					+b.block
+						+e.TEXTAREA(placeholder='message').message#message
+						+e.LABEL.label-mess Input your message
