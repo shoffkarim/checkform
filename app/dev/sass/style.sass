@@ -1,0 +1,61 @@
+.validator-wrapper
+    width: 500px
+    margin: 0 auto
+    font-family: 'Helvetica'
+    background-color: #eef2f5
+    padding: 20px
+.validator-form
+    display: flex
+    flex-wrap: wrap
+.block
+    display: flex
+    flex-direction: column
+    align-items: flex-start
+    width: calc(50% - 20px)
+    margin-right: 20px
+    &__input
+        padding: 5px
+        margin-bottom: 10px
+        width: 100%
+        color: #000
+        border: 1px solid grey
+        border-radius: 5px
+    &__input::placeholder
+        color: #000
+    &__input::-webkit-input-placeholder
+        color: #000
+    &__input::-moz-placeholder
+        color: #000
+    &__input:-ms-input-placeholder
+        color: #000
+    &__input:-moz-placeholder
+        color: #000
+    &__label
+        margin-bottom: 5px
+    &__message
+        width: 100%
+        padding: 5px
+        margin-bottom: 10px
+        color: #000
+        resize: none
+    &__message::placeholder
+        color: #000
+    &__input.file, &__input.check
+        border: none
+    &__input:hover
+        border: 1px solid #7f5dfc
+    &__input:active
+        border: 1px solid #7f5dfc
+    &__input:focus
+        border: none
+        border: 1px solid #7f5dfc
+    &__input.file:hover, &__input.check:hover
+        border: none
+    &__input.file:active, &__input.check:active
+        border: none
+    &__input.file:focus, &__input.check:focus
+        border: none
+    
+.block.check
+    width: auto
+    margin-right: auto

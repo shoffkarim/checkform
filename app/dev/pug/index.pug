@@ -8,22 +8,26 @@ html
 			+b.validator-wrapper
 				+b('form').validator-form
 					+b.block
-						+e.INPUT(type='text' placeholder='name').name#name
-						+e.LABEL.label-name Name
+						+e.LABEL(for='name').label.label-name Name
+						+e.INPUT(type='text' placeholder='name').input.name#name
 					+b.block
-						+e.INPUT(type='text' placeholder='email').email#email
-						+e.LABEL.label-email Email
+						+e.LABEL(for='email').label.label-email Email
+						+e.INPUT(type='text' placeholder='email').input.email#email
 					+b.block
-						+e.INPUT(type='password' placeholder='password').password#password
-						+e.LABEL.label-pass Password
+						+e.LABEL(for='password').label.label-pass Password
+						+e.INPUT(type='password' placeholder='password').input.password#password
 					+b.block
-						+e.INPUT(type='tel' placeholder='telephone').tel#tel
-						+e.LABEL.label-tel Number
+						+e.LABEL(for='date').label.label-date Date
+						+e.INPUT(type='date' placeholder='date').input.date#date
 					+b.block
-						+e.INPUT(type='checkbox').check#check
-						+e.LABEL.label-check Rights
+						+e.LABEL(for='tel').label.label-tel Number
+						+e.INPUT(type='tel' placeholder='telephone').input.tel#tel
+					+b.block.check
+						+e.LABEL(for='check').label.label-check Rights
+						+e.INPUT(type='checkbox').input.check#check
 					+b.block
-						+e.INPUT(type='file').file#file 
+						+e.INPUT(type='file').input.file#file 
 					+b.block
+						+e.LABEL(for='message').label.label-mess Input your message
 						+e.TEXTAREA(placeholder='message').message#message
-						+e.LABEL.label-mess Input your message
+						

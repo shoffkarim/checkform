@@ -1,0 +1,63 @@
+.validator-wrapper {
+  width: 500px;
+  margin: 0 auto;
+  font-family: 'Helvetica';
+  background-color: #eef2f5;
+  padding: 20px; }
+
+.validator-form {
+  display: flex;
+  flex-wrap: wrap; }
+
+.block {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: calc(50% - 20px);
+  margin-right: 20px; }
+  .block__input {
+    padding: 5px;
+    margin-bottom: 10px;
+    width: 100%;
+    color: #000;
+    border: 1px solid grey;
+    border-radius: 5px; }
+  .block__input::placeholder {
+    color: #000; }
+  .block__input::-webkit-input-placeholder {
+    color: #000; }
+  .block__input::-moz-placeholder {
+    color: #000; }
+  .block__input:-ms-input-placeholder {
+    color: #000; }
+  .block__input:-moz-placeholder {
+    color: #000; }
+  .block__label {
+    margin-bottom: 5px; }
+  .block__message {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    color: #000;
+    resize: none; }
+  .block__message::placeholder {
+    color: #000; }
+  .block__input.file, .block__input.check {
+    border: none; }
+  .block__input:hover {
+    border: 1px solid #7f5dfc; }
+  .block__input:active {
+    border: 1px solid #7f5dfc; }
+  .block__input:focus {
+    border: none;
+    border: 1px solid #7f5dfc; }
+  .block__input.file:hover, .block__input.check:hover {
+    border: none; }
+  .block__input.file:active, .block__input.check:active {
+    border: none; }
+  .block__input.file:focus, .block__input.check:focus {
+    border: none; }
+
+.block.check {
+  width: auto;
+  margin-right: auto; }
