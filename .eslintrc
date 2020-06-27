@@ -7,7 +7,7 @@
   "extends": ["airbnb/base"],
   "rules": {
     "semi": "error",
-    "no-console": "error",
+    "no-console": "off",
     "no-plusplus": "off",
     "eol-last": "off",
     "no-tabs": "off",
@@ -20,6 +20,7 @@
     "prefer-const": "off",
     "func-names": "off",
     "comma-dangle": "off",
-    "indent": "off"
+    "indent": "off",
+    "no-use-before-define": "off"
   }
 }
