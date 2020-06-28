@@ -34,19 +34,33 @@ function validator(evt) {
         }
         break;
       case "date":
-        console.log(val);
+        let dateReg = new RegExp(/^\d{4}[./-]\d{2}[./-]\d{2}$/);
+        if (!dateReg.test(val)) {
+          console.log("incorrect date");
+        }
         break;
       case "tel":
-        console.log(val);
+        let telReg = new RegExp(
+          /^((\+?7|8)[ \-] ?)?((\(\d{3}\))|(\d{3}))?([ \-])?(\d{3}[\- ]?\d{2}[\- ]?\d{2})$/
+        );
+        if (!telReg.test(val)) {
+          console.log("incorrect tel");
+        }
         break;
       case "check":
-        console.log(val);
+        if (input.checked) {
+          console.log("ok");
+        } else console.log("not checked");
         break;
       case "file":
-        console.log(val);
-        break;
-      case "message":
-        console.log(val);
+        if (
+          input.files[0].type === "image/png" ||
+          input.files[0].type === "image/jpg"
+        ) {
+          if (input.files[0].size < 10025711) {
+            console.log("ok");
+          } else console.log("big size of file");
+        } else console.log("incorrect format of file");
         break;
       default:
         console.log("def");
