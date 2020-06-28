@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "lint": "eslint ./app/dev",
-    "lint-fix": "eslint ./app/dev --fix",
+    "lint": "eslint ./app/prod/js",
+    "lint-fix": "eslint ./app/prod/js --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "shoff",
