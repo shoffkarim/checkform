@@ -33,16 +33,29 @@ let validObj = {
   },
 };
 let btn = document.querySelector(".btn");
-btn.addEventListener("click", validator, false);
+btn.addEventListener("click", validator);
 
 function RegCheck(reg, val, input) {
   if (!reg.test(val)) {
-    console.log(`incorrect ${input}`);
+    CreateErrorMessage(input);
+  } else {
+    input.classList.remove("error");
+    input.classList.add("good");
   }
 }
 
+function CreateErrorMessage(input) {
+  let mesError = document.createElement("div");
+  mesError.className = `block__error ${input.id}`;
+  mesError.innerHTML = `Incorrect ${input.id}`;
+  input.before(mesError);
+  input.classList.add("error");
+  btn.addEventListener("click", validator);
+}
 function validator(evt) {
   evt.preventDefault();
+  console.log(1);
+  btn.removeEventListener("click", validator);
   let inputs = document.querySelectorAll(".block__input");
   inputs.forEach(function (input) {
     let val = input.value;
@@ -50,35 +63,35 @@ function validator(evt) {
       case "name":
         let nameReg = new RegExp(validObj.nickname.reg);
         if (val.length <= 4 || val.length >= 16) {
-          console.log("short name or too long");
-          RegCheck(nameReg, val, "name");
+          CreateErrorMessage(input);
+          RegCheck(nameReg, val, input);
         }
         break;
       case "email":
         let emailReg = new RegExp(validObj.email.reg);
-        RegCheck(emailReg, val, "email");
+        RegCheck(emailReg, val, input);
         break;
       case "password":
         let passwordReg = new RegExp(validObj.password.reg.b6);
-        RegCheck(passwordReg, val, "password");
+        RegCheck(passwordReg, val, input);
         break;
       case "date":
         let dateReg = new RegExp(validObj.date.reg.first);
-        RegCheck(dateReg, val, "date");
+        RegCheck(dateReg, val, input);
         break;
       case "tel":
         let telReg = new RegExp(validObj.tel.reg.russian);
-        RegCheck(telReg, val, "tel");
+        RegCheck(telReg, val, input);
         break;
       case "check":
-        if (!input.checked) console.log("not checked");
+        if (!input.checked) CreateErrorMessage(input);
         break;
       case "file":
         let file = input.files[0];
-        if (val === "") console.log("not file");
+        if (val === "") CreateErrorMessage(input);
         else if (!file.type.startsWith(validObj.file.type.image)) {
-          console.log("incorrect format of file");
-          if (!(file.size < validObj.file.size.mb10)) console.log("big size of file");
+          CreateErrorMessage(input);
+          if (!(file.size < validObj.file.size.mb10)) CreateErrorMessage(input);
         }
         break;
       default:

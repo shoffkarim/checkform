@@ -13,6 +13,7 @@
     align-items: flex-start
     width: calc(50% - 20px)
     margin-right: 20px
+    position: relative
     &__input
         padding: 5px
         margin-bottom: 10px
@@ -55,7 +56,35 @@
         border: none
     &__input.file:focus, &__input.check:focus
         border: none
+    &__error
+        position: absolute
+        width: auto
+        top: 22px
+        left: calc(100% - 345px)
+        background: #ffffff
+        color: #000000
+        border: 1px solid #7f5dfc
+        font-size: 15px
+        padding: 5px
+        border-radius: 5px
+    &__error.password
+        left: -142px
+    &__error.email
+        left: 245px
+    &__error.check
+        left: 245px
+    &__error.date
+        left: 245px
+    &__error.tel
+        left: -93px
+    &__error.file
+        left: -97px
+    &__input.error
+        border: 1px solid red
+    &__input.good
+        border: 1px solid green
     
 .block.check
     width: auto
     margin-right: auto
+
