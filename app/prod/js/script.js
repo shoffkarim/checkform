@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
-let validObj = {
+let validObj = { //объект для абстракции
   nickname: {
-    reg: /^[a-zA-z_-]$/,
+    reg: /^[а-яА-Я]/,
   },
   email: {
     reg: /^(?!.*@.*@.*$)(?!.*@.*--.*..*$)(?!.*@.*-..*$)(?!.*@.*-$)(.*@.+(..{1,11})?)$/,
@@ -36,35 +36,44 @@ let validObj = {
 
 let inputsList = document.querySelectorAll(".block__input");
 
-
 function RegCheck(reg, val, input) {
   if (!reg.test(val)) {
-    CreateErrorMessage(input);
+    showErrorMessage(input);
+    input.classList.add("error");
+    input.classList.remove("good");
   } else {
     input.classList.remove("error");
     input.classList.add("good");
+    deleteErrorMessage(input);
   }
-}
+};
 
-function CreateErrorMessage(input) {
+function CreateErrorMessage(input) { 
   let mesError = document.createElement("div");
   mesError.className = `block__error ${input.id}`;
   mesError.innerHTML = `Incorrect ${input.id}`;
   input.before(mesError);
-  input.classList.add("error");
+};
+function showErrorMessage(input){
+  var errorBlock = input.previousElementSibling;
+  errorBlock.style.display = 'block';
+  errorBlock.style.opacity = '1';
 }
+function deleteErrorMessage(input){
+  var errorBlock = input.previousElementSibling;
+  errorBlock.style.display = 'none';
+  errorBlock.style.opacity = '0';
+};
 var validatorInit = function(){
   let inputsList = document.querySelectorAll(".block__input");
   inputsList.forEach(function(input){
-    input.addEventListener('blur', function(){
+    CreateErrorMessage(input)
+    input.addEventListener('change', function(){
       let val = input.value;
       switch (input.getAttribute("id")) {
         case "name":
           let nameReg = new RegExp(validObj.nickname.reg);
-          if (val.length <= 4 || val.length >= 16) {
-            CreateErrorMessage(input);
-            RegCheck(nameReg, val, input);
-          }
+          RegCheck(nameReg, val, input);
           break;
         case "email":
           let emailReg = new RegExp(validObj.email.reg);
@@ -83,14 +92,19 @@ var validatorInit = function(){
           RegCheck(telReg, val, input);
           break;
         case "check":
-          if (!input.checked) CreateErrorMessage(input);
+          if (!input.checked) showErrorMessage(input);
           break;
         case "file":
           let file = input.files[0];
-          if (val === "") CreateErrorMessage(input);
+          if (val === "") showErrorMessage(input);
           else if (!file.type.startsWith(validObj.file.type.image)) {
-            CreateErrorMessage(input);
-            if (!(file.size < validObj.file.size.mb10)) CreateErrorMessage(input);
+            showErrorMessage(input);
+            if (!(file.size < validObj.file.size.mb10)) showErrorMessage(input);
+          }
+          else {
+            input.classList.remove("error");
+            input.classList.add("good");
+            deleteErrorMessage(input);
           }
           break;
         default:
@@ -99,23 +113,3 @@ var validatorInit = function(){
     })
   });
 }();
-
-
-
-// function validator() {
-//   for (
-//     var _iterator = inputsList[Symbol.iterator](), _step; 
-//     !(_iteratorNormalCompletion = (_step = _iterator.next()).done);  
-//     _iteratorNormalCompletion = true){
-//       var input = _step.value;
-//       input.addEventListener('blur', function(){
-//         console.log(this);
-//       })
-//   }
-  
-  // console.log(this);
-  // let inputs = document.querySelectorAll(".block__input");
-  // inputs.forEach(function (input) {
-
-  // });
-// }
