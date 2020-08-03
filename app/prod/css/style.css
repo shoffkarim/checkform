@@ -83,6 +83,8 @@
     left: -97px; }
   .block__input.error {
     border: 1px solid red; }
+  .block__input.good {
+    border: 1px solid green; }
 
 .block.check {
   width: auto;
