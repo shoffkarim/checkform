@@ -17,66 +17,74 @@
       <div class="validator-wrapper">
         <form class="validator-form">
           <div class="block">
-            <label class="block__label label-name" for="name">Name </label
-            ><input
+            <input
               class="block__input name"
               type="text"
               placeholder="name"
               id="name"
             />
+            <label class="block__label label-name" for="name">Name </label
+              >
           </div>
           <div class="block">
-            <label class="block__label label-email" for="email">Email </label
-            ><input
+            <input
               class="block__input email"
               type="text"
               placeholder="email"
               id="email"
             />
+            <label class="block__label label-email" for="email">Email </label
+              >
           </div>
           <div class="block">
-            <label class="block__label label-pass" for="password"
-              >Password </label
-            ><input
+            <input
               class="block__input password"
               type="password"
               placeholder="password"
               id="password"
             />
+            <label class="block__label label-pass" for="password"
+              >Password </label
+            >
           </div>
           <div class="block">
-            <label class="block__label label-date" for="date">Date </label
-            ><input
+            <input
               class="block__input date"
-              type="date"
+              type="text"
               placeholder="date"
               id="date"
             />
+            <label class="block__label label-date" for="date">Date </label
+              >
           </div>
           <div class="block">
-            <label class="block__label label-tel" for="tel">Number </label
-            ><input
+            <input
               class="block__input tel"
               type="tel"
               placeholder="telephone"
               id="tel"
+              pattern='[0-9]{8}([0-9]{2})?'
             />
+            <label class="block__label label-tel" for="tel">Number </label
+              >
           </div>
           <div class="block check">
+            <input class="block__input check" type="checkbox" id="check" />
             <label class="block__label label-check" for="check">Rights </label
-            ><input class="block__input check" type="checkbox" id="check" />
+              >
           </div>
           <div class="block">
             <input class="block__input file" type="file" id="file" />
           </div>
           <div class="block">
-            <label class="block__label label-mess" for="message"
-              >Input your message </label
-            ><textarea
-              class="block__message"
+            <textarea
+              class="block__input block__message"
               placeholder="message"
               id="message"
             ></textarea>
+            <label class="block__label label-mess" for="message"
+              >Input your message </label
+            >
           </div>
           <button class="btn">Отправить</button>
         </form>

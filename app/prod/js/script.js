@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-let validObj = { //объект для абстракции
+let validObj = { // объект для абстракции
   nickname: {
     reg: /^[а-яА-Я]/,
   },
@@ -32,10 +32,8 @@ let validObj = { //объект для абстракции
     },
   },
 };
-
-
 let inputsList = document.querySelectorAll(".block__input");
-
+let textarea = document.querySelector(".block__message");
 function RegCheck(reg, val, input) {
   if (!reg.test(val)) {
     showErrorMessage(input);
@@ -46,29 +44,45 @@ function RegCheck(reg, val, input) {
     input.classList.add("good");
     deleteErrorMessage(input);
   }
-};
-
-function CreateErrorMessage(input) { 
+}
+function CreateErrorMessage(input) {
   let mesError = document.createElement("div");
   mesError.className = `block__error ${input.id}`;
   mesError.innerHTML = `Incorrect ${input.id}`;
   input.before(mesError);
-};
-function showErrorMessage(input){
-  var errorBlock = input.previousElementSibling;
+}
+function showErrorMessage(input) {
+  let errorBlock = input.previousElementSibling;
   errorBlock.style.display = 'block';
   errorBlock.style.opacity = '1';
 }
-function deleteErrorMessage(input){
-  var errorBlock = input.previousElementSibling;
+function deleteErrorMessage(input) {
+  let errorBlock = input.previousElementSibling;
   errorBlock.style.display = 'none';
   errorBlock.style.opacity = '0';
-};
-var validatorInit = function(){
-  let inputsList = document.querySelectorAll(".block__input");
-  inputsList.forEach(function(input){
-    CreateErrorMessage(input)
-    input.addEventListener('change', function(){
+}
+inputsList.forEach((i) => i.addEventListener("blur", function () {
+  this.classList.remove('js-input-focus');
+  if (this.classList.contains("date")) {
+    this.type = "text";
+  }
+  if (this.value !== "") {
+    this.classList.add("js-input-focus");
+  }
+}));
+inputsList.forEach((i) => i.addEventListener("focus", function () {
+  this.classList.add('js-input-focus');
+  if (this.classList.contains("date")) {
+    this.type = "date";
+  }
+}));
+let validatorInit = (function () {
+  inputsList.forEach(function (input) {
+    if (input.value !== "") {
+      input.classList.add("js-input-focus");
+    }
+    CreateErrorMessage(input);
+    input.addEventListener('change', function () {
       let val = input.value;
       switch (input.getAttribute("id")) {
         case "name":
@@ -100,8 +114,7 @@ var validatorInit = function(){
           else if (!file.type.startsWith(validObj.file.type.image)) {
             showErrorMessage(input);
             if (!(file.size < validObj.file.size.mb10)) showErrorMessage(input);
-          }
-          else {
+          } else {
             input.classList.remove("error");
             input.classList.add("good");
             deleteErrorMessage(input);
@@ -110,6 +123,6 @@ var validatorInit = function(){
         default:
           console.log("def");
       }
-    })
+    });
   });
-}();
+}());
