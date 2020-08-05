@@ -48,7 +48,7 @@ function RegCheck(reg, val, input) {
   }
 };
 
-function CreateErrorMessage(input) { 
+function CreateErrorMessage(input) {
   let mesError = document.createElement("div");
   mesError.className = `block__error ${input.id}`;
   mesError.innerHTML = `Incorrect ${input.id}`;
