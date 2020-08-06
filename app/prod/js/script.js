@@ -34,7 +34,7 @@ let validObj = { // object for abstract programming
   },
 };
 let inputsList = document.querySelectorAll(".block__input"); // list of all inputs
-// let textarea = document.querySelector(".block__message");
+let btnSubmit = document.querySelector(".btn"); // submit button
 function RegCheck(reg, val, input) { // function for check regexp
   if (!reg.test(val)) {
     showErrorMessage(input);
@@ -44,6 +44,7 @@ function RegCheck(reg, val, input) { // function for check regexp
     deleteErrorMessage(input);
     input.classList.remove("error");
     input.classList.add("good");
+    clickingButton();
   }
 }
 function CreateErrorMessage(input) { // creation error message in every input
@@ -69,6 +70,20 @@ function createNameFile(input, name) { // creation file name in block file
   let label = input.parentNode.firstElementChild;
   label.after(nameFile);
 }
+function clickingButton() { // checking all need inputs have class good
+  let validList = document.querySelectorAll(".good");
+  if (validList.length === 2) {
+    btnSubmit.style.transition = 'all 0.4s';
+    btnSubmit.style.opacity = "1";
+    btnSubmit.style.pointerEvents = 'auto';
+  }
+  btnSubmit.addEventListener("click", function (e) { // submit info
+    // TODO: double submit
+    e.preventDefault();
+    inputsList.forEach((i) => console.log(i.value));
+  });
+}
+
 inputsList.forEach((i) => i.addEventListener("blur", function () { // functions for animation label in focus/blur
   this.classList.remove('js-input-focus');
   if (this.classList.contains("date")) { // special for type date, becouse it has placeholder dd.mm.gggg
@@ -87,7 +102,7 @@ inputsList.forEach((i) => i.addEventListener("focus", function () { // functions
 (function () { // main func
   inputsList.forEach(function (input) {
     if (input.value !== "") { // anim label if value saved after reload page
-      input.classList.add("js-input-focus");
+      input.value = "";
     }
     CreateErrorMessage(input); // creation error messages when page start
     input.addEventListener('change', function () { // validation on change value
@@ -119,7 +134,6 @@ inputsList.forEach((i) => i.addEventListener("focus", function () { // functions
           break;
         case "file":
           let file = input.files[0];
-          console.log(file.name);
           if (val === "") showErrorMessage(input); // check for empty
           else if (!file.type.startsWith(validObj.file.type.image)) { // check for type of file
             showErrorMessage(input);
