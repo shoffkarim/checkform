@@ -11,20 +11,22 @@
 
 .block {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: flex-start;
   width: calc(50% - 20px);
   margin-right: 20px;
+  margin-bottom: 20px;
   position: relative; }
   .block__input {
     padding: 5px;
-    margin-bottom: 30px;
+    margin-bottom: 10px;
     width: 100%;
     color: #fff;
     background-color: #0083cb;
     border: none;
     border-bottom: 1px solid white;
-    height: 25px; }
+    height: 25px;
+    outline: none; }
   .block__input::placeholder {
     color: rgba(255, 255, 255, 0); }
   .block__input::-webkit-input-placeholder {
@@ -71,32 +73,16 @@
   .block__input.file:focus, .block__input.check:focus {
     border: none; }
   .block__error {
-    position: absolute;
     width: auto;
-    top: 22px;
-    left: calc(100% - 345px);
-    background: #ffffff;
-    color: #000000;
-    border: 1px solid #7f5dfc;
+    background: transparent;
+    color: red;
     font-size: 15px;
-    padding: 5px;
-    border-radius: 5px; }
-  .block__error.password {
-    left: -142px; }
-  .block__error.email {
-    left: 245px; }
-  .block__error.check {
-    left: 245px; }
-  .block__error.date {
-    left: 245px; }
-  .block__error.tel {
-    left: -93px; }
-  .block__error.file {
-    left: -97px; }
+    font-weight: 700;
+    position: absolute;
+    bottom: -10px; }
   .block__input.error {
+    border: none;
     border-bottom: 1px solid red; }
-  .block__input.good {
-    border-bottom: 1px solid green; }
 
 .block.check {
   width: auto;
@@ -139,13 +125,13 @@
   display: block;
   position: absolute;
   top: 3px;
-  left: 0; }
+  left: 0;
+  cursor: pointer; }
 
 .fake-checkbox::before {
   content: "";
   width: 4px;
   height: 2px;
-    height-opacity: 0;
   background-color: #ffffff;
   position: absolute;
   transform: rotate(45deg);
@@ -161,3 +147,52 @@
   transform: rotate(-45deg);
   top: 6px;
   left: 4px; }
+
+.fake-checkbox::before,
+.fake-checkbox::after {
+  opacity: 0;
+  transition: all 0.4s; }
+
+.block__input.check:checked + .label-check .fake-checkbox::after,
+.block__input.check:checked + .label-check .fake-checkbox::before {
+  opacity: 1;
+  transition: all 0.4s; }
+
+.btn {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #ffffff;
+  padding: 10px 25px;
+  font-size: 15px;
+  cursor: pointer;
+  outline: none; }
+  .btn:hover, .btn:focus {
+    background-color: rgba(255, 255, 255, 0.2); }
+
+.block__input.file {
+  display: none; }
+
+.label-file {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #ffffff;
+  padding: 10px 25px;
+  font-size: 15px;
+  cursor: pointer;
+  outline: none; }
+  .label-file:hover, .label-file:focus {
+    background-color: rgba(255, 255, 255, 0.2); }
+
+.file-name {
+  display: block;
+  opacity: 1;
+  margin-top: 5px;
+  color: #fff; }
+
+.file {
+  flex-direction: column; }
+
+.file .label-file {
+  position: relative;
+  top: auto;
+  left: auto; }
