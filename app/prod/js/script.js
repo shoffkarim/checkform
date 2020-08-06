@@ -62,7 +62,7 @@ function deleteErrorMessage(input) { // hide error message when correct value
   errorBlock.style.display = 'none';
   errorBlock.style.opacity = '0';
 }
-function createNameFile(input, name) {
+function createNameFile(input, name) { // creation file name in block file
   let nameFile = document.createElement("p");
   nameFile.className = "file-name";
   nameFile.innerHTML = name;
@@ -125,7 +125,7 @@ inputsList.forEach((i) => i.addEventListener("focus", function () { // functions
             showErrorMessage(input);
             if (!(file.size < validObj.file.size.mb10)) showErrorMessage(input); // check size file
           } else {
-            createNameFile(input, file.name);
+            createNameFile(input, file.name); // creation file name if file correct
             input.classList.remove("error");
             input.classList.add("good");
             deleteErrorMessage(input);
