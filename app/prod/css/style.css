@@ -145,7 +145,6 @@
   content: "";
   width: 4px;
   height: 2px;
-    height-opacity: 0;
   background-color: #ffffff;
   position: absolute;
   transform: rotate(45deg);
