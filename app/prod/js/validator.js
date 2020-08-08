@@ -1,9 +1,9 @@
-const getTemplate = (inputs = [], btn = []) => {
+const getTemplate = (inputs = [], btn = []) => { // function what return inputs, button, and full form
 
   const id = inputs.map(i => {
     return `<div class="block">
               <div class="block__error error-${i.id}">${i.error}</div>
-              <input class="${i.class} ${i.id}" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
+              <input class="validator ${i.class} ${i.id}" data-type="${i.id}" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
               <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
             </div>`
   });
@@ -22,15 +22,40 @@ class Validator {
     this.el = document.querySelector(el);
     this.options = options;
     this.#render();
+    this.#setup();
   }
 
-  #render () {
+  #render () { // require full form
     const {inputs, btn} = this.options
     this.el.innerHTML = getTemplate(inputs, btn);
   }
 
+  #setup () { // req clickhandler
+    this.clickHandler = this.clickHandler.bind(this);
+    const inputsList = document.querySelectorAll(".validator");
+    inputsList.forEach(i => {
+      i.addEventListener('focus', this.clickHandler),
+      i.addEventListener('blur', this.clickHandler)
+    }
+    );
+  }
+  clickHandler (event) { //handler events
+    const input = event.target;
+    switch (event.type) {
+      case "focus":
+        input.classList.add("js-input-focus");
+        break;
+      case "blur":
+        if(input.value != "") {
+          input.classList.add("js-input-focus");
+        } else input.classList.remove("js-input-focus");
+        break;
+      default:
+        break;
+    }
+  }
 }
-let valid = new Validator (".validator-form", {
+let valid = new Validator (".validator-form", { //init class
   inputs: [
     {id: "email", type: "text", class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect name"},
     {id: "name", type: "text", class: "block__input", placeholder: "enter your name", label: "enter your name", error: "incorrect email"},
