@@ -25,16 +25,27 @@
         border-bottom: 1px solid rgba(255, 255, 255,1)
         height: 25px
         outline: none
-    &__input::placeholder
-        color: rgba(255, 255, 255, 0)
-    &__input::-webkit-input-placeholder
-        color: rgba(255, 255, 255, 0)
-    &__input::-moz-placeholder
-        color: rgba(255, 255, 255, 0)
-    &__input:-ms-input-placeholder
-        color: rgba(255, 255, 255, 0)
-    &__input:-moz-placeholder
-        color: rgba(255, 255, 255, 0)
+        ::placeholder
+            color: rgba(255, 255, 255, 0)
+        ::-webkit-input-placeholder
+            color: rgba(255, 255, 255, 0)
+        ::-moz-placeholder
+            color: rgba(255, 255, 255, 0)
+        :-ms-input-placeholder
+            color: rgba(255, 255, 255, 0)
+        :-moz-placeholder
+            color: rgba(255, 255, 255, 0)
+        &.file, &.check
+            border: none
+            &:hover
+                border: none
+            &:active
+                border: none
+            &:focus
+                border: none
+        &.error
+            border: none
+            border-bottom: 1px solid red
     &__label
         margin-bottom: 5px
         color:#fff
@@ -42,6 +53,7 @@
         top: 10px
         left: 0
         transition: all 0.4s
+
     &__message
         width: 100%
         padding: 5px
@@ -52,24 +64,16 @@
         border: none
         border-bottom: 1px solid rgba(255, 255, 255,1)
         height: 100%
-    &__message::placeholder
-        color: rgba(255, 255, 255, 0)
-    &__message::-webkit-input-placeholder
-        color: rgba(255, 255, 255, 0)
-    &__message::-moz-placeholder
-        color: rgba(255, 255, 255, 0)
-    &__message:-ms-input-placeholder
-        color: rgba(255, 255, 255, 0)
-    &__message:-moz-placeholder
-        color: rgba(255, 255, 255, 0)
-    &__input.file, &__input.check
-        border: none
-    &__input.file:hover, &__input.check:hover
-        border: none
-    &__input.file:active, &__input.check:active
-        border: none
-    &__input.file:focus, &__input.check:focus
-        border: none
+        ::placeholder
+            color: rgba(255, 255, 255, 0)
+        ::-webkit-input-placeholder
+            color: rgba(255, 255, 255, 0)
+        ::-moz-placeholder
+            color: rgba(255, 255, 255, 0)
+        :-ms-input-placeholder
+            color: rgba(255, 255, 255, 0)
+        :-moz-placeholder
+            color: rgba(255, 255, 255, 0)
     &__error
         width: auto
         background: transparent
@@ -78,17 +82,14 @@
         font-weight: 700
         position: absolute
         bottom: -10px
-    &__input.error
-        border: none
-        border-bottom: 1px solid red
-.block.check
-    width: auto
-    margin-right: auto
-    flex-direction: row
-.block__error
-    display: none
-    opacity: 0
-    transition: all 0.5s
+        display: none
+        opacity: 0
+        transition: all 0.5s
+    &.check
+        width: auto
+        margin-right: auto
+        flex-direction: row
+
 .js-input-focus + .block__label
     top: -10px
     font-size: 13px
@@ -99,8 +100,6 @@
     font-size: 16px
     color: #ffffff
     position: relative
-.block__input.check
-    display: none
 .label-check
     top: 0
     font-size: 16px
@@ -118,28 +117,23 @@
     top: 3px
     left: 0
     cursor: pointer
-.fake-checkbox::before
-	content: ""
-	width: 4px
-	height: 2px
-	background-color: #ffffff
-	position: absolute
-	transform: rotate(45deg)
-	top: 7px
-	left: 2px
-.fake-checkbox::after
-	content: ""
-	width: 9px
-	height: 2px
-	background-color: #ffffff
-	position: absolute
-	transform: rotate(-45deg)
-	top: 6px
-	left: 4px
-.fake-checkbox::before,
-.fake-checkbox::after
-    opacity: 0
-    transition: all 0.4s
+    &::before, &::after
+        content: ""
+        width: 4px
+        height: 2px
+        background-color: #ffffff
+        position: absolute
+        transform: rotate(45deg)
+        top: 7px
+        left: 2px
+        opacity: 0
+        transition: all 0.4s
+    &::after
+        width: 9px
+        height: 2px
+        transform: rotate(-45deg)
+        top: 6px
+        left: 4px
 .block__input.check:checked + .label-check .fake-checkbox::after,
 .block__input.check:checked + .label-check .fake-checkbox::before
     opacity: 1
@@ -157,4 +151,3 @@
     transition: all 0.4s
     &:hover,&:focus
         background-color: rgba(255, 255, 255, 0.2)
-
