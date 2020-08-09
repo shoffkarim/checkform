@@ -33,7 +33,7 @@ class Validator {
     this.#render();
     this.#setup();
   }
-  validObj = { // object for abstract programming
+  validObj = { // object for parameters of validation
     nickname: {
       reg: /^[а-яА-Я]/,
     },
@@ -107,21 +107,32 @@ class Validator {
     }
   }
 
+  showErrorMessage (block) {
+    let errorBlock = block.previousElementSibling;
+    errorBlock.style.display = 'block';
+    errorBlock.style.opacity = '1';
+    block.classList.add("error");
+    block.classList.remove("good");
+  }
+
+  hideErrorMessage (block) {
+    let errorBlock = block.previousElementSibling;
+    errorBlock.style.display = 'none';
+    errorBlock.style.opacity = '0';
+    block.classList.remove("error");
+    block.classList.add("good");
+  }
+
   #RegCheck (reg, val, block) { // function for check regexp
     if (!reg.test(val)) {
-      console.log(1);
-      block.classList.add("error");
-      block.classList.remove("good");
+      this.showErrorMessage(block);
     } else {
-      console.log(0);
-      block.classList.remove("error");
-      block.classList.add("good");
+      this.hideErrorMessage(block);
     }
   }
 
   clickHandler (event) { // validation when click submit
     event.preventDefault();
-    const btn = event.target;
     const inputsList = document.querySelectorAll("[data-valid=true]");
     inputsList.forEach(block => {
       let val = block.value;
@@ -148,38 +159,31 @@ class Validator {
           break;
         case "checkbox":
           if (!block.checked) {
-            block.classList.add("error");
-            block.classList.remove("good");
+            this.showErrorMessage(block);
           } else {
-            block.classList.remove("error");
-            block.classList.add("good");
+            this.hideErrorMessage(block);
           }
           break;
         case "file":
           let file = block.files[0]; // check for empty
           if (val === "") {
-            block.classList.add("error");
-            block.classList.remove("good");
-          } else if (!file.type.startsWith(validObj.file.type.image)) { // check for type of file
-            block.classList.add("error");
-            block.classList.remove("good");
-            if (!(file.size < validObj.file.size.mb10)) { // check size file
-              block.classList.add("error");
-              block.classList.remove("good");
+            this.showErrorMessage(block);
+          } else if (!file.type.startsWith(this.validObj.file.type.image)) { // check for type of file
+            this.showErrorMessage(block);
+            if (!(file.size < this.validObj.file.size.mb10)) { // check size file
+              this.showErrorMessage(block);
             }
           } else {
-            block.classList.remove("error");
-            block.classList.add("good");
+            this.hideErrorMessage(block);
           }
           break;
         case "textarea":
           if (val === "") {
-            block.classList.add("error");
-            block.classList.remove("good");
+            this.showErrorMessage(block);
           } else {
-            block.classList.remove("error");
-            block.classList.add("good");
+            this.hideErrorMessage(block);
           }
+          break;
         default:
           console.log("def");
       }
