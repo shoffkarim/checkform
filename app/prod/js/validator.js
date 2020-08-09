@@ -1,31 +1,3 @@
-const getTemplate = (inputs = [], textarea = [], btn = []) => { // function what return inputs, button, and full form
-
-  const input = inputs.map(i => { // template of input
-    return `<div class="block">
-              <div class="block__error error-${i.id}">${i.error}</div>
-              <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
-              <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
-            </div>`
-  });
-
-  const text = textarea.map(i => { //template of textarea
-    return `<div class="block">
-              <div class="block__error error-${i.id}">${i.error}</div>
-              <textarea class="validator block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
-              <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
-            </div>`
-  });
-
-  const button = btn.map(i => { // template button
-    return `<button class="validator ${i.class}" type="${i.type}">${i.text}</button>`
-  });
-  return `<form>
-            ${input.join('')}
-            ${text.join('')}
-            ${button.join('')}
-          </form>`;
-}
-
 class Validator {
   constructor (el, options) {
     this.el = document.querySelector(el);
@@ -67,10 +39,37 @@ class Validator {
       },
     },
   };
+  #getTemplate (inputs = [], textarea = [], btn = []) { // method what return inputs, button, and full form
+
+    const input = inputs.map(i => { // template of input
+      return `<div class="block">
+                <div class="block__error error-${i.id}">${i.error}</div>
+                <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
+                <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
+              </div>`
+    });
+
+    const text = textarea.map(i => { //template of textarea
+      return `<div class="block">
+                <div class="block__error error-${i.id}">${i.error}</div>
+                <textarea class="validator block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
+                <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
+              </div>`
+    });
+
+    const button = btn.map(i => { // template button
+      return `<button class="validator ${i.class}" type="${i.type}">${i.text}</button>`
+    });
+    return `<form>
+              ${input.join('')}
+              ${text.join('')}
+              ${button.join('')}
+            </form>`;
+  }
 
   #render () { // require full form
     const {inputs, textarea, btn} = this.options
-    this.el.innerHTML = getTemplate(inputs, textarea, btn);
+    this.el.innerHTML = this.#getTemplate(inputs, textarea, btn);
   }
 
   #setup () { // req clickhandler
