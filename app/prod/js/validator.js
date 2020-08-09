@@ -39,6 +39,15 @@ class Validator {
       },
     },
   };
+
+  get validObj (){
+    return this.validObj;
+  }
+
+  set validObj (obj){
+    this.validObj = obj;
+  }
+
   #getTemplate (inputs = [], textarea = [], btn = []) { // method what return inputs, button, and full form
 
     const input = inputs.map(i => { // template of input
@@ -58,9 +67,9 @@ class Validator {
     });
 
     const button = btn.map(i => { // template button
-      return `<button class="validator ${i.class}" type="${i.type}">${i.text}</button>`
+      return `<button class="validator-btn ${i.class}" type="${i.type}">${i.text}</button>`
     });
-    return `<form>
+    return `<form method="POST">
               ${input.join('')}
               ${text.join('')}
               ${button.join('')}
@@ -79,7 +88,7 @@ class Validator {
       i.addEventListener('focus', this.focusBlurHandler),
       i.addEventListener('blur', this.focusBlurHandler)
     });
-    const btn = document.querySelector("button.validator");
+    const btn = document.querySelector(".validator-btn");
     this.clickHandler = this.clickHandler.bind(this);
     btn.addEventListener('click', this.clickHandler);
   }
@@ -122,7 +131,7 @@ class Validator {
     block.classList.add("good");
   }
 
-  #RegCheck (reg, val, block) { // function for check regexp
+  #regCheck (reg, val, block) { // function for check regexp
     if (!reg.test(val)) {
       this.showErrorMessage(block);
     } else {
@@ -138,23 +147,23 @@ class Validator {
       switch (block.getAttribute("id")) { // all inputs should have id
         case "name":
           let nameReg = new RegExp(this.validObj.nickname.reg);
-          this.#RegCheck(nameReg, val, block);
+          this.#regCheck(nameReg, val, block);
           break;
         case "email":
           let emailReg = new RegExp(this.validObj.email.reg);
-          this.#RegCheck(emailReg, val, block);
+          this.#regCheck(emailReg, val, block);
           break;
         case "password":
           let passwordReg = new RegExp(this.validObj.password.reg.b6);
-          this.#RegCheck(passwordReg, val, block);
+          this.#regCheck(passwordReg, val, block);
           break;
         case "date":
           let dateReg = new RegExp(this.validObj.date.reg.first);
-          this.#RegCheck(dateReg, val, block);
+          this.#regCheck(dateReg, val, block);
           break;
         case "tel":
           let telReg = new RegExp(this.validObj.tel.reg.russian);
-          this.#RegCheck(telReg, val, block);
+          this.#regCheck(telReg, val, block);
           break;
         case "checkbox":
           if (!block.checked) {
@@ -191,8 +200,8 @@ class Validator {
 }
 let valid = new Validator (".validator-form", { //init class
   inputs: [
-    {id: "email", type: "text", class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect name"},
-    {id: "name", type: "text", class: "block__input", placeholder: "enter your name", label: "enter your name", error: "incorrect email"},
+    {id: "email", type: "text", class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect email"},
+    {id: "name", type: "text", class: "block__input", placeholder: "enter your name", label: "enter your name", error: "incorrect name"},
     {id: "password", type: "password", class: "block__input", placeholder: "password", label: "password", error: "incorrect password"},
     {id: "tel", type: "tel", class: "block__input", placeholder: "number", label: "number", error: "incorrect number"},
     {id: "date", type: "text", class: "block__input", placeholder: "date", label: "date", error: "incorrect date"}, // must indicate type text for date, for good animation
