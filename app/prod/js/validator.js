@@ -1,4 +1,4 @@
-const getTemplate = (inputs = [], btn = []) => { // function what return inputs, button, and full form
+const getTemplate = (inputs = [], textarea = [], btn = []) => { // function what return inputs, button, and full form
 
   const id = inputs.map(i => {
     return `<div class="block">
@@ -8,11 +8,20 @@ const getTemplate = (inputs = [], btn = []) => { // function what return inputs,
             </div>`
   });
 
+  const text = textarea.map(i => {
+    return `<div class="block">
+              <div class="block__error error-${i.id}">${i.error}</div>
+              <textarea class="block__input ${i.class}" placeholder="${i.placeholder}" id="${i.id}"></textarea>
+              <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
+            </div>`
+  });
+
   const button = btn.map(i => {
     return `<button class="${i.class}" type="${i.type}">${i.text}</button>`
-  })
+  });
   return `<form>
             ${id.join('')}
+            ${text.join('')}
             ${button.join('')}
           </form>`;
 }
@@ -26,8 +35,8 @@ class Validator {
   }
 
   #render () { // require full form
-    const {inputs, btn} = this.options
-    this.el.innerHTML = getTemplate(inputs, btn);
+    const {inputs, textarea, btn} = this.options
+    this.el.innerHTML = getTemplate(inputs, textarea, btn);
   }
 
   #setup () { // req clickhandler
@@ -65,6 +74,9 @@ let valid = new Validator (".validator-form", { //init class
     {id: "checkbox", type: "checkbox", class: "block__input", placeholder: "checkbox", label: "checkbox", error: "incorrect check"},
     {id: "file", type: "file", class: "block__input", placeholder: "file", label: "file", error: "incorrect file"}
 
+  ],
+  textarea: [
+    {id: "text", class: "block__message", placeholder: "message", label: "enter your message", error: "incorrect message"},
   ],
   btn: [
     {class: "btn", type: "submit", text: "submit"}
