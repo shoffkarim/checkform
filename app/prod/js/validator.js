@@ -66,7 +66,7 @@ class Validator {
   }
 
   #useForm(){
-    console.log("asfadsf");
+    return true
   }
 
   #render () { // require full form
@@ -74,13 +74,11 @@ class Validator {
     const {custom} = this.options;
     const {renderForm} =this.options;
     this.#customObject(custom);
-    if(renderForm){
+    if(renderForm){ // if user use render form
       this.el.innerHTML = this.#getTemplate(inputs, textarea, btn);
-    } else {
+    } else { //if user use his form
       this.#useForm();
     }
-
-
   }
 
   #setup () { // req clickhandler
