@@ -68,7 +68,7 @@ class Validator {
   #render () { // require full form
     const {inputs, textarea, btn} = this.options;
     const {custom} = this.options;
-    this.customObject(custom);
+    this.#customObject(custom);
     this.el.innerHTML = this.#getTemplate(inputs, textarea, btn);
   }
 
@@ -106,7 +106,7 @@ class Validator {
     }
   }
 
-  cycleObj (name, key, value) {
+  #cycleObj (name, key, value) {
     for (const z in this.validObj) { //cycle on validobj
       if (this.validObj.hasOwnProperty(z)) { // z - name of field, this.validObj[z] - field
         for (const y in this.validObj[z]) {
@@ -120,13 +120,13 @@ class Validator {
     }
   };
 
-  customObject (custom) { //customization validObj
+  #customObject (custom) { //customization validObj
     for (let i = 0; i < custom.length; i++) { //cycle on custom mas
       for (const j in custom[i]) { //cycle on custom mas obj's
         if (custom[i].hasOwnProperty(j)) { //j - name of type input, custom[i] - object witn custom fields
           for (const k in custom[i][j]) { //cycle on obj's fields
             if (custom[i][j].hasOwnProperty(k)) { //k - name of custom key, custom[i][j] - custom object, custom[i][j][k] - custom value
-              this.cycleObj(j, k, custom[i][j][k])
+              this.#cycleObj(j, k, custom[i][j][k])
             }
           }
         }
@@ -242,4 +242,3 @@ let valid = new Validator (".validator-form", { //init class
     }},
   ]
 });
-
