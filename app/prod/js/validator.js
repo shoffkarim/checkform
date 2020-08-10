@@ -176,6 +176,14 @@ class Validator {
     }
   };
 
+  alertWin () {
+    const inputsList = document.querySelectorAll("[data-valid=true]");
+    const goodInputs = document.querySelectorAll(".good");
+    if (inputsList.length === goodInputs.length){
+      alert("win");
+    } else return false;
+  };
+
   clickHandler (event) { // validation when click submit
     event.preventDefault();
     const inputsList = document.querySelectorAll("[data-valid=true]");
@@ -233,7 +241,9 @@ class Validator {
           console.log("def");
       }
     });
-  }
+    this.alertWin();
+  };
+
 };
 
 let valid = new Validator (".validator-form", { //init class
@@ -257,7 +267,7 @@ let valid = new Validator (".validator-form", { //init class
   custom: [
     {nickname: {
       reg: /^[a-zA-Z]/,
-      minLength: 11
+      maxLength: 11
     }},
   ]
 });
