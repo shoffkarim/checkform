@@ -2,81 +2,92 @@
     width: 500px
     margin: 0 auto
     font-family: 'Helvetica'
-    background-color: #eef2f5
+    background-color: #0083cb
     padding: 20px
 .validator-form
     display: flex
     flex-wrap: wrap
 .block
     display: flex
-    flex-direction: column
+    flex-direction: column-reverse
     align-items: flex-start
     width: calc(50% - 20px)
     margin-right: 20px
+    margin-bottom: 20px
+    position: relative
     &__input
         padding: 5px
         margin-bottom: 10px
         width: 100%
-        color: #000
-        border: 1px solid grey
-        border-radius: 5px
-    &__input::placeholder
-        color: #000
-    &__input::-webkit-input-placeholder
-        color: #000
-    &__input::-moz-placeholder
-        color: #000
-    &__input:-ms-input-placeholder
-        color: #000
-    &__input:-moz-placeholder
-        color: #000
+        color: #fff
+        background-color: #0083cb
+        border: none
+        border-bottom: 1px solid rgba(255, 255, 255,1)
+        height: 25px
+        outline: none
+        ::placeholder
+            color: rgba(255, 255, 255, 0)
+        ::-webkit-input-placeholder
+            color: rgba(255, 255, 255, 0)
+        ::-moz-placeholder
+            color: rgba(255, 255, 255, 0)
+        :-ms-input-placeholder
+            color: rgba(255, 255, 255, 0)
+        :-moz-placeholder
+            color: rgba(255, 255, 255, 0)
+        &.file, &.check
+            border: none
+            &:hover
+                border: none
+            &:active
+                border: none
+            &:focus
+                border: none
+        &.error
+            border: none
+            border-bottom: 1px solid red
     &__label
         margin-bottom: 5px
-<<<<<<< HEAD
-=======
         color:#fff
         position: absolute
         top: 10px
         left: 0
         transition: all 0.4s
-
->>>>>>> e421c74... restyle
     &__message
         width: 100%
         padding: 5px
         margin-bottom: 10px
-        color: #000
+        color: #fff
         resize: none
-    &__message::placeholder
-        color: #000
-    &__input.file, &__input.check
+        background-color: #0083cb
         border: none
-    &__input:hover
-        border: 1px solid #7f5dfc
-    &__input:active
-        border: 1px solid #7f5dfc
-    &__input:focus
-        border: none
-        border: 1px solid #7f5dfc
-    &__input.file:hover, &__input.check:hover
-        border: none
-    &__input.file:active, &__input.check:active
-        border: none
-    &__input.file:focus, &__input.check:focus
-        border: none
-    
-.block.check
-    width: auto
-    margin-right: auto
-<<<<<<< HEAD
-=======
-    flex-direction: row
-
-.block__error
-    display: none
-    opacity: 0
-    transition: all 0.5s
-
+        border-bottom: 1px solid rgba(255, 255, 255,1)
+        height: 100%
+        ::placeholder
+            color: rgba(255, 255, 255, 0)
+        ::-webkit-input-placeholder
+            color: rgba(255, 255, 255, 0)
+        ::-moz-placeholder
+            color: rgba(255, 255, 255, 0)
+        :-ms-input-placeholder
+            color: rgba(255, 255, 255, 0)
+        :-moz-placeholder
+            color: rgba(255, 255, 255, 0)
+    &__error
+        width: auto
+        background: transparent
+        color: red
+        font-size: 15px
+        font-weight: 700
+        position: absolute
+        bottom: -10px
+        display: none
+        opacity: 0
+        transition: all 0.5s
+    &.check
+        width: auto
+        margin-right: auto
+        flex-direction: row
 .js-input-focus + .block__label
     top: -10px
     font-size: 13px
@@ -87,8 +98,6 @@
     font-size: 16px
     color: #ffffff
     position: relative
-.block__input.check
-    display: none
 .label-check
     top: 0
     font-size: 16px
@@ -105,22 +114,36 @@
     position: absolute
     top: 3px
     left: 0
-.fake-checkbox::before
-	content: ""
-	width: 4px
-	height: 2px
-	background-color: #ffffff
-	position: absolute
-	transform: rotate(45deg)
-	top: 7px
-	left: 2px
-.fake-checkbox::after
-	content: ""
-	width: 9px
-	height: 2px
-	background-color: #ffffff
-	position: absolute
-	transform: rotate(-45deg)
-	top: 6px
-	left: 4px
->>>>>>> e421c74... restyle
+    cursor: pointer
+    &::before, &::after
+        content: ""
+        width: 4px
+        height: 2px
+        background-color: #ffffff
+        position: absolute
+        transform: rotate(45deg)
+        top: 7px
+        left: 2px
+        opacity: 0
+        transition: all 0.4s
+    &::after
+        width: 9px
+        height: 2px
+        transform: rotate(-45deg)
+        top: 6px
+        left: 4px
+.block__input.check:checked + .label-check .fake-checkbox::after,
+.block__input.check:checked + .label-check .fake-checkbox::before
+    opacity: 1
+    transition: all 0.4s
+.btn
+    background-color: transparent
+    color: #fff
+    border: 1px solid #ffffff
+    padding: 10px 25px
+    font-size: 15px
+    cursor: pointer
+    outline: none
+    transition: all 0.4s
+    &:hover,&:focus
+        background-color: rgba(255, 255, 255, 0.2)

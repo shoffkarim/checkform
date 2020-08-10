@@ -2,7 +2,7 @@
   width: 500px;
   margin: 0 auto;
   font-family: 'Helvetica';
-  background-color: #eef2f5;
+  background-color: #0083cb;
   padding: 20px; }
 
 .validator-form {
@@ -11,45 +11,57 @@
 
 .block {
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
   align-items: flex-start;
   width: calc(50% - 20px);
-  margin-right: 20px; }
+  margin-right: 20px;
+  margin-bottom: 20px;
+  position: relative; }
   .block__input {
     padding: 5px;
     margin-bottom: 10px;
     width: 100%;
-    color: #000;
-    border: 1px solid grey;
-    border-radius: 5px; }
-  .block__input::placeholder {
-    color: #000; }
-  .block__input::-webkit-input-placeholder {
-    color: #000; }
-  .block__input::-moz-placeholder {
-    color: #000; }
-  .block__input:-ms-input-placeholder {
-    color: #000; }
-  .block__input:-moz-placeholder {
-    color: #000; }
+    color: #fff;
+    background-color: #0083cb;
+    border: none;
+    border-bottom: 1px solid white;
+    height: 25px;
+    outline: none;
+    -ms-input-placeholder-color: rgba(255, 255, 255, 0);
+    -moz-placeholder-color: rgba(255, 255, 255, 0); }
+    .block__input ::placeholder {
+      color: rgba(255, 255, 255, 0); }
+    .block__input ::-webkit-input-placeholder {
+      color: rgba(255, 255, 255, 0); }
+    .block__input ::-moz-placeholder {
+      color: rgba(255, 255, 255, 0); }
+    .block__input.file, .block__input.check {
+      border: none; }
+      .block__input.file:hover, .block__input.check:hover {
+        border: none; }
+      .block__input.file:active, .block__input.check:active {
+        border: none; }
+      .block__input.file:focus, .block__input.check:focus {
+        border: none; }
+    .block__input.error {
+      border: none;
+      border-bottom: 1px solid red; }
   .block__label {
-    margin-bottom: 5px; }
+    margin-bottom: 5px;
+    color: #fff;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    transition: all 0.4s; }
   .block__message {
     width: 100%;
     padding: 5px;
     margin-bottom: 10px;
-    color: #000;
-    resize: none; }
-  .block__message::placeholder {
-    color: #000; }
-  .block__input.file, .block__input.check {
-    border: none; }
-  .block__input:hover {
-    border: 1px solid #7f5dfc; }
-  .block__input:active {
-    border: 1px solid #7f5dfc; }
-  .block__input:focus {
+    color: #fff;
+    resize: none;
+    background-color: #0083cb;
     border: none;
+<<<<<<< HEAD
     border: 1px solid #7f5dfc; }
   .block__input.file:hover, .block__input.check:hover {
     border: none; }
@@ -67,6 +79,33 @@
   display: none;
   opacity: 0;
   transition: all 0.5s; }
+=======
+    border-bottom: 1px solid white;
+    height: 100%;
+    -ms-input-placeholder-color: rgba(255, 255, 255, 0);
+    -moz-placeholder-color: rgba(255, 255, 255, 0); }
+    .block__message ::placeholder {
+      color: rgba(255, 255, 255, 0); }
+    .block__message ::-webkit-input-placeholder {
+      color: rgba(255, 255, 255, 0); }
+    .block__message ::-moz-placeholder {
+      color: rgba(255, 255, 255, 0); }
+  .block__error {
+    width: auto;
+    background: transparent;
+    color: red;
+    font-size: 15px;
+    font-weight: 700;
+    position: absolute;
+    bottom: -10px;
+    display: none;
+    opacity: 0;
+    transition: all 0.5s; }
+  .block.check {
+    width: auto;
+    margin-right: auto;
+    flex-direction: row; }
+>>>>>>> oop
 
 .js-input-focus + .block__label {
   top: -10px;
@@ -80,9 +119,12 @@
   color: #ffffff;
   position: relative; }
 
+<<<<<<< HEAD
 .block__input.check {
   display: none; }
 
+=======
+>>>>>>> oop
 .label-check {
   top: 0;
   font-size: 16px;
@@ -99,6 +141,7 @@
   display: block;
   position: absolute;
   top: 3px;
+<<<<<<< HEAD
   left: 0; }
 
 .fake-checkbox::before {
@@ -120,3 +163,41 @@
   transform: rotate(-45deg);
   top: 6px;
   left: 4px; }
+=======
+  left: 0;
+  cursor: pointer; }
+  .fake-checkbox::before, .fake-checkbox::after {
+    content: "";
+    width: 4px;
+    height: 2px;
+    background-color: #ffffff;
+    position: absolute;
+    transform: rotate(45deg);
+    top: 7px;
+    left: 2px;
+    opacity: 0;
+    transition: all 0.4s; }
+  .fake-checkbox::after {
+    width: 9px;
+    height: 2px;
+    transform: rotate(-45deg);
+    top: 6px;
+    left: 4px; }
+
+.block__input.check:checked + .label-check .fake-checkbox::after,
+.block__input.check:checked + .label-check .fake-checkbox::before {
+  opacity: 1;
+  transition: all 0.4s; }
+
+.btn {
+  background-color: transparent;
+  color: #fff;
+  border: 1px solid #ffffff;
+  padding: 10px 25px;
+  font-size: 15px;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.4s; }
+  .btn:hover, .btn:focus {
+    background-color: rgba(255, 255, 255, 0.2); }
+>>>>>>> oop
