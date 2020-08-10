@@ -26,15 +26,22 @@
     border: none;
     border-bottom: 1px solid white;
     height: 25px;
-    outline: none;
-    -ms-input-placeholder-color: rgba(255, 255, 255, 0);
-    -moz-placeholder-color: rgba(255, 255, 255, 0); }
-    .block__input ::placeholder {
-      color: rgba(255, 255, 255, 0); }
-    .block__input ::-webkit-input-placeholder {
-      color: rgba(255, 255, 255, 0); }
-    .block__input ::-moz-placeholder {
-      color: rgba(255, 255, 255, 0); }
+    outline: none; }
+    .block__input::placeholder {
+      color: #ffffff;
+      opacity: 0; }
+    .block__input::-webkit-input-placeholder {
+      color: #ffffff;
+      opacity: 0; }
+    .block__input::-moz-placeholder {
+      color: #ffffff;
+      opacity: 0; }
+    .block__input:-ms-input-placeholder {
+      color: #ffffff;
+      opacity: 0; }
+    .block__input:-moz-placeholder {
+      color: #ffffff;
+      opacity: 0; }
     .block__input.file, .block__input.check {
       border: none; }
       .block__input.file:hover, .block__input.check:hover {
@@ -53,6 +60,8 @@
     top: 10px;
     left: 0;
     transition: all 0.4s; }
+    .block__label.label-file {
+      top: -10px; }
   .block__message {
     width: 100%;
     padding: 5px;
