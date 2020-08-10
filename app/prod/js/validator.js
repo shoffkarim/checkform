@@ -65,11 +65,22 @@ class Validator {
             </form>`;
   }
 
+  #useForm(){
+    console.log("asfadsf");
+  }
+
   #render () { // require full form
     const {inputs, textarea, btn} = this.options;
     const {custom} = this.options;
+    const {renderForm} =this.options;
     this.#customObject(custom);
-    this.el.innerHTML = this.#getTemplate(inputs, textarea, btn);
+    if(renderForm){
+      this.el.innerHTML = this.#getTemplate(inputs, textarea, btn);
+    } else {
+      this.#useForm();
+    }
+
+
   }
 
   #setup () { // req clickhandler
@@ -219,6 +230,7 @@ class Validator {
   }
 }
 let valid = new Validator (".validator-form", { //init class
+  renderForm: false,
   inputs: [
     {id: "email", type: "text", class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect email"},
     {id: "name", type: "text", class: "block__input", placeholder: "enter your name", label: "enter your name", error: "incorrect name"},
