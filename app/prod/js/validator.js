@@ -8,35 +8,24 @@ class Validator {
   validObj = { // object for parameters of validation
     nickname: {
       reg: /^[а-яА-Я]/,
+      length: 15
     },
     email: {
       reg: /^(?!.*@.*@.*$)(?!.*@.*--.*..*$)(?!.*@.*-..*$)(?!.*@.*-$)(.*@.+(..{1,11})?)$/,
     },
     password: {
-      reg: {
-        b6: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/,
-      },
+      reg: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/, //min 6 chars
     },
     date: {
-      reg: {
-        first: /^\d{4}[./-]\d{2}[./-]\d{2}$/,
-        sec: /^\d{2}[./-]\d{2}[./-]\d{4}$/,
-      },
+      reg: /^\d{4}[./-]\d{2}[./-]\d{2}$/ //first type gggg-mm-dd and sec type dd-mm-gggg /^\d{2}[./-]\d{2}[./-]\d{4}$/
     },
     tel: {
-      reg: {
-        // eslint-disable-next-line no-useless-escape
-        russian: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/,
-        american: /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
-      },
+      // eslint-disable-next-line no-useless-escape
+      reg: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/ //russian tel and american tel /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
     },
     file: {
-      size: {
-        mb10: 10025711,
-      },
-      type: {
-        image: "image",
-      },
+      size:  10025711, //10mb
+      type: "image"
     },
   };
 
@@ -77,7 +66,9 @@ class Validator {
   }
 
   #render () { // require full form
-    const {inputs, textarea, btn} = this.options
+    const {inputs, textarea, btn} = this.options;
+    const {custom} = this.options;
+    this.customObject(custom);
     this.el.innerHTML = this.#getTemplate(inputs, textarea, btn);
   }
 
@@ -113,6 +104,35 @@ class Validator {
       default:
         break;
     }
+  }
+
+  cycleObj (name, key, value) {
+    for (const z in this.validObj) { //cycle on validobj
+      if (this.validObj.hasOwnProperty(z)) { // z - name of field, this.validObj[z] - field
+        for (const y in this.validObj[z]) {
+          if (this.validObj[z].hasOwnProperty(y)) {
+            if (z === name)
+              if(y === key)
+                this.validObj[z][y] = value;
+          }
+        }
+      }
+    }
+  };
+
+  customObject (custom) { //customization validObj
+    for (let i = 0; i < custom.length; i++) { //cycle on custom mas
+      for (const j in custom[i]) { //cycle on custom mas obj's
+        if (custom[i].hasOwnProperty(j)) { //j - name of type input, custom[i] - object witn custom fields
+          for (const k in custom[i][j]) { //cycle on obj's fields
+            if (custom[i][j].hasOwnProperty(k)) { //k - name of custom key, custom[i][j] - custom object, custom[i][j][k] - custom value
+              this.cycleObj(j, k, custom[i][j][k])
+            }
+          }
+        }
+      }
+    }
+
   }
 
   showErrorMessage (block) {
@@ -154,15 +174,15 @@ class Validator {
           this.#regCheck(emailReg, val, block);
           break;
         case "password":
-          let passwordReg = new RegExp(this.validObj.password.reg.b6);
+          let passwordReg = new RegExp(this.validObj.password.reg);
           this.#regCheck(passwordReg, val, block);
           break;
         case "date":
-          let dateReg = new RegExp(this.validObj.date.reg.first);
+          let dateReg = new RegExp(this.validObj.date.reg);
           this.#regCheck(dateReg, val, block);
           break;
         case "tel":
-          let telReg = new RegExp(this.validObj.tel.reg.russian);
+          let telReg = new RegExp(this.validObj.tel.reg);
           this.#regCheck(telReg, val, block);
           break;
         case "checkbox":
@@ -176,9 +196,9 @@ class Validator {
           let file = block.files[0]; // check for empty
           if (val === "") {
             this.showErrorMessage(block);
-          } else if (!file.type.startsWith(this.validObj.file.type.image)) { // check for type of file
+          } else if (!file.type.startsWith(this.validObj.file.type)) { // check for type of file
             this.showErrorMessage(block);
-            if (!(file.size < this.validObj.file.size.mb10)) { // check size file
+            if (!(file.size < this.validObj.file.size)) { // check size file
               this.showErrorMessage(block);
             }
           } else {
@@ -214,5 +234,12 @@ let valid = new Validator (".validator-form", { //init class
   ],
   btn: [
     {class: "btn", type: "submit", text: "submit"}
+  ],
+  custom: [
+    {nickname: {
+      reg: /^[a-zA-Z]/,
+      length: 11
+    }},
   ]
 });
+
