@@ -4,38 +4,43 @@ class Validator {
     this.options = options;
     this.#render();
     this.#setup();
-  }
+  };
+
   validObj = { // object for parameters of validation
     nickname: {
       reg: /^[а-яА-Я]/,
-      length: 15
+      minLength: 1,
+      maxLength: 15
     },
     email: {
       reg: /^(?!.*@.*@.*$)(?!.*@.*--.*..*$)(?!.*@.*-..*$)(?!.*@.*-$)(.*@.+(..{1,11})?)$/,
+      minLength: 1,
     },
     password: {
       reg: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/, //min 6 chars
     },
     date: {
-      reg: /^\d{4}[./-]\d{2}[./-]\d{2}$/ //first type gggg-mm-dd and sec type dd-mm-gggg /^\d{2}[./-]\d{2}[./-]\d{4}$/
+      reg: /^\d{4}[./-]\d{2}[./-]\d{2}$/, //first type gggg-mm-dd and sec type dd-mm-gggg /^\d{2}[./-]\d{2}[./-]\d{4}$/
     },
     tel: {
       // eslint-disable-next-line no-useless-escape
-      reg: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/ //russian tel and american tel /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
+      reg: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, //russian tel and american tel /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
+      minLength: 1,
+      maxLength: 20
     },
     file: {
       size:  10025711, //10mb
-      type: "image"
+      type: "image",
     },
   };
 
   get validObj (){
     return this.validObj;
-  }
+  };
 
   set validObj (obj){
     this.validObj = obj;
-  }
+  };
 
   #getTemplate (inputs = [], textarea = [], btn = []) { // method what return inputs, button, and full form
 
@@ -63,11 +68,11 @@ class Validator {
               ${text.join('')}
               ${button.join('')}
             </form>`;
-  }
+  };
 
   #useForm(){
     return true
-  }
+  };
 
   #render () { // require full form
     const {inputs, textarea, btn} = this.options;
@@ -79,7 +84,7 @@ class Validator {
     } else { //if user use his form
       this.#useForm();
     }
-  }
+  };
 
   #setup () { // req clickhandler
     this.focusBlurHandler = this.focusBlurHandler.bind(this);
@@ -91,7 +96,7 @@ class Validator {
     const btn = document.querySelector(".validator-btn");
     this.clickHandler = this.clickHandler.bind(this);
     btn.addEventListener('click', this.clickHandler);
-  }
+  };
 
   focusBlurHandler (event) { //handler events
     const input = event.target;
@@ -113,7 +118,7 @@ class Validator {
       default:
         break;
     }
-  }
+  };
 
   #cycleObj (name, key, value) {
     for (const z in this.validObj) { //cycle on validobj
@@ -141,8 +146,7 @@ class Validator {
         }
       }
     }
-
-  }
+  };
 
   showErrorMessage (block) {
     let errorBlock = block.previousElementSibling;
@@ -150,7 +154,7 @@ class Validator {
     errorBlock.style.opacity = '1';
     block.classList.add("error");
     block.classList.remove("good");
-  }
+  };
 
   hideErrorMessage (block) {
     let errorBlock = block.previousElementSibling;
@@ -158,15 +162,19 @@ class Validator {
     errorBlock.style.opacity = '0';
     block.classList.remove("error");
     block.classList.add("good");
-  }
+  };
 
-  #regCheck (reg, val, block) { // function for check regexp
-    if (!reg.test(val)) {
+  #regCheck (val, block, reg, minLength = 0, maxLength = 1000) { // function for check regexp
+    if (val.length < minLength || val.length > maxLength) {
       this.showErrorMessage(block);
     } else {
-      this.hideErrorMessage(block);
+      if (!reg.test(val)) {
+        this.showErrorMessage(block);
+      } else {
+        this.hideErrorMessage(block);
+      }
     }
-  }
+  };
 
   clickHandler (event) { // validation when click submit
     event.preventDefault();
@@ -176,23 +184,23 @@ class Validator {
       switch (block.getAttribute("id")) { // all inputs should have id
         case "name":
           let nameReg = new RegExp(this.validObj.nickname.reg);
-          this.#regCheck(nameReg, val, block);
+          this.#regCheck(val, block, nameReg, this.validObj.nickname.minLength, this.validObj.nickname.maxLength);
           break;
         case "email":
           let emailReg = new RegExp(this.validObj.email.reg);
-          this.#regCheck(emailReg, val, block);
+          this.#regCheck(val, block, emailReg, this.validObj.email.minLength, this.validObj.email.maxLength);
           break;
         case "password":
           let passwordReg = new RegExp(this.validObj.password.reg);
-          this.#regCheck(passwordReg, val, block);
+          this.#regCheck(val, block, passwordReg);
           break;
         case "date":
           let dateReg = new RegExp(this.validObj.date.reg);
-          this.#regCheck(dateReg, val, block);
+          this.#regCheck(val, block, dateReg);
           break;
         case "tel":
           let telReg = new RegExp(this.validObj.tel.reg);
-          this.#regCheck(telReg, val, block);
+          this.#regCheck(val, block, telReg, this.validObj.tel.minLength, this.validObj.tel.maxLength);
           break;
         case "checkbox":
           if (!block.checked) {
@@ -226,9 +234,10 @@ class Validator {
       }
     });
   }
-}
+};
+
 let valid = new Validator (".validator-form", { //init class
-  renderForm: false,
+  renderForm: true,
   inputs: [
     {id: "email", type: "text", class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect email"},
     {id: "name", type: "text", class: "block__input", placeholder: "enter your name", label: "enter your name", error: "incorrect name"},
@@ -248,7 +257,7 @@ let valid = new Validator (".validator-form", { //init class
   custom: [
     {nickname: {
       reg: /^[a-zA-Z]/,
-      length: 11
+      minLength: 11
     }},
   ]
 });
