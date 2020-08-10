@@ -61,25 +61,6 @@
     resize: none;
     background-color: #0083cb;
     border: none;
-<<<<<<< HEAD
-    border: 1px solid #7f5dfc; }
-  .block__input.file:hover, .block__input.check:hover {
-    border: none; }
-  .block__input.file:active, .block__input.check:active {
-    border: none; }
-  .block__input.file:focus, .block__input.check:focus {
-    border: none; }
-
-.block.check {
-  width: auto;
-  margin-right: auto;
-  flex-direction: row; }
-
-.block__error {
-  display: none;
-  opacity: 0;
-  transition: all 0.5s; }
-=======
     border-bottom: 1px solid white;
     height: 100%;
     -ms-input-placeholder-color: rgba(255, 255, 255, 0);
@@ -105,7 +86,6 @@
     width: auto;
     margin-right: auto;
     flex-direction: row; }
->>>>>>> oop
 
 .js-input-focus + .block__label {
   top: -10px;
@@ -119,12 +99,6 @@
   color: #ffffff;
   position: relative; }
 
-<<<<<<< HEAD
-.block__input.check {
-  display: none; }
-
-=======
->>>>>>> oop
 .label-check {
   top: 0;
   font-size: 16px;
@@ -141,29 +115,6 @@
   display: block;
   position: absolute;
   top: 3px;
-<<<<<<< HEAD
-  left: 0; }
-
-.fake-checkbox::before {
-  content: "";
-  width: 4px;
-  height: 2px;
-  background-color: #ffffff;
-  position: absolute;
-  transform: rotate(45deg);
-  top: 7px;
-  left: 2px; }
-
-.fake-checkbox::after {
-  content: "";
-  width: 9px;
-  height: 2px;
-  background-color: #ffffff;
-  position: absolute;
-  transform: rotate(-45deg);
-  top: 6px;
-  left: 4px; }
-=======
   left: 0;
   cursor: pointer; }
   .fake-checkbox::before, .fake-checkbox::after {
@@ -200,4 +151,3 @@
   transition: all 0.4s; }
   .btn:hover, .btn:focus {
     background-color: rgba(255, 255, 255, 0.2); }
->>>>>>> oop
