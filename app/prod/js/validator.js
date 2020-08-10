@@ -6,7 +6,7 @@ class Validator {
     this.#setup();
   };
 
-  validObj = { // object for parameters of validation
+  validObj = { // object parameters of validation
     nickname: {
       reg: /^[а-яА-Я]/,
       minLength: 1,
