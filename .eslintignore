@@ -1,5 +1,5 @@
 node_modules
 /.git
 bemto
-app/prod/js/bundle.js
+app/prod/js/formcheck.js
 app/dev/js/script.js
