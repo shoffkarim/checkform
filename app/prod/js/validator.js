@@ -42,23 +42,36 @@ class Validator {
     this.validObj = obj;
   };
 
-  #getTemplate (inputs = [], textarea = [], btn = []) { // method what return inputs, button, and full form
-
+  #getTemplate (inputs = [], textarea = [], btn = [], error = false) { // method what return inputs, button, and full form
     const input = inputs.map(i => { // template of input
-      return `<div class="block">
+      if(error) {
+        return `<div class="block">
                 <div class="block__error error-${i.id}">${i.error}</div>
                 <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
                 <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`
+      } else {
+        return `<div class="block">
+                <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
+                <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
+              </div>`
+      }
     });
 
-    const text = textarea.map(i => { //template of textarea
+  const text = textarea.map(i => { //template of textarea
+    if(error) {
       return `<div class="block">
                 <div class="block__error error-${i.id}">${i.error}</div>
                 <textarea class="validator block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
                 <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`
-    });
+    } else {
+      return `<div class="block">
+                <textarea class="validator block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
+                <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
+              </div>`
+    }
+  });
 
     const button = btn.map(i => { // template button
       return `<button class="validator-btn ${i.class}" type="${i.type}">${i.text}</button>`
@@ -75,12 +88,12 @@ class Validator {
   };
 
   #render () { // require full form
-    const {inputs, textarea, btn} = this.options;
+    const {inputs, textarea, btn, errorMessages} = this.options;
     const {custom} = this.options;
     const {renderForm} =this.options;
     this.#customObject(custom);
     if(renderForm){ // if user use render form
-      this.el.innerHTML = this.#getTemplate(inputs, textarea, btn);
+      this.el.innerHTML = this.#getTemplate(inputs, textarea, btn, errorMessages);
     } else { //if user use his form
       this.#useForm();
     }
@@ -149,19 +162,27 @@ class Validator {
   };
 
   showErrorMessage (block) {
-    let errorBlock = block.previousElementSibling;
-    errorBlock.style.display = 'block';
-    errorBlock.style.opacity = '1';
-    block.classList.add("error");
-    block.classList.remove("good");
+    if(block.previousElementSibling){
+      let errorBlock = block.previousElementSibling;
+      errorBlock.style.display = 'block';
+      errorBlock.style.opacity = '1';
+    } else {
+      block.classList.add("error");
+      block.classList.remove("good");
+    }
   };
 
   hideErrorMessage (block) {
-    let errorBlock = block.previousElementSibling;
-    errorBlock.style.display = 'none';
-    errorBlock.style.opacity = '0';
-    block.classList.remove("error");
-    block.classList.add("good");
+    if(block.previousElementSibling){
+      let errorBlock = block.previousElementSibling;
+      errorBlock.style.display = 'none';
+      errorBlock.style.opacity = '0';
+      block.classList.remove("error");
+      block.classList.add("good");
+    } else {
+      block.classList.remove("error");
+      block.classList.add("good");
+    }
   };
 
   #regCheck (val, block, reg, minLength = 0, maxLength = 1000) { // function for check regexp
@@ -264,6 +285,7 @@ let valid = new Validator (".validator-form", { //init class
   btn: [
     {class: "btn", type: "submit", text: "submit"}
   ],
+  errorMessages: true,
   custom: [
     {nickname: {
       reg: /^[a-zA-Z]/,
