@@ -42,16 +42,16 @@ class Validator {
     this.validObj = obj;
   };
 
-  #getTemplate (inputs = [], textarea = [], btn = [], error = false, formClass = "validator-form") { // method what return inputs, button, and full form
+  #getTemplate (inputs = [], textarea = [], btn = [], error = false, formClass = "validator-form", blockClass="block") { // method what return inputs, button, and full form
     const input = inputs.map(i => { // template of input
       if(error) {
-        return `<div class="block">
+        return `<div class="${blockClass}">
                 <div class="block__error error-${i.id}">${i.error}</div>
                 <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
                 <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`
       } else {
-        return `<div class="block">
+        return `<div class="${blockClass}">
                 <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
                 <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`
@@ -60,13 +60,13 @@ class Validator {
 
   const text = textarea.map(i => { //template of textarea
     if(error) {
-      return `<div class="block">
+      return `<div class="${blockClass}">
                 <div class="block__error error-${i.id}">${i.error}</div>
                 <textarea class="validator block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
                 <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`
     } else {
-      return `<div class="block">
+      return `<div class="${blockClass}">
                 <textarea class="validator block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
                 <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`
@@ -88,12 +88,12 @@ class Validator {
   };
 
   #render () { // require full form
-    const {inputs, textarea, btn, errorMessages, formClass} = this.options;
+    const {inputs, textarea, btn, errorMessages, formClass, blockClass} = this.options;
     const {custom} = this.options;
     const {renderForm} =this.options;
     this.#customObject(custom);
     if(renderForm){ // if user use render form
-      this.el.innerHTML = this.#getTemplate(inputs, textarea, btn, errorMessages, formClass);
+      this.el.innerHTML = this.#getTemplate(inputs, textarea, btn, errorMessages, formClass, blockClass);
     } else { //if user use his form
       this.#useForm();
     }
@@ -292,5 +292,6 @@ let valid = new Validator (".validator-wrapper", { //init class
     }},
   ],
   errorMessages: true,
-  formClass: "validator-form"
+  formClass: "validator-form",
+  blockClass: "block"
 });
