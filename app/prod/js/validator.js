@@ -42,7 +42,7 @@ class Validator {
     this.validObj = obj;
   };
 
-  #getTemplate (inputs = [], textarea = [], btn = [], error = false) { // method what return inputs, button, and full form
+  #getTemplate (inputs = [], textarea = [], btn = [], error = false, formClass = "validator-form") { // method what return inputs, button, and full form
     const input = inputs.map(i => { // template of input
       if(error) {
         return `<div class="block">
@@ -76,7 +76,7 @@ class Validator {
     const button = btn.map(i => { // template button
       return `<button class="validator-btn ${i.class}" type="${i.type}">${i.text}</button>`
     });
-    return `<form method="POST">
+    return `<form class="${formClass}" method="POST">
               ${input.join('')}
               ${text.join('')}
               ${button.join('')}
@@ -88,12 +88,12 @@ class Validator {
   };
 
   #render () { // require full form
-    const {inputs, textarea, btn, errorMessages} = this.options;
+    const {inputs, textarea, btn, errorMessages, formClass} = this.options;
     const {custom} = this.options;
     const {renderForm} =this.options;
     this.#customObject(custom);
     if(renderForm){ // if user use render form
-      this.el.innerHTML = this.#getTemplate(inputs, textarea, btn, errorMessages);
+      this.el.innerHTML = this.#getTemplate(inputs, textarea, btn, errorMessages, formClass);
     } else { //if user use his form
       this.#useForm();
     }
@@ -267,7 +267,7 @@ class Validator {
 
 };
 
-let valid = new Validator (".validator-form", { //init class
+let valid = new Validator (".validator-wrapper", { //init class
   renderForm: true,
   inputs: [
     {id: "email", type: "text", class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect email"},
@@ -285,11 +285,12 @@ let valid = new Validator (".validator-form", { //init class
   btn: [
     {class: "btn", type: "submit", text: "submit"}
   ],
-  errorMessages: true,
   custom: [
     {nickname: {
       reg: /^[a-zA-Z]/,
       maxLength: 11
     }},
-  ]
+  ],
+  errorMessages: true,
+  formClass: "validator-form"
 });
