@@ -90,7 +90,7 @@ class Validator {
   #render () { // require full form
     const {inputs, textarea, btn, errorMessages, formClass, blockClass, errorClass, labelClass} = this.options;
     const {custom} = this.options;
-    const {renderForm} =this.options;
+    const {renderForm} = this.options;
     this.#customObject(custom);
     if(renderForm){ // if user use render form
       this.el.innerHTML = this.#getTemplate(inputs, textarea, btn, errorMessages, formClass, blockClass, errorClass, labelClass);
@@ -162,10 +162,13 @@ class Validator {
   };
 
   showErrorMessage (block) {
-    if(block.previousElementSibling){
-      let errorBlock = block.previousElementSibling;
+    let parent = block.parentElement;
+    if(parent.querySelector('.' + this.options.errorClass)){
+      let errorBlock = parent.querySelector('.' + this.options.errorClass)
       errorBlock.style.display = 'block';
       errorBlock.style.opacity = '1';
+      block.classList.add("error");
+      block.classList.remove("good");
     } else {
       block.classList.add("error");
       block.classList.remove("good");
@@ -173,8 +176,8 @@ class Validator {
   };
 
   hideErrorMessage (block) {
-    if(block.previousElementSibling){
-      let errorBlock = block.previousElementSibling;
+    if(parent.querySelector('.' + this.options.errorClass)){
+      let errorBlock = parent.querySelector('.' + this.options.errorClass)
       errorBlock.style.display = 'none';
       errorBlock.style.opacity = '0';
       block.classList.remove("error");
@@ -295,5 +298,5 @@ let valid = new Validator (".validator-wrapper", { //init class
   formClass: "validator-form",
   blockClass: "block",
   errorClass: "block__error",
-  labelClass: "block__laaabel"
+  labelClass: "block__label"
 });
