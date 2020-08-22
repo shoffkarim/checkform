@@ -191,7 +191,7 @@ class Validator {
   hideErrorMessage (block) {
     let parent = block.parentElement;
     if(this.options.errorClass){
-      if(parent.querySelector('.' + this.options.errorClass)){ 
+      if(parent.querySelector('.' + this.options.errorClass)){
         let errorBlock = parent.querySelector('.' + this.options.errorClass);
         errorBlock.style.display = 'none';
         errorBlock.style.opacity = '0';
@@ -223,9 +223,25 @@ class Validator {
         this.showErrorMessage(block);
       } else {
         this.hideErrorMessage(block);
+        this.checkSubstring(block, val);
       }
     }
   };
+
+  checkSubstring (block, val) {
+    for (let i = 0; i < this.options.checkSubstr.length; i++) {
+      if(this.options.checkSubstr[i].id === block.getAttribute("id")) {
+        if(val.includes(this.options.checkSubstr[i].substr)){
+          this.hideErrorMessage(block);
+          console.log(this.options.checkSubstr[i].substr)
+        } else {
+          this.showErrorMessage(block);
+        }
+      } else {
+        return true
+      }
+    }
+  }
 
   alertWin () {
     const inputsList = document.querySelectorAll("[data-valid=true]");
@@ -286,6 +302,7 @@ class Validator {
             this.showErrorMessage(block);
           } else {
             this.hideErrorMessage(block);
+            this.checkSubstring(block, val);
           }
           break;
         default:
@@ -324,5 +341,13 @@ let valid = new Validator (".validator-wrapper", { //init class
   errorMessages: true,
   formClass: "validator-form",
   blockClass: "block",
-  labelClass: "block__label"
+  labelClass: "block__label",
+  checkSubstr: [
+    {
+      id: "name", substr: "karim"
+    },
+    {
+      id: "email", substr: "k4r1"
+    }
+  ]
 });
