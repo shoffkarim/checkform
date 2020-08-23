@@ -8,7 +8,12 @@ class Validator {
 
   validObj = { // object parameters of validation
     nickname: {
-      reg: /^[а-яА-Я]/,
+      reg: /^[a-zA-Z]/,
+      minLength: 1,
+      maxLength: 15
+    },
+    fullName: {
+      reg: /^[а-яА-ЯёЁ]/,
       minLength: 1,
       maxLength: 15
     },
@@ -229,7 +234,7 @@ class Validator {
     }
   };
 
-  checkSubstring (block, val) {
+  checkSubstring (block, val) { //check string for include substr
     for (let i = 0; i < this.options.checkSubstr.length; i++) {
       if(this.options.checkSubstr[i].id === block.getAttribute("id")) {
         if(val.includes(this.options.checkSubstr[i].substr)){
@@ -243,7 +248,7 @@ class Validator {
     }
   }
 
-  checkBlackList (block, val) {
+  checkBlackList (block, val) { //check string for include substr from blacklist
     for (let i = 0; i < this.options.blackList.length; i++) {
       if(val.includes(this.options.blackList[i])) {
         this.showErrorMessage(block);
@@ -265,9 +270,17 @@ class Validator {
     inputsList.forEach(block => {
       let val = block.value;
       switch (block.getAttribute("id")) { // all inputs should have id
-        case "name":
-          let nameReg = new RegExp(this.validObj.nickname.reg);
-          this.#regCheck(val, block, nameReg, this.validObj.nickname.minLength, this.validObj.nickname.maxLength);
+        case "nickname":
+          let nicknameReg = new RegExp(this.validObj.nickname.reg);
+          this.#regCheck(val, block, nicknameReg, this.validObj.nickname.minLength, this.validObj.nickname.maxLength);
+          break;
+        case "fullname":
+          let nameReg = new RegExp(this.validObj.fullName.reg);
+          this.#regCheck(val, block, nameReg, this.validObj.fullName.minLength, this.validObj.fullName.maxLength);
+          console.log(block);
+          console.log(nameReg);
+          console.log(this.validObj.fullName.minLength);
+          console.log(this.validObj.fullName.maxLength);
           break;
         case "email":
           let emailReg = new RegExp(this.validObj.email.reg);
@@ -326,7 +339,7 @@ let valid = new Validator (".validator-wrapper", { //init class
   renderForm: true,
   inputs: [
     {id: "email", type: "text", class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect email"},
-    {id: "name", type: "text", class: "block__input", placeholder: "enter your name", label: "enter your name", error: "incorrect name"},
+    {id: "fullname", type: "text", class: "block__input", placeholder: "enter your name", label: "enter your name", error: "incorrect name"},
     {id: "password", type: "password", class: "block__input", placeholder: "password", label: "password", error: "incorrect password"},
     {id: "tel", type: "tel", class: "block__input", placeholder: "number", label: "number", error: "incorrect number"},
     {id: "date", type: "text", class: "block__input", placeholder: "date", label: "date", error: "incorrect date"}, // must indicate type text for date, for good animation
@@ -360,3 +373,4 @@ let valid = new Validator (".validator-wrapper", { //init class
   ],
   blackList: ["lol", "kek"]
 });
+
