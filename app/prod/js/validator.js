@@ -252,14 +252,6 @@ class Validator {
     }
   }
 
-  alertWin () {
-    const inputsList = document.querySelectorAll("[data-valid=true]");
-    const goodInputs = document.querySelectorAll(".good");
-    if (inputsList.length === goodInputs.length){
-      alert("win");
-    } else return false;
-  };
-
   clickHandler (event) { // validation when click submit
     event.preventDefault();
     const inputsList = document.querySelectorAll("[data-valid=true]");
@@ -273,10 +265,6 @@ class Validator {
         case "fullname":
           let nameReg = new RegExp(this.validObj.fullName.reg);
           this.#regCheck(val, block, nameReg, this.validObj.fullName.minLength, this.validObj.fullName.maxLength);
-          console.log(block);
-          console.log(nameReg);
-          console.log(this.validObj.fullName.minLength);
-          console.log(this.validObj.fullName.maxLength);
           break;
         case "email":
           let emailReg = new RegExp(this.validObj.email.reg);
@@ -326,9 +314,17 @@ class Validator {
           console.log("def");
       }
     });
-    this.alertWin();
   };
 
+  validOk(funcName){
+    document.querySelector('.validator-btn').addEventListener('click',function () {
+      const inputsList = document.querySelectorAll("[data-valid=true]");
+      const goodInputs = document.querySelectorAll(".good");
+      if (inputsList.length === goodInputs.length){
+        funcName();
+      } else return false
+    })
+  }
 };
 
 let valid = new Validator (".validator-wrapper", { //init class
@@ -369,3 +365,8 @@ let valid = new Validator (".validator-wrapper", { //init class
   ],
   blackList: ["lol", "kek"]
 });
+
+valid.validOk(lol);
+function lol() {
+  console.log(document.querySelectorAll(".good"));
+}
