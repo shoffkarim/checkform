@@ -224,6 +224,7 @@ class Validator {
       } else {
         this.hideErrorMessage(block);
         this.checkSubstring(block, val);
+        this.checkBlackList(block, val);
       }
     }
   };
@@ -233,12 +234,19 @@ class Validator {
       if(this.options.checkSubstr[i].id === block.getAttribute("id")) {
         if(val.includes(this.options.checkSubstr[i].substr)){
           this.hideErrorMessage(block);
-          console.log(this.options.checkSubstr[i].substr)
         } else {
           this.showErrorMessage(block);
         }
       } else {
         return true
+      }
+    }
+  }
+
+  checkBlackList (block, val) {
+    for (let i = 0; i < this.options.blackList.length; i++) {
+      if(val.includes(this.options.blackList[i])) {
+        this.showErrorMessage(block);
       }
     }
   }
@@ -349,5 +357,6 @@ let valid = new Validator (".validator-wrapper", { //init class
     {
       id: "email", substr: "k4r1"
     }
-  ]
+  ],
+  blackList: ["lol", "kek"]
 });
