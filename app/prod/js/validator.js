@@ -171,7 +171,6 @@ class Validator {
     if(this.options.errorClass){
       if(parent.querySelector('.' + this.options.errorClass)){
         let errorBlock = parent.querySelector('.' + this.options.errorClass);
-        errorBlock.style.display = 'block';
         errorBlock.style.opacity = '1';
         block.classList.add("error");
         block.classList.remove("good");
@@ -182,7 +181,6 @@ class Validator {
     } else {
       if(parent.querySelector('.block__error')){
         let errorBlock = parent.querySelector('.block__error');
-        errorBlock.style.display = 'block';
         errorBlock.style.opacity = '1';
         block.classList.add("error");
         block.classList.remove("good");
@@ -198,7 +196,6 @@ class Validator {
     if(this.options.errorClass){
       if(parent.querySelector('.' + this.options.errorClass)){
         let errorBlock = parent.querySelector('.' + this.options.errorClass);
-        errorBlock.style.display = 'none';
         errorBlock.style.opacity = '0';
         block.classList.remove("error");
         block.classList.add("good");
@@ -209,7 +206,6 @@ class Validator {
     } else {
       if(parent.querySelector('.block__error')){
         let errorBlock = parent.querySelector('.block__error');
-        errorBlock.style.display = 'none';
         errorBlock.style.opacity = '0';
         block.classList.remove("error");
         block.classList.add("good");
@@ -373,4 +369,3 @@ let valid = new Validator (".validator-wrapper", { //init class
   ],
   blackList: ["lol", "kek"]
 });
-
