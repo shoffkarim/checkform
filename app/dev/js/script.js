@@ -100,19 +100,24 @@ class Validator {
 
   focusBlurHandler (event) { //handler events
     const input = event.target;
+    const {animLabel} = this.options;
+    let className = "js-input-focus"
+    if (animLabel === "static"){
+      className = "jopa";
+    }
     switch (event.type) {
       case "focus":
         if (input.id == "date") input.type = "date"
-        input.classList.add("js-input-focus");
+        input.classList.add(className);
         break;
       case "blur":
         if(input.value != "") {
-          input.classList.add("js-input-focus");
+          input.classList.add(className);
         } else {
           if (input.id == "date") {
             input.type = "text";
           }
-          input.classList.remove("js-input-focus");
+          input.classList.remove(className);
         }
         break;
       default:
@@ -269,5 +274,6 @@ let valid = new Validator (".validator-form", { //init class
       reg: /^[a-zA-Z]/,
       maxLength: 11
     }},
-  ]
+  ],
+  animLabel: "static"
 });

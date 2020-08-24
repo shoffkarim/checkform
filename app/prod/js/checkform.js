@@ -1,11 +1,4 @@
-class Validator {
-  constructor (el, options) {
-    this.el = document.querySelector(el);
-    this.options = options;
-    this.#render();
-    this.#setup();
-  };
-
+class CheckForm {
   validObj = { // object parameters of validation
     nickname: {
       reg: /^[a-zA-Z]/,
@@ -39,6 +32,13 @@ class Validator {
     },
   };
 
+  constructor (el, options) {
+    this.el = document.querySelector(el);
+    this.options = options;
+    this.render();
+    this.setup();
+  };
+
   get validObj (){
     return this.validObj;
   };
@@ -47,7 +47,7 @@ class Validator {
     this.validObj = obj;
   };
 
-  #getTemplate (inputs = [], textarea = [], btn = [], error = false, formClass = "validator-form", blockClass="block", errorClass = "block__error", labelClass = "block__label") { // method what return inputs, button, and full form
+  getTemplate (inputs = [], textarea = [], btn = [], error = false, formClass = "validator-form", blockClass="block", errorClass = "block__error", labelClass = "block__label") { // method what return inputs, button, and full form
     const input = inputs.map(i => { // template of input
       if(error) {
         return `<div class="${blockClass}">
@@ -88,23 +88,23 @@ class Validator {
             </form>`;
   };
 
-  #useForm(){
+  useForm(){
     return true
   };
 
-  #render () { // require full form
+  render () { // require full form
     const {inputs, textarea, btn, errorMessages, formClass, blockClass, errorClass, labelClass} = this.options;
     const {custom} = this.options;
     const {renderForm} = this.options;
-    this.#customObject(custom);
+    this.customObject(custom);
     if(renderForm){ // if user use render form
-      this.el.innerHTML = this.#getTemplate(inputs, textarea, btn, errorMessages, formClass, blockClass, errorClass, labelClass);
+      this.el.innerHTML = this.getTemplate(inputs, textarea, btn, errorMessages, formClass, blockClass, errorClass, labelClass);
     } else { //if user use his form
-      this.#useForm();
+      this.useForm();
     }
   };
 
-  #setup () { // req clickhandler
+  setup () { // req clickhandler
     this.focusBlurHandler = this.focusBlurHandler.bind(this);
     const inputsList = document.querySelectorAll(".validator");
     inputsList.forEach(i => {
@@ -138,7 +138,7 @@ class Validator {
     }
   };
 
-  #cycleObj (name, key, value) {
+  cycleObj (name, key, value) {
     for (const z in this.validObj) { //cycle on validobj
       if (this.validObj.hasOwnProperty(z)) { // z - name of field, this.validObj[z] - field
         for (const y in this.validObj[z]) {
@@ -152,13 +152,13 @@ class Validator {
     }
   };
 
-  #customObject (custom) { //customization validObj
+  customObject (custom) { //customization validObj
     for (let i = 0; i < custom.length; i++) { //cycle on custom mas
       for (const j in custom[i]) { //cycle on custom mas obj's
         if (custom[i].hasOwnProperty(j)) { //j - name of type input, custom[i] - object witn custom fields
           for (const k in custom[i][j]) { //cycle on obj's fields
             if (custom[i][j].hasOwnProperty(k)) { //k - name of custom key, custom[i][j] - custom object, custom[i][j][k] - custom value
-              this.#cycleObj(j, k, custom[i][j][k])
+              this.cycleObj(j, k, custom[i][j][k])
             }
           }
         }
@@ -216,7 +216,7 @@ class Validator {
     }
   };
 
-  #regCheck (val, block, reg, minLength = 0, maxLength = 1000) { // function for check regexp
+  regCheck (val, block, reg, minLength = 0, maxLength = 1000) { // function for check regexp
     if (val.length < minLength || val.length > maxLength) {
       this.showErrorMessage(block);
     } else {
@@ -260,27 +260,27 @@ class Validator {
       switch (block.getAttribute("id")) { // all inputs should have id
         case "nickname":
           let nicknameReg = new RegExp(this.validObj.nickname.reg);
-          this.#regCheck(val, block, nicknameReg, this.validObj.nickname.minLength, this.validObj.nickname.maxLength);
+          this.regCheck(val, block, nicknameReg, this.validObj.nickname.minLength, this.validObj.nickname.maxLength);
           break;
         case "fullname":
           let nameReg = new RegExp(this.validObj.fullName.reg);
-          this.#regCheck(val, block, nameReg, this.validObj.fullName.minLength, this.validObj.fullName.maxLength);
+          this.regCheck(val, block, nameReg, this.validObj.fullName.minLength, this.validObj.fullName.maxLength);
           break;
         case "email":
           let emailReg = new RegExp(this.validObj.email.reg);
-          this.#regCheck(val, block, emailReg, this.validObj.email.minLength, this.validObj.email.maxLength);
+          this.regCheck(val, block, emailReg, this.validObj.email.minLength, this.validObj.email.maxLength);
           break;
         case "password":
           let passwordReg = new RegExp(this.validObj.password.reg);
-          this.#regCheck(val, block, passwordReg);
+          this.regCheck(val, block, passwordReg);
           break;
         case "date":
           let dateReg = new RegExp(this.validObj.date.reg);
-          this.#regCheck(val, block, dateReg);
+          this.regCheck(val, block, dateReg);
           break;
         case "tel":
           let telReg = new RegExp(this.validObj.tel.reg);
-          this.#regCheck(val, block, telReg, this.validObj.tel.minLength, this.validObj.tel.maxLength);
+          this.regCheck(val, block, telReg, this.validObj.tel.minLength, this.validObj.tel.maxLength);
           break;
         case "checkbox":
           if (!block.checked) {
@@ -326,47 +326,3 @@ class Validator {
     })
   }
 };
-
-let valid = new Validator (".validator-wrapper", { //init class
-  renderForm: true,
-  inputs: [
-    {id: "email", type: "text", class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect email"},
-    {id: "fullname", type: "text", class: "block__input", placeholder: "enter your name", label: "enter your name", error: "incorrect name"},
-    {id: "password", type: "password", class: "block__input", placeholder: "password", label: "password", error: "incorrect password"},
-    {id: "tel", type: "tel", class: "block__input", placeholder: "number", label: "number", error: "incorrect number"},
-    {id: "date", type: "text", class: "block__input", placeholder: "date", label: "date", error: "incorrect date"}, // must indicate type text for date, for good animation
-    {id: "checkbox", type: "checkbox", class: "block__input", placeholder: "checkbox", label: "checkbox", error: "incorrect check"},
-    {id: "file", type: "file", class: "block__input", placeholder: "file", label: "file", error: "incorrect file"}
-
-  ],
-  textarea: [
-    {id: "textarea", class: "block__message", placeholder: "message", label: "enter your message", error: "incorrect message"},
-  ],
-  btn: [
-    {class: "btn", type: "submit", text: "submit"}
-  ],
-  custom: [
-    {nickname: {
-      reg: /^[a-zA-Z]/,
-      maxLength: 11
-    }},
-  ],
-  errorMessages: true,
-  formClass: "validator-form",
-  blockClass: "block",
-  labelClass: "block__label",
-  checkSubstr: [
-    {
-      id: "name", substr: "karim"
-    },
-    {
-      id: "email", substr: "k4r1"
-    }
-  ],
-  blackList: ["lol", "kek"]
-});
-
-valid.validOk(lol);
-function lol() {
-  console.log(document.querySelectorAll(".good"));
-}

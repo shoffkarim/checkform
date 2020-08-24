@@ -46,7 +46,7 @@ gulp.task("scripts", function () {
 
 gulp.task("autopre", function () {
   return gulp
-    .src(src.dev.sass)
+    .src(src.prod.css)
     .pipe(
       autoprefixer({
         cascade: false,
