@@ -17,7 +17,7 @@
       <div class="validator-wrapper">
         <form class="validator-form">
           <div class="block">
-            <div class="block__error error-name">incorrect name</div>
+
             <input
               class="block__input name"
               type="text"
@@ -27,13 +27,16 @@
             />
             <label class="block__label label-name" for="name">Name </label
               >
+            <div class="block__error error-name">incorrect name</div>
           </div>
           <div class="block">
+            <div class="block__error error-name">incorrect name</div>
             <input
               class="block__input email"
               type="text"
               placeholder="email"
               id="email"
+              data-valid=true
             />
             <label class="block__label label-email" for="email">Email </label
               >

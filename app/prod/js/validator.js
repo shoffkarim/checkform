@@ -8,7 +8,12 @@ class Validator {
 
   validObj = { // object parameters of validation
     nickname: {
-      reg: /^[а-яА-Я]/,
+      reg: /^[a-zA-Z]/,
+      minLength: 1,
+      maxLength: 15
+    },
+    fullName: {
+      reg: /^[а-яА-ЯёЁ]/,
       minLength: 1,
       maxLength: 15
     },
@@ -42,28 +47,41 @@ class Validator {
     this.validObj = obj;
   };
 
-  #getTemplate (inputs = [], textarea = [], btn = []) { // method what return inputs, button, and full form
-
+  #getTemplate (inputs = [], textarea = [], btn = [], error = false, formClass = "validator-form", blockClass="block", errorClass = "block__error", labelClass = "block__label") { // method what return inputs, button, and full form
     const input = inputs.map(i => { // template of input
-      return `<div class="block">
-                <div class="block__error error-${i.id}">${i.error}</div>
+      if(error) {
+        return `<div class="${blockClass}">
+                <div class="${errorClass} error-${i.id}">${i.error}</div>
                 <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
-                <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
+                <label class="${labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`
+      } else {
+        return `<div class="${blockClass}">
+                <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
+                <label class="${labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
+              </div>`
+      }
     });
 
-    const text = textarea.map(i => { //template of textarea
-      return `<div class="block">
-                <div class="block__error error-${i.id}">${i.error}</div>
+  const text = textarea.map(i => { //template of textarea
+    if(error) {
+      return `<div class="${blockClass}">
+                <div class="${errorClass} error-${i.id}">${i.error}</div>
                 <textarea class="validator block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
-                <label class="block__label label-${i.id}" for="${i.id}">${i.label}</label>
+                <label class="${labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`
-    });
+    } else {
+      return `<div class="${blockClass}">
+                <textarea class="validator block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
+                <label class="${labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
+              </div>`
+    }
+  });
 
     const button = btn.map(i => { // template button
       return `<button class="validator-btn ${i.class}" type="${i.type}">${i.text}</button>`
     });
-    return `<form method="POST">
+    return `<form class="${formClass}" method="POST">
               ${input.join('')}
               ${text.join('')}
               ${button.join('')}
@@ -75,12 +93,12 @@ class Validator {
   };
 
   #render () { // require full form
-    const {inputs, textarea, btn} = this.options;
+    const {inputs, textarea, btn, errorMessages, formClass, blockClass, errorClass, labelClass} = this.options;
     const {custom} = this.options;
-    const {renderForm} =this.options;
+    const {renderForm} = this.options;
     this.#customObject(custom);
     if(renderForm){ // if user use render form
-      this.el.innerHTML = this.#getTemplate(inputs, textarea, btn);
+      this.el.innerHTML = this.#getTemplate(inputs, textarea, btn, errorMessages, formClass, blockClass, errorClass, labelClass);
     } else { //if user use his form
       this.#useForm();
     }
@@ -149,19 +167,53 @@ class Validator {
   };
 
   showErrorMessage (block) {
-    let errorBlock = block.previousElementSibling;
-    errorBlock.style.display = 'block';
-    errorBlock.style.opacity = '1';
-    block.classList.add("error");
-    block.classList.remove("good");
+    let parent = block.parentElement;
+    if(this.options.errorClass){
+      if(parent.querySelector('.' + this.options.errorClass)){
+        let errorBlock = parent.querySelector('.' + this.options.errorClass);
+        errorBlock.style.opacity = '1';
+        block.classList.add("error");
+        block.classList.remove("good");
+      } else {
+        block.classList.add("error");
+        block.classList.remove("good");
+      }
+    } else {
+      if(parent.querySelector('.block__error')){
+        let errorBlock = parent.querySelector('.block__error');
+        errorBlock.style.opacity = '1';
+        block.classList.add("error");
+        block.classList.remove("good");
+      } else {
+        block.classList.add("error");
+        block.classList.remove("good");
+      }
+    }
   };
 
   hideErrorMessage (block) {
-    let errorBlock = block.previousElementSibling;
-    errorBlock.style.display = 'none';
-    errorBlock.style.opacity = '0';
-    block.classList.remove("error");
-    block.classList.add("good");
+    let parent = block.parentElement;
+    if(this.options.errorClass){
+      if(parent.querySelector('.' + this.options.errorClass)){
+        let errorBlock = parent.querySelector('.' + this.options.errorClass);
+        errorBlock.style.opacity = '0';
+        block.classList.remove("error");
+        block.classList.add("good");
+      } else {
+        block.classList.remove("error");
+        block.classList.add("good");
+      }
+    } else {
+      if(parent.querySelector('.block__error')){
+        let errorBlock = parent.querySelector('.block__error');
+        errorBlock.style.opacity = '0';
+        block.classList.remove("error");
+        block.classList.add("good");
+      } else {
+        block.classList.remove("error");
+        block.classList.add("good");
+      }
+    }
   };
 
   #regCheck (val, block, reg, minLength = 0, maxLength = 1000) { // function for check regexp
@@ -172,17 +224,33 @@ class Validator {
         this.showErrorMessage(block);
       } else {
         this.hideErrorMessage(block);
+        this.checkSubstring(block, val);
+        this.checkBlackList(block, val);
       }
     }
   };
 
-  alertWin () {
-    const inputsList = document.querySelectorAll("[data-valid=true]");
-    const goodInputs = document.querySelectorAll(".good");
-    if (inputsList.length === goodInputs.length){
-      alert("win");
-    } else return false;
-  };
+  checkSubstring (block, val) { //check string for include substr
+    for (let i = 0; i < this.options.checkSubstr.length; i++) {
+      if(this.options.checkSubstr[i].id === block.getAttribute("id")) {
+        if(val.includes(this.options.checkSubstr[i].substr)){
+          this.hideErrorMessage(block);
+        } else {
+          this.showErrorMessage(block);
+        }
+      } else {
+        return true
+      }
+    }
+  }
+
+  checkBlackList (block, val) { //check string for include substr from blacklist
+    for (let i = 0; i < this.options.blackList.length; i++) {
+      if(val.includes(this.options.blackList[i])) {
+        this.showErrorMessage(block);
+      }
+    }
+  }
 
   clickHandler (event) { // validation when click submit
     event.preventDefault();
@@ -190,9 +258,13 @@ class Validator {
     inputsList.forEach(block => {
       let val = block.value;
       switch (block.getAttribute("id")) { // all inputs should have id
-        case "name":
-          let nameReg = new RegExp(this.validObj.nickname.reg);
-          this.#regCheck(val, block, nameReg, this.validObj.nickname.minLength, this.validObj.nickname.maxLength);
+        case "nickname":
+          let nicknameReg = new RegExp(this.validObj.nickname.reg);
+          this.#regCheck(val, block, nicknameReg, this.validObj.nickname.minLength, this.validObj.nickname.maxLength);
+          break;
+        case "fullname":
+          let nameReg = new RegExp(this.validObj.fullName.reg);
+          this.#regCheck(val, block, nameReg, this.validObj.fullName.minLength, this.validObj.fullName.maxLength);
           break;
         case "email":
           let emailReg = new RegExp(this.validObj.email.reg);
@@ -235,22 +307,31 @@ class Validator {
             this.showErrorMessage(block);
           } else {
             this.hideErrorMessage(block);
+            this.checkSubstring(block, val);
           }
           break;
         default:
           console.log("def");
       }
     });
-    this.alertWin();
   };
 
+  validOk(funcName){
+    document.querySelector('.validator-btn').addEventListener('click',function () {
+      const inputsList = document.querySelectorAll("[data-valid=true]");
+      const goodInputs = document.querySelectorAll(".good");
+      if (inputsList.length === goodInputs.length){
+        funcName();
+      } else return false
+    })
+  }
 };
 
-let valid = new Validator (".validator-form", { //init class
+let valid = new Validator (".validator-wrapper", { //init class
   renderForm: true,
   inputs: [
     {id: "email", type: "text", class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect email"},
-    {id: "name", type: "text", class: "block__input", placeholder: "enter your name", label: "enter your name", error: "incorrect name"},
+    {id: "fullname", type: "text", class: "block__input", placeholder: "enter your name", label: "enter your name", error: "incorrect name"},
     {id: "password", type: "password", class: "block__input", placeholder: "password", label: "password", error: "incorrect password"},
     {id: "tel", type: "tel", class: "block__input", placeholder: "number", label: "number", error: "incorrect number"},
     {id: "date", type: "text", class: "block__input", placeholder: "date", label: "date", error: "incorrect date"}, // must indicate type text for date, for good animation
@@ -269,5 +350,23 @@ let valid = new Validator (".validator-form", { //init class
       reg: /^[a-zA-Z]/,
       maxLength: 11
     }},
-  ]
+  ],
+  errorMessages: true,
+  formClass: "validator-form",
+  blockClass: "block",
+  labelClass: "block__label",
+  checkSubstr: [
+    {
+      id: "name", substr: "karim"
+    },
+    {
+      id: "email", substr: "k4r1"
+    }
+  ],
+  blackList: ["lol", "kek"]
 });
+
+valid.validOk(lol);
+function lol() {
+  console.log(document.querySelectorAll(".good"));
+}
