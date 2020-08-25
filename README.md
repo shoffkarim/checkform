@@ -150,7 +150,9 @@ custom: [
 
 ####  errorMessages
 Type: `boolean`
+
 Default: `false`
+
 Usage: show error message, when input doesn't validate
 #### formClass
 Type: `string`
@@ -184,3 +186,26 @@ Example:
 ```
 blackList: ["lol", "lmao"]
 ```
+## Methods
+#### validOk(funcName)
+Functional: takes function name, what should call when validation is okey
+#### validObj()
+Functional: getter of `validObj`
+#### validObj(obj)
+Functional: setter of `validObj`
+#### getTemplate(inputs, texarea, btn, error, formClass, blockClass, errorClass, labelClass)
+Functional: rendering form
+#### focusBlurHandler(event)
+Functional: add/remove class for animation of focus/blur
+#### showErrorMessage(block)
+Functional: show error message
+#### hideErrorMessage(block)
+Functional: hide error message
+#### regCheck (val, block, reg, minLength, maxLength)
+Functional: check value for regExp, Length, and call show or hide error
+#### checkSubstring (block, val)
+Functional: check value include substring
+#### checkBlackList (block, val)
+Functional: check value don't include substring
+#### clickHandler(event)
+Functional: Definition type of input and call check methods
