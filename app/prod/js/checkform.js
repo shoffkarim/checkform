@@ -72,7 +72,7 @@ class CheckForm {
               </div>`
     } else {
       return `<div class="${blockClass}">
-                <textarea class="validator block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
+                <textarea class="validator block__input ${i.class}" data-valid="true" data-type="${i.id}" placeholder="${i.placeholder}" id="${i.id}"></textarea>
                 <label class="${labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`
     }
@@ -257,7 +257,7 @@ class CheckForm {
     const inputsList = document.querySelectorAll("[data-valid=true]");
     inputsList.forEach(block => {
       let val = block.value;
-      switch (block.getAttribute("id")) { // all inputs should have id
+      switch (block.getAttribute("data-type")) { // all inputs should have id
         case "nickname":
           let nicknameReg = new RegExp(this.validObj.nickname.reg);
           this.regCheck(val, block, nicknameReg, this.validObj.nickname.minLength, this.validObj.nickname.maxLength);
