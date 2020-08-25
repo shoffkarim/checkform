@@ -14,17 +14,70 @@
 
 > `git clone https://github.com/shoffkarim/checkform.git`
 
-2. Connect the script
+2. Connect the script, and styles
 
 > `<script  type="text/javascript"  src="js/checkform.min.js"></script>`
+> `<link  rel="stylesheet"  href="css/style.css"  />`
 
 4. Init class in your script file
 
->     let  valid = new  CheckForm (".validator-wrapper", {
-	>     renderForm:  true,
->     });
+```
+let  valid = new  CheckForm (".checkform-wrapper", {
+	renderForm:  true
+});
+```
 ## Terminology
 |Frase & Word|Definition  |
 |--|--|
 | Error | `<div>` or `<p>` with error message, what showing, when input doesn't validate |
 |Block|`<div>`, what contain error, input and label|
+
+## Parameters
+#### Container class name
+Type: `string`
+Default: none
+Example: ".checkform-wrapper"
+
+### Configuration options
+#### renderForm
+Type: `boolean`
+Default: none
+Usage: If you have form, and want just validate it - `renderForm: false`, if you need create form - `renderForm: true`
+#### inputs
+Type: `array of objects`
+Default: `empty`
+Usage: use it if `renderForm: true`
+Example:
+```
+inputs: [
+{id: "email", type: "text", "class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect email"}
+```
+***Explanation***
+`id` - id email, and it use in `for` label
+Use ids  from this list:
+
+ - name
+ - nickname
+ - email
+ - password
+ - tel
+ - date
+ - checkbox
+ - file
+
+`type` - type of input
+These types are supported in this version
+
+ - text
+ - password
+ - tel
+ - date (if you use `renderForm: true`, and want use animation, use `id="date", type="text"`)
+ - checkbox
+ - file
+
+`class` - class name of input (if you use lib's style - indicate `"block__input"`
+`placeholder` - placeholder for input, in lib's styles in hide for animation label
+`label` - text in label
+`error` - text of error
+
+
