@@ -46,6 +46,7 @@ let valid = new CheckForm(".validator-wrapper", { // init class
   errorMessages: true,
   formClass: "validator-form",
   blockClass: "block",
+  errorClass: "block__error",
   labelClass: "block__label",
   checkSubstr: [
     {

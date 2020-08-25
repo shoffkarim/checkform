@@ -12,14 +12,18 @@
 
 1. Clone checkform somewhere to your project
 
-> `git clone https://github.com/shoffkarim/checkform.git`
+```
+git clone https://github.com/shoffkarim/checkform.git
+```
 
 2. Connect the script, and styles
 
-> `<script  type="text/javascript"  src="js/checkform.min.js"></script>`
-> `<link  rel="stylesheet"  href="css/style.css"  />`
+```
+<script  type="text/javascript"  src="js/checkform.min.js"></script>
+<link  rel="stylesheet"  href="css/style.css"  />
+ ```
 
-4. Init class in your script file
+3. Init class in your script file
 
 ```
 let  valid = new  CheckForm (".checkform-wrapper", {
@@ -116,3 +120,67 @@ btn: [{class: "btn", type: "submit", text: "submit"}]
  `class` - class of btn, (if you use lib's style - indicate `"btn"`)
  `type` - type of btn (recommended `"submit"`
  `text` - text of btn
+
+ #### custom
+ Type: `array of objects`
+ Default: validObj, use getter `validObj()` for return it, or click here
+ Usage: if you need change regExp, minLength, maxLength, size, type
+ Example:
+ ```
+custom: [
+{
+	nickname:{
+		reg: /^[a-zA-Z]/,
+		maxLength:  11
+	}
+},
+],
+ ```
+
+  ***Explanation***
+
+`nickname`, `fullName`, `email`, `password`, `date`, `tel` - have `reg` field
+
+`nickname`, `fullName`, `tel` - have `minLength` and `maxLength` fields
+
+`email` - have `minLength` field
+
+`file` - have `size` and `type` fields
+
+
+####  errorMessages
+Type: `boolean`
+Default: `false`
+Usage: show error message, when input doesn't validate
+#### formClass
+Type: `string`
+Default: `validator-form`
+Usage: If `renderForm: true`, this is form class name
+#### blockClass
+Type: `string`
+Default: `block`
+Usage: If `renderForm: true`, this is block class name
+#### errorClass
+Type: `string`
+Default: `block__error`
+Usage: If `renderForm: true`, this is error class name
+#### labelClass
+Type: `string`
+Default: `block__label`
+Usage: If `renderForm: true`, this is label class name
+#### checkSubstr
+Type: `array of objects`
+Default: `empty`
+Usage: If  some value should include substring
+Example:
+```
+checkSubstr: [{id:  "name", substr:  "lol"},],
+```
+#### blackList
+Type: `array of objects`
+Default: `empty`
+Usage: If  values don't should include substring
+Example:
+```
+blackList: ["lol", "lmao"]
+```
