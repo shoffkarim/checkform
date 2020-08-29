@@ -39,19 +39,29 @@ let  valid = new  CheckForm (".checkform-wrapper", {
 ## Parameters
 #### Container class name
 Type: `string`
+
 Default: none
+
 Example: ".checkform-wrapper"
+
 
 ### Configuration options
 #### renderForm
 Type: `boolean`
+
 Default: none
+
 Usage: If you have form, and want just validate it - `renderForm: false`, if you need create form - `renderForm: true`
+
 #### inputs
 Type: `array of objects`
+
 Default: `empty`
+
 Usage: use it if `renderForm: true`,  1 object = 1 input
+
 Example:
+
 ```
 inputs: [
 {id: "email", type: "text", "class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect email"}
@@ -89,9 +99,13 @@ These types are supported in this version
 
  #### textarea
  Type: `array of objects`
+
  Default: `empty`
+
  Usage: use it if `renderForm: true`,  1 object = 1 textarea
+
  Example:
+
  ```
 textarea: [
 {id: "textarea", class: "block__message", placeholder: "message", label: "enter your message", error: "incorrect message"},
@@ -108,9 +122,13 @@ textarea: [
 
  #### btn
  Type: `array of objects`
+
  Default: `empty`
+
  Usage: use it if `renderForm: true`,  1 object = 1 btn
+
  Example:
+
  ```
 btn: [{class: "btn", type: "submit", text: "submit"}]
  ```
@@ -123,9 +141,13 @@ btn: [{class: "btn", type: "submit", text: "submit"}]
 
  #### custom
  Type: `array of objects`
+
  Default: validObj, use getter `validObj()` for return it, or click here
+
  Usage: if you need change regExp, minLength, maxLength, size, type
+
  Example:
+
  ```
 custom: [
 {
@@ -154,35 +176,56 @@ Type: `boolean`
 Default: `false`
 
 Usage: show error message, when input doesn't validate
+
 #### formClass
 Type: `string`
+
 Default: `validator-form`
+
 Usage: If `renderForm: true`, this is form class name
+
 #### blockClass
 Type: `string`
+
 Default: `block`
+
 Usage: If `renderForm: true`, this is block class name
+
 #### errorClass
 Type: `string`
+
 Default: `block__error`
+
 Usage: If `renderForm: true`, this is error class name
+
 #### labelClass
 Type: `string`
+
 Default: `block__label`
+
 Usage: If `renderForm: true`, this is label class name
+
 #### checkSubstr
 Type: `array of objects`
+
 Default: `empty`
+
 Usage: If  some value should include substring
+
 Example:
+
 ```
 checkSubstr: [{id:  "name", substr:  "lol"},],
 ```
 #### blackList
 Type: `array of objects`
+
 Default: `empty`
+
 Usage: If  values don't should include substring
+
 Example:
+
 ```
 blackList: ["lol", "lmao"]
 ```
