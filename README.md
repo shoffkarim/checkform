@@ -38,38 +38,29 @@ let  valid = new  CheckForm (".checkform-wrapper", {
 
 ## Parameters
 ### Container class name
-#### Type:
-`string`
+**Type**: `string`
 
-#### Default:
-none
+**Default**: none
 
-#### Example:
-".checkform-wrapper"
+**Example**: ".checkform-wrapper"
 
 ### Configuration options
 ### renderForm
-#### Type:
-`boolean`
+**Type**: `boolean`
 
-#### Default:
-none
+**Default**: none
 
-#### Usage:
-If you have form, and want just validate it - `renderForm: false`, if you need create form - `renderForm: true`
+**Usage**: If you have form, and want just validate it - `renderForm: false`, if you need create form - `renderForm: true`
 
 ### inputs
-#### Type:
- `array of objects`
+**Type**: `array of objects`
 
-#### Default:
-`empty`
+**Default**: `empty`
 
 
-#### Usage:
-use it if `renderForm: true`,  1 object = 1 input
+**Usage**: use it if `renderForm: true`,  1 object = 1 input
 
-#### Example:
+**Example**:
 ```
 inputs: [
 {id: "email", type: "text", "class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect email"}
@@ -105,11 +96,11 @@ These types are supported in this version
 `label` - text in label
 `error` - text of error
 
- #### textarea
- #### Type: `array of objects`
- #### Default: `empty`
-#### Usage: use it if `renderForm: true`,  1 object = 1 textarea
- Example:
+#### textarea
+**Type**: `array of objects`
+**Default**: `empty`
+**Usage**: use it if `renderForm: true`,  1 object = 1 textarea
+**Example**:
  ```
 textarea: [
 {id: "textarea", class: "block__message", placeholder: "message", label: "enter your message", error: "incorrect message"},
@@ -125,10 +116,10 @@ textarea: [
  `error` - text of error
 
  ### btn
- Type: `array of objects`
- Default: `empty`
- Usage: use it if `renderForm: true`,  1 object = 1 btn
- Example:
+**Type**: `array of objects`
+**Default**: `empty`
+**Usage**: use it if `renderForm: true`,  1 object = 1 btn
+**Example**:
  ```
 btn: [{class: "btn", type: "submit", text: "submit"}]
  ```
@@ -140,10 +131,10 @@ btn: [{class: "btn", type: "submit", text: "submit"}]
  `text` - text of btn
 
  ### custom
- Type: `array of objects`
- Default: validObj, use getter `validObj()` for return it, or click here
- Usage: if you need change regExp, minLength, maxLength, size, type
- Example:
+ **Type**: `array of objects`
+ **Default**: validObj, use getter `validObj()` for return it, or click here
+ **Usage**: if you need change regExp, minLength, maxLength, size, type
+ **Example**:
  ```
 custom: [
 {
@@ -167,61 +158,86 @@ custom: [
 
 
 ###  errorMessages
-Type: `boolean`
-Default: `false`
-Usage: show error message, when input doesn't validate
+**Type**: `boolean`
+
+**Default**: `false`
+
+**Usage**: show error message, when input doesn't validate
+
 ### formClass
-Type: `string`
-Default: `validator-form`
-Usage: If `renderForm: true`, this is form class name
+**Type**: `string`
+
+**Default**: `validator-form`
+
+**Usage**: If `renderForm: true`, this is form class name
+
 ### blockClass
-Type: `string`
-Default: `block`
-Usage: If `renderForm: true`, this is block class name
+**Type**: `string`
+
+**Default**: `block`
+
+**Usage**: If `renderForm: true`, this is block class name
+
 ### errorClass
-Type: `string`
-Default: `block__error`
-Usage: If `renderForm: true`, this is error class name
+**Type**: `string`
+
+**Default**: `block__error`
+
+**Usage**: If `renderForm: true`, this is error class name
+
 ### labelClass
-Type: `string`
-Default: `block__label`
-Usage: If `renderForm: true`, this is label class name
+**Type**: `string`
+
+**Default**: `block__label`
+
+**Usage**: If `renderForm: true`, this is label class name
+
 ### checkSubstr
-Type: `array of objects`
-Default: `empty`
-Usage: If  some value should include substring
-Example:
+**Type**: `array of objects`
+
+**Default**: `empty`
+
+**Usage**: If  some value should include substring
+
+**Example**:
+
 ```
 checkSubstr: [{id:  "name", substr:  "lol"},],
 ```
+
 ### blackList
-Type: `array of objects`
-Default: `empty`
-Usage: If  values don't should include substring
-Example:
+**Type**: `array of objects`
+
+**Default**: `empty`
+
+**Usage**: If  values don't should include substring
+
+**Example**:
+
 ```
 blackList: ["lol", "lmao"]
 ```
+
 ## Methods
 ### validOk(funcName)
-Functional: takes function name, what should call when validation is okey
+**Functional**: takes function name, what should call when validation is okey
 ### validObj()
-Functional: getter of `validObj`
+**Functional**: getter of `validObj`
 ### validObj(obj)
-Functional: setter of `validObj`
+**Functional**: setter of `validObj`
 ### getTemplate(inputs, texarea, btn, error, formClass, blockClass, errorClass, labelClass)
-Functional: rendering form
+**Functional**: rendering form
 ### focusBlurHandler(event)
-Functional: add/remove class for animation of focus/blur
+**Functional**: add/remove class for animation of focus/blur
 ### showErrorMessage(block)
-Functional: show error message
+**Functional**: show error message
 ### hideErrorMessage(block)
-Functional: hide error message
+**Functional**: hide error message
 ### regCheck (val, block, reg, minLength, maxLength)
-Functional: check value for regExp, Length, and call show or hide error
+**Functional**: check value for regExp, Length, and call show or hide error
 ### checkSubstring (block, val)
-Functional: check value include substring
+**Functional**: check value include substring
 ### checkBlackList (block, val)
-Functional: check value don't include substring
+**Functional**: check value don't include substring
 ### clickHandler(event)
-Functional: Definition type of input and call check methods
+**Functional**: Definition type of input and call check methods
