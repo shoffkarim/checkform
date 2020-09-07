@@ -92,15 +92,22 @@ These types are supported in this version
  - file
 
 `class` - class name of input (if you use lib's style - indicate `"block__input"`)
+
 `placeholder` - placeholder for input, in lib's styles in hide for animation label
+
 `label` - text in label
+
 `error` - text of error
 
-#### textarea
+### textarea
 **Type**: `array of objects`
+
 **Default**: `empty`
+
 **Usage**: use it if `renderForm: true`,  1 object = 1 textarea
+
 **Example**:
+
  ```
 textarea: [
 {id: "textarea", class: "block__message", placeholder: "message", label: "enter your message", error: "incorrect message"},
@@ -110,16 +117,24 @@ textarea: [
  ***Explanation***
 
  `id` - id of textarea
+
  `class` - class of textarea, (if you use lib's style - indicate `"block__message"`)
+
  `placholder` - placeholder of textarea
+
  `label` - text in label
+
  `error` - text of error
 
  ### btn
 **Type**: `array of objects`
+
 **Default**: `empty`
+
 **Usage**: use it if `renderForm: true`,  1 object = 1 btn
+
 **Example**:
+
  ```
 btn: [{class: "btn", type: "submit", text: "submit"}]
  ```
@@ -127,15 +142,21 @@ btn: [{class: "btn", type: "submit", text: "submit"}]
  ***Explanation***
 
  `class` - class of btn, (if you use lib's style - indicate `"btn"`)
+
  `type` - type of btn (recommended `"submit"`
+ 
  `text` - text of btn
 
  ### custom
  **Type**: `array of objects`
+
  **Default**: validObj, use getter `validObj()` for return it, or click here
+
  **Usage**: if you need change regExp, minLength, maxLength, size, type
+
  **Example**:
  ```
+
 custom: [
 {
 	nickname:{
