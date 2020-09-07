@@ -3,6 +3,5 @@ node_modules
 bemto
 app/prod/js/checkform.min.js
 app/dev/js/script.js
-app/prod/js/checkform.js
 webpack.config.js
 postcss.config.js
