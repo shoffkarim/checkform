@@ -1,10 +1,10 @@
 # checkform.js - easy validation for forms
 
-1. Install & Use
+1. [Install & Use](https://github.com/shoffkarim/checkform/tree/master#install--use)
 
-2. Parameters
+2. [Parameters](https://github.com/shoffkarim/checkform/tree/master#parameters)
 
-3. Methods
+3. [Methods](https://github.com/shoffkarim/checkform/tree/master#methods)
 
 ## Install & Use
 
@@ -19,8 +19,8 @@ git clone https://github.com/shoffkarim/checkform.git
 2. Connect the script, and styles
 
 ```
-<script  type="text/javascript"  src="js/checkform.min.js"></script>
-<link  rel="stylesheet"  href="css/style.css"  />
+<script  type="text/javascript"  src="checkform/js/checkform.min.js"></script>
+<link  rel="stylesheet"  href="checkform/css/style.css"  />
  ```
 
 3. Init class in your script file
@@ -37,31 +37,39 @@ let  valid = new  CheckForm (".checkform-wrapper", {
 |Block|`<div>`, what contain error, input and label|
 
 ## Parameters
-#### Container class name
-Type: `string`
+### Container class name
+#### Type:
+`string`
 
-Default: none
+#### Default:
+none
 
-Example: ".checkform-wrapper"
-
+#### Example:
+".checkform-wrapper"
 
 ### Configuration options
-#### renderForm
-Type: `boolean`
+### renderForm
+#### Type:
+`boolean`
 
-Default: none
+#### Default:
+none
 
-Usage: If you have form, and want just validate it - `renderForm: false`, if you need create form - `renderForm: true`
+#### Usage:
+If you have form, and want just validate it - `renderForm: false`, if you need create form - `renderForm: true`
 
-#### inputs
-Type: `array of objects`
+### inputs
+#### Type:
+ `array of objects`
 
-Default: `empty`
+#### Default:
+`empty`
 
-Usage: use it if `renderForm: true`,  1 object = 1 input
 
-Example:
+#### Usage:
+use it if `renderForm: true`,  1 object = 1 input
 
+#### Example:
 ```
 inputs: [
 {id: "email", type: "text", "class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect email"}
@@ -98,14 +106,10 @@ These types are supported in this version
 `error` - text of error
 
  #### textarea
- Type: `array of objects`
-
- Default: `empty`
-
- Usage: use it if `renderForm: true`,  1 object = 1 textarea
-
+ #### Type: `array of objects`
+ #### Default: `empty`
+#### Usage: use it if `renderForm: true`,  1 object = 1 textarea
  Example:
-
  ```
 textarea: [
 {id: "textarea", class: "block__message", placeholder: "message", label: "enter your message", error: "incorrect message"},
@@ -120,15 +124,11 @@ textarea: [
  `label` - text in label
  `error` - text of error
 
- #### btn
+ ### btn
  Type: `array of objects`
-
  Default: `empty`
-
  Usage: use it if `renderForm: true`,  1 object = 1 btn
-
  Example:
-
  ```
 btn: [{class: "btn", type: "submit", text: "submit"}]
  ```
@@ -139,15 +139,11 @@ btn: [{class: "btn", type: "submit", text: "submit"}]
  `type` - type of btn (recommended `"submit"`
  `text` - text of btn
 
- #### custom
+ ### custom
  Type: `array of objects`
-
  Default: validObj, use getter `validObj()` for return it, or click here
-
  Usage: if you need change regExp, minLength, maxLength, size, type
-
  Example:
-
  ```
 custom: [
 {
@@ -170,85 +166,62 @@ custom: [
 `file` - have `size` and `type` fields
 
 
-####  errorMessages
+###  errorMessages
 Type: `boolean`
-
 Default: `false`
-
 Usage: show error message, when input doesn't validate
-
-#### formClass
+### formClass
 Type: `string`
-
 Default: `validator-form`
-
 Usage: If `renderForm: true`, this is form class name
-
-#### blockClass
+### blockClass
 Type: `string`
-
 Default: `block`
-
 Usage: If `renderForm: true`, this is block class name
-
-#### errorClass
+### errorClass
 Type: `string`
-
 Default: `block__error`
-
 Usage: If `renderForm: true`, this is error class name
-
-#### labelClass
+### labelClass
 Type: `string`
-
 Default: `block__label`
-
 Usage: If `renderForm: true`, this is label class name
-
-#### checkSubstr
+### checkSubstr
 Type: `array of objects`
-
 Default: `empty`
-
 Usage: If  some value should include substring
-
 Example:
-
 ```
 checkSubstr: [{id:  "name", substr:  "lol"},],
 ```
-#### blackList
+### blackList
 Type: `array of objects`
-
 Default: `empty`
-
 Usage: If  values don't should include substring
-
 Example:
-
 ```
 blackList: ["lol", "lmao"]
 ```
 ## Methods
-#### validOk(funcName)
+### validOk(funcName)
 Functional: takes function name, what should call when validation is okey
-#### validObj()
+### validObj()
 Functional: getter of `validObj`
-#### validObj(obj)
+### validObj(obj)
 Functional: setter of `validObj`
-#### getTemplate(inputs, texarea, btn, error, formClass, blockClass, errorClass, labelClass)
+### getTemplate(inputs, texarea, btn, error, formClass, blockClass, errorClass, labelClass)
 Functional: rendering form
-#### focusBlurHandler(event)
+### focusBlurHandler(event)
 Functional: add/remove class for animation of focus/blur
-#### showErrorMessage(block)
+### showErrorMessage(block)
 Functional: show error message
-#### hideErrorMessage(block)
+### hideErrorMessage(block)
 Functional: hide error message
-#### regCheck (val, block, reg, minLength, maxLength)
+### regCheck (val, block, reg, minLength, maxLength)
 Functional: check value for regExp, Length, and call show or hide error
-#### checkSubstring (block, val)
+### checkSubstring (block, val)
 Functional: check value include substring
-#### checkBlackList (block, val)
+### checkBlackList (block, val)
 Functional: check value don't include substring
-#### clickHandler(event)
+### clickHandler(event)
 Functional: Definition type of input and call check methods
