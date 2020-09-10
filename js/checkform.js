@@ -14,7 +14,7 @@ let validObj = { // object parameters of validation
     minLength: 1,
   },
   password: {
-    reg: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/, //min 6 chars
+    reg: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/, // min 6 chars
   },
   date: {
     reg: /^\d{4}[./-]\d{2}[./-]\d{2}$/, // first type gggg-mm-dd and sec type dd-mm-gggg /^\d{2}[./-]\d{2}[./-]\d{4}$/
@@ -39,8 +39,15 @@ class CheckForm {
     this.setup();
   }
 
-  // (inputs = [], textarea = [], btn = [], error = false, formClass = "validator-form", blockClass="block", errorClass = "block__error", labelClass = "block__label")
   getTemplate() { // method what return inputs, button, and full form
+    return `<form class="${this.options.formClass}" method="POST">
+              ${this.getTemplateInput().join('')}
+              ${this.getTemplateText().join('')}
+              ${this.getTemplateBtn().join('')}
+            </form>`;
+  }
+
+  getTemplateInput() {
     const input = this.options.inputs.map((i) => { // template of input
       if (this.options.error) {
         return `<div class="${this.options.blockClass}">
@@ -54,6 +61,10 @@ class CheckForm {
                 <label class="${this.options.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`;
     });
+    return input;
+  }
+
+  getTemplateText() {
     const text = this.options.textarea.map((i) => { // template of textarea
       if (this.options.error) {
         return `<div class="${this.options.blockClass}">
@@ -67,51 +78,13 @@ class CheckForm {
                 <label class="${this.options.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`;
     });
-    const btn = this.options.btn.map((i) => `<button class="validator-btn ${i.class}" type="${i.type}">${i.text}</button>`); // template of button
-    return `<form class="${this.options.formClass}" method="POST">
-              ${input.join('')}
-              ${text.join('')}
-              ${btn.join('')}
-            </form>`;
+    return text;
   }
-  //   const input = inputs.map(i => { // template of input
-  //     if(error) {
-  //       return `<div class="${blockClass}">
-  //               <div class="${errorClass} error-${i.id}">${i.error}</div>
-  //               <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
-  //               <label class="${labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
-  //             </div>`
-  //     } else {
-  //       return `<div class="${blockClass}">
-  //               <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
-  //               <label class="${labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
-  //             </div>`
-  //     }
-  //   });
 
-  // const text = textarea.map(i => { //template of textarea
-  //   if(error) {
-  //     return `<div class="${blockClass}">
-  //               <div class="${errorClass} error-${i.id}">${i.error}</div>
-  //               <textarea class="validator block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
-  //               <label class="${labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
-  //             </div>`
-  //   } else {
-  //     return `<div class="${blockClass}">
-  //               <textarea class="validator block__input ${i.class}" data-valid="true" data-type="${i.id}" placeholder="${i.placeholder}" id="${i.id}"></textarea>
-  //               <label class="${labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
-  //             </div>`
-  //   }
-  // });
-  //   const button = btn.map(i => { // template button
-  //     return `<button class="validator-btn ${i.class}" type="${i.type}">${i.text}</button>`
-  //   });
-  //   return `<form class="${formClass}" method="POST">
-  //             ${input.join('')}
-  //             ${text.join('')}
-  //             ${button.join('')}
-  //           </form>`;
-  // };
+  getTemplateBtn() {
+    const btn = this.options.btn.map((i) => `<button class="validator-btn ${i.class}" type="${i.type}">${i.text}</button>`); // template of button
+    return btn;
+  }
 
   useForm() {
     return true
