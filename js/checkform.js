@@ -49,7 +49,7 @@ class CheckForm {
 
   getTemplateInput() {
     const input = this.options.inputs.map((i) => { // template of input
-      if (this.options.error) {
+      if (this.options.errorMessages) {
         return `<div class="${this.options.blockClass}">
                   <div class="${this.options.errorClass} error-${i.id}">${i.error}</div>
                   <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
@@ -66,7 +66,7 @@ class CheckForm {
 
   getTemplateText() {
     const text = this.options.textarea.map((i) => { // template of textarea
-      if (this.options.error) {
+      if (this.options.errorMessages) {
         return `<div class="${this.options.blockClass}">
                   <div class="${this.options.errorClass} error-${i.id}">${i.error}</div>
                   <textarea class="validator block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
@@ -82,12 +82,8 @@ class CheckForm {
   }
 
   getTemplateBtn() {
-    const btn = this.options.btn.map((i) => `<button class="validator-btn ${i.class}" type="${i.type}">${i.text}</button>`); // template of button
+    const btn = this.options.btn.map((i) => `<button class="${this.options.btnClass} ${i.class}" type="${i.type}">${i.text}</button>`); // template of button
     return btn;
-  }
-
-  useForm() {
-    return true
   }
 
   render() { // require full form
@@ -96,8 +92,6 @@ class CheckForm {
     this.customObject(custom);
     if (renderForm) { // if user use render form
       this.el.innerHTML = this.getTemplate(this.options);
-    } else { // if user use his form
-      this.useForm();
     }
   }
 
@@ -108,9 +102,9 @@ class CheckForm {
       i.addEventListener('focus', this.focusBlurHandler);
       i.addEventListener('blur', this.focusBlurHandler);
     });
-    const btn = document.querySelector(".validator-btn");
+    const btn = document.querySelector(`.${this.options.btnClass}`);
     this.clickHandler = this.clickHandler.bind(this);
-    // btn.addEventListener('click', this.clickHandler);
+    btn.addEventListener('click', this.clickHandler);
   }
 
   focusBlurHandler(event) { // handler events
@@ -229,8 +223,6 @@ if (y === key) { this.validObj[z][y] = value; }
         } else {
           this.showErrorMessage(block);
         }
-      } else {
-        return true;
       }
     }
   }

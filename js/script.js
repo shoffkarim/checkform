@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 // eslint-disable-next-line no-unused-vars
 let valid = new CheckForm(".validator-wrapper", { // init class
   renderForm: true,
@@ -48,6 +49,7 @@ let valid = new CheckForm(".validator-wrapper", { // init class
   blockClass: "block",
   errorClass: "block__error",
   labelClass: "block__label",
+  btnClass: "validator-btn",
   checkSubstr: [
     {
       id: "name", substr: "karim"
