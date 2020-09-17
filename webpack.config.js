@@ -3,8 +3,9 @@ const webpack = require('webpack');
 const uglifyJsPlugin = require("babel-minify-webpack-plugin");
 const ExtractTextPlugin = require('mini-css-extract-plugin');
 
+
 module.exports = {
-    entry: './app/prod/js/checkform.js',
+    entry: './js/script.js',
     performance: {
         hints: false
     },
@@ -61,9 +62,9 @@ module.exports = {
         extensions: ['*', '.js']
     },
     output: {
-        path: __dirname + '/app/prod',
+        path: __dirname + '/js',
         publicPath: '/',
-        filename: 'js/script.js'
+        filename: 'prod/script.js'
     },
     devServer: {
         contentBase: './'

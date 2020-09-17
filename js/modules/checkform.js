@@ -1,89 +1,46 @@
-let validObj = { // object parameters of validation
-  nickname: {
-    reg: /^[a-zA-Z]/,
-    minLength: 1,
-    maxLength: 15
-  },
-  fullName: {
-    reg: /^[а-яА-ЯёЁ]/,
-    minLength: 1,
-    maxLength: 15
-  },
-  email: {
-    reg: /^(?!.*@.*@.*$)(?!.*@.*--.*..*$)(?!.*@.*-..*$)(?!.*@.*-$)(.*@.+(..{1,11})?)$/,
-    minLength: 1,
-  },
-  password: {
-    reg: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/, // min 6 chars
-  },
-  date: {
-    reg: /^\d{4}[./-]\d{2}[./-]\d{2}$/, // first type gggg-mm-dd and sec type dd-mm-gggg /^\d{2}[./-]\d{2}[./-]\d{4}$/
-  },
-  tel: {
-    // eslint-disable-next-line no-useless-escape
-    reg: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, // russian tel and american tel /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
-    minLength: 1,
-    maxLength: 20
-  },
-  file: {
-    size: 10025711, // 10mb
-    type: "image",
-  },
-};
+import "./createform";
+
 // eslint-disable-next-line no-unused-vars
-class CheckForm {
+export default class CheckForm extends CreateForm {
   constructor(el, options) {
+    super();
     this.el = document.querySelector(el);
     this.options = options;
     this.render();
     this.setup();
-  }
 
-  getTemplate() { // method what return inputs, button, and full form
-    return `<form class="${this.options.formClass}" method="POST">
-              ${this.getTemplateInput().join('')}
-              ${this.getTemplateText().join('')}
-              ${this.getTemplateBtn().join('')}
-            </form>`;
-  }
-
-  getTemplateInput() {
-    const input = this.options.inputs.map((i) => { // template of input
-      if (this.options.errorMessages) {
-        return `<div class="${this.options.blockClass}">
-                  <div class="${this.options.errorClass} error-${i.id}">${i.error}</div>
-                  <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
-                  <label class="${this.options.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
-                  </div>`;
-      }
-      return `<div class="${this.options.blockClass}">
-                <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
-                <label class="${this.options.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
-              </div>`;
-    });
-    return input;
-  }
-
-  getTemplateText() {
-    const text = this.options.textarea.map((i) => { // template of textarea
-      if (this.options.errorMessages) {
-        return `<div class="${this.options.blockClass}">
-                  <div class="${this.options.errorClass} error-${i.id}">${i.error}</div>
-                  <textarea class="validator block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
-                  <label class="${this.options.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
-                </div>`;
-        }
-      return `<div class="${this.options.blockClass}">
-                <textarea class="validator block__input ${i.class}" data-valid="true" data-type="${i.id}" placeholder="${i.placeholder}" id="${i.id}"></textarea>
-                <label class="${this.options.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
-              </div>`;
-    });
-    return text;
-  }
-
-  getTemplateBtn() {
-    const btn = this.options.btn.map((i) => `<button class="${this.options.btnClass} ${i.class}" type="${i.type}">${i.text}</button>`); // template of button
-    return btn;
+    this.validObj = { // object parameters of validation
+      nickname: {
+        reg: /^[a-zA-Z]/,
+        minLength: 1,
+        maxLength: 15
+      },
+      fullName: {
+        reg: /^[а-яА-ЯёЁ]/,
+        minLength: 1,
+        maxLength: 15
+      },
+      email: {
+        reg: /^(?!.*@.*@.*$)(?!.*@.*--.*..*$)(?!.*@.*-..*$)(?!.*@.*-$)(.*@.+(..{1,11})?)$/,
+        minLength: 1,
+      },
+      password: {
+        reg: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/, // min 6 chars
+      },
+      date: {
+        reg: /^\d{4}[./-]\d{2}[./-]\d{2}$/, // first type gggg-mm-dd and sec type dd-mm-gggg /^\d{2}[./-]\d{2}[./-]\d{4}$/
+      },
+      tel: {
+        // eslint-disable-next-line no-useless-escape
+        reg: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, // russian tel and american tel /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
+        minLength: 1,
+        maxLength: 20
+      },
+      file: {
+        size: 10025711, // 10mb
+        type: "image",
+      },
+    };
   }
 
   render() { // require full form
@@ -108,17 +65,18 @@ class CheckForm {
   }
 
   focusBlurHandler(event) { // handler events
+    console.log(this);
     const input = event.target;
     switch (event.type) {
       case "focus":
-        if (input.id == "date") input.type = "date";
+        if (input.id === "date") input.type = "date";
         input.classList.add("js-input-focus");
         break;
       case "blur":
-        if(input.value != "") {
+        if (input.value !== "") {
           input.classList.add("js-input-focus");
         } else {
-          if (input.id == "date") {
+          if (input.id === "date") {
             input.type = "text";
           }
           input.classList.remove("js-input-focus");
@@ -241,38 +199,45 @@ if (y === key) { this.validObj[z][y] = value; }
     inputsList.forEach((block) => {
       let val = block.value;
       switch (block.getAttribute("data-type")) { // all inputs should have id
-        case "nickname":
-          let nicknameReg = new RegExp(validObj.nickname.reg);
-          this.regCheck(val, block, nicknameReg, validObj.nickname.minLength, validObj.nickname.maxLength);
+        case "nickname": {
+          let nicknameReg = new RegExp(this.validObj.nickname.reg);
+          this.regCheck(val, block, nicknameReg, this.validObj.nickname.minLength, this.validObj.nickname.maxLength);
           break;
-        case "fullname":
-          let nameReg = new RegExp(validObj.fullName.reg);
-          this.regCheck(val, block, nameReg, validObj.fullName.minLength, validObj.fullName.maxLength);
+        }
+        case "fullname": {
+          let nameReg = new RegExp(this.validObj.fullName.reg);
+          this.regCheck(val, block, nameReg, this.validObj.fullName.minLength, this.validObj.fullName.maxLength);
           break;
-        case "email":
-          let emailReg = new RegExp(validObj.email.reg);
-          this.regCheck(val, block, emailReg, validObj.email.minLength, validObj.email.maxLength);
+        }
+        case "email": {
+          let emailReg = new RegExp(this.validObj.email.reg);
+          this.regCheck(val, block, emailReg, this.validObj.email.minLength, this.validObj.email.maxLength);
           break;
-        case "password":
-          let passwordReg = new RegExp(validObj.password.reg);
+        }
+        case "password": {
+          let passwordReg = new RegExp(this.validObj.password.reg);
           this.regCheck(val, block, passwordReg);
           break;
-        case "date":
-          let dateReg = new RegExp(validObj.date.reg);
+        }
+        case "date": {
+          let dateReg = new RegExp(this.validObj.date.reg);
           this.regCheck(val, block, dateReg);
           break;
-        case "tel":
-          let telReg = new RegExp(validObj.tel.reg);
-          this.regCheck(val, block, telReg, validObj.tel.minLength, validObj.tel.maxLength);
+        }
+        case "tel": {
+          let telReg = new RegExp(this.validObj.tel.reg);
+          this.regCheck(val, block, telReg, this.validObj.tel.minLength, this.validObj.tel.maxLength);
           break;
-        case "checkbox":
+        }
+        case "checkbox": {
           if (!block.checked) {
             this.showErrorMessage(block);
           } else {
             this.hideErrorMessage(block);
           }
           break;
-        case "file":
+        }
+        case "file": {
           let file = block.files[0]; // check for empty
           if (val === "") {
             this.showErrorMessage(block);
@@ -285,7 +250,8 @@ if (y === key) { this.validObj[z][y] = value; }
             this.hideErrorMessage(block);
           }
           break;
-        case "textarea":
+        }
+        case "textarea": {
           if (val === "") {
             this.showErrorMessage(block);
           } else {
@@ -293,8 +259,10 @@ if (y === key) { this.validObj[z][y] = value; }
             this.checkSubstring(block, val);
           }
           break;
-        default:
+        }
+        default: {
           break;
+        }
       }
     });
   }
