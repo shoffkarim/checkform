@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-import "./modules/checkform";
 // eslint-disable-next-line no-unused-vars
 let valid = new CheckForm(".validator-wrapper", { // init class
   renderForm: true,

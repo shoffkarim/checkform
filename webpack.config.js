@@ -3,9 +3,8 @@ const webpack = require('webpack');
 const uglifyJsPlugin = require("babel-minify-webpack-plugin");
 const ExtractTextPlugin = require('mini-css-extract-plugin');
 
-
 module.exports = {
-    entry: './js/script.js',
+    entry: './js/checkform.js',
     performance: {
         hints: false
     },
