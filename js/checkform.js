@@ -3,15 +3,15 @@ class CreateForm {
   constructor(el, options) {
     this.el = document.querySelector(el);
     this.options = options;
-    this.render();
+    // this.render();
   }
-
-  render() {
-    const { renderForm } = this.options;
-    if (renderForm) { // if user use render form
-      this.el.innerHTML = this.getTemplate(this.options);
-    }
-  }
+  
+  // render() {
+  //   const { renderForm } = this.options;
+  //   if (renderForm) { // if user use render form
+  //     this.el.innerHTML = this.getTemplate(this.options);
+  //   }
+  // }
 
   getTemplate() { // method what return inputs, button, and full form
     return `<form class="${this.options.formClass}" method="POST">
@@ -64,12 +64,7 @@ class CreateForm {
 // eslint-disable-next-line no-unused-vars
 class CheckForm extends CreateForm {
   constructor(el, options) {
-    super();
-    this.el = document.querySelector(el);
-    this.options = options;
-    this.render();
-    this.setup();
-
+    super(el, options);
     this.validObj = { // object parameters of validation
       nickname: {
         reg: /^[a-zA-Z]/,
@@ -102,10 +97,11 @@ class CheckForm extends CreateForm {
         type: "image",
       },
     };
+    this.render();
+    this.setup();
   }
 
   render() { // require full form
-    // const { custom } = this.options;
     const { renderForm } = this.options;
     // this.customObject(custom);
     if (renderForm) { // if user use render form
@@ -340,7 +336,7 @@ if (y === key) { this.validObj[z][y] = value; }
 }
 
 // eslint-disable-next-line no-unused-vars
-let valid = new CreateForm(".validator-wrapper", { // init class
+let valid = new CheckForm(".validator-wrapper", { // init class
   renderForm: true,
   inputs: [
     {
