@@ -59,6 +59,7 @@ class CreateForm {
     return btn;
   }
 
+  // TODO: new animation
   focusBlurHandler(event) { // handler events
     let focusClass = "js-input-focus";
     if (this.options.focusClass) {
@@ -94,36 +95,28 @@ class CheckForm extends CreateForm {
   constructor(el, options) {
     super(el, options);
     this.validObj = { // object parameters of validation
-      nickname: {
-        reg: /^[a-zA-Z]/,
-        minLength: 1,
-        maxLength: 15
-      },
-      fullName: {
-        reg: /^[а-яА-ЯёЁ]/,
-        minLength: 1,
-        maxLength: 15
-      },
-      email: {
-        reg: /^(?!.*@.*@.*$)(?!.*@.*--.*..*$)(?!.*@.*-..*$)(?!.*@.*-$)(.*@.+(..{1,11})?)$/,
-        minLength: 1,
-      },
-      password: {
-        reg: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/, // min 6 chars
-      },
-      date: {
-        reg: /^\d{4}[./-]\d{2}[./-]\d{2}$/, // first type gggg-mm-dd and sec type dd-mm-gggg /^\d{2}[./-]\d{2}[./-]\d{4}$/
-      },
-      tel: {
-        // eslint-disable-next-line no-useless-escape
-        reg: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, // russian tel and american tel /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
-        minLength: 1,
-        maxLength: 20
-      },
-      file: {
-        size: 10025711, // 10mb
-        type: "image",
-      },
+      nicknameReg: /^[a-zA-Z]/,
+      nicknameRegMinLength: 1,
+      nicknameRegMaxLength: 15,
+
+      fullNameReg: /^[а-яА-ЯёЁ]/,
+      fullNameMinLength: 1,
+      fullNameMaxLength: 15,
+
+      emailReg: /^(?!.*@.*@.*$)(?!.*@.*--.*..*$)(?!.*@.*-..*$)(?!.*@.*-$)(.*@.+(..{1,11})?)$/,
+      emailMinLength: 1,
+
+      passwordReg: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/, // min 6 chars
+
+      dateReg: /^\d{4}[./-]\d{2}[./-]\d{2}$/, // first type gggg-mm-dd and sec type dd-mm-gggg /^\d{2}[./-]\d{2}[./-]\d{4}$/
+
+      // eslint-disable-next-line no-useless-escape
+      telReg: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, // russian tel and american tel /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
+      telMinLength: 1,
+      telMaxLength: 20,
+
+      fileSize: 10025711, // 10mb
+      fileType: "image",
     };
     this.render();
     this.setup();
@@ -131,7 +124,7 @@ class CheckForm extends CreateForm {
 
   render() { // require full form
     const { renderForm } = this.options;
-    // this.customObject(custom);
+    this.customObject();
     if (renderForm) { // if user use render form
       this.el.innerHTML = this.getTemplate(this.options);
     }
@@ -163,18 +156,19 @@ if (y === key) { this.validObj[z][y] = value; }
     }
   }
 
-  customObject(custom) { // customization validObj
-    for (let i = 0; i < custom.length; i++) { // cycle on custom mas
-      for (const j in custom[i]) { // cycle on custom mas obj's
-        if (custom[i].hasOwnProperty(j)) { // j - name of type input, custom[i] - object witn custom fields
-          for (const k in custom[i][j]) { // cycle on obj's fields
-            if (custom[i][j].hasOwnProperty(k)) { // k - name of custom key, custom[i][j] - custom object, custom[i][j][k] - custom value
-              this.cycleObj(j, k, custom[i][j][k]);
-            }
-          }
-        }
-      }
-    }
+  customObject() { // customization validObj
+    console.log(this.options.custom);
+    // for (let i = 0; i < custom.length; i++) { // cycle on custom mas
+    //   for (const j in custom[i]) { // cycle on custom mas obj's
+    //     if (custom[i].hasOwnProperty(j)) { // j - name of type input, custom[i] - object witn custom fields
+    //       for (const k in custom[i][j]) { // cycle on obj's fields
+    //         if (custom[i][j].hasOwnProperty(k)) { // k - name of custom key, custom[i][j] - custom object, custom[i][j][k] - custom value
+    //           this.cycleObj(j, k, custom[i][j][k]);
+    //         }
+    //       }
+    //     }
+    //   }
+    // }
   }
 
   showErrorMessage(block) {
@@ -262,33 +256,33 @@ if (y === key) { this.validObj[z][y] = value; }
       let val = block.value;
       switch (block.getAttribute("data-type")) { // all inputs should have id
         case "nickname": {
-          let nicknameReg = new RegExp(this.validObj.nickname.reg);
-          this.regCheck(val, block, nicknameReg, this.validObj.nickname.minLength, this.validObj.nickname.maxLength);
+          let nicknameReg = new RegExp(this.validObj.nicknameReg);
+          this.regCheck(val, block, nicknameReg, this.validObj.nicknameMinLength, this.validObj.nicknameMaxLength);
           break;
         }
         case "fullname": {
-          let nameReg = new RegExp(this.validObj.fullName.reg);
-          this.regCheck(val, block, nameReg, this.validObj.fullName.minLength, this.validObj.fullName.maxLength);
+          let nameReg = new RegExp(this.validObj.fullNameReg);
+          this.regCheck(val, block, nameReg, this.validObj.fullNameMinLength, this.validObj.fullNameMaxLength);
           break;
         }
         case "email": {
-          let emailReg = new RegExp(this.validObj.email.reg);
-          this.regCheck(val, block, emailReg, this.validObj.email.minLength, this.validObj.email.maxLength);
+          let emailReg = new RegExp(this.validObj.emailReg);
+          this.regCheck(val, block, emailReg, this.validObj.emailMinLength, this.validObj.emailMaxLength);
           break;
         }
         case "password": {
-          let passwordReg = new RegExp(this.validObj.password.reg);
+          let passwordReg = new RegExp(this.validObj.passwordReg);
           this.regCheck(val, block, passwordReg);
           break;
         }
         case "date": {
-          let dateReg = new RegExp(this.validObj.date.reg);
+          let dateReg = new RegExp(this.validObj.dateReg);
           this.regCheck(val, block, dateReg);
           break;
         }
         case "tel": {
-          let telReg = new RegExp(this.validObj.tel.reg);
-          this.regCheck(val, block, telReg, this.validObj.tel.minLength, this.validObj.tel.maxLength);
+          let telReg = new RegExp(this.validObj.telReg);
+          this.regCheck(val, block, telReg, this.validObj.telMinLength, this.validObj.telMaxLength);
           break;
         }
         case "checkbox": {
@@ -303,9 +297,9 @@ if (y === key) { this.validObj[z][y] = value; }
           let file = block.files[0]; // check for empty
           if (val === "") {
             this.showErrorMessage(block);
-          } else if (!file.type.startsWith(this.validObj.file.type)) { // check for type of file
+          } else if (!file.type.startsWith(this.validObj.fileType)) { // check for type of file
             this.showErrorMessage(block);
-            if (!(file.size < this.validObj.file.size)) { // check size file
+            if (!(file.size < this.validObj.fileSize)) { // check size file
               this.showErrorMessage(block);
             }
           } else {
@@ -377,14 +371,14 @@ let valid = new CheckForm(".validator-wrapper", { // init class
       class: "btn", type: "submit", text: "submit"
     }
   ],
-  // custom: [
-  //   {
-  //     nickname: {
-  //     reg: /^[a-zA-Z]/,
-  //     maxLength: 11
-  //   }
-  // },
-  // ],
+  custom: [
+    {
+      nickname: {
+        reg: /^[a-zA-Z]/,
+        maxLength: 11
+    }
+  },
+  ],
   errorMessages: true,
   formClass: "validator-form",
   blockClass: "block",
@@ -402,5 +396,3 @@ let valid = new CheckForm(".validator-wrapper", { // init class
   ],
   blackList: ["lol", "kek"]
 });
-
-console.log(valid.options);
