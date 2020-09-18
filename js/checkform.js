@@ -5,7 +5,6 @@ class CreateForm {
     this.options = options;
     // this.render();
   }
-  
   // render() {
   //   const { renderForm } = this.options;
   //   if (renderForm) { // if user use render form
@@ -58,6 +57,35 @@ class CreateForm {
   getTemplateBtn() {
     const btn = this.options.btn.map((i) => `<button class="${this.options.btnClass} ${i.class}" type="${i.type}">${i.text}</button>`); // template of button
     return btn;
+  }
+
+  focusBlurHandler(event) { // handler events
+    let focusClass = "js-input-focus";
+    if (this.options.focusClass) {
+      focusClass = this.options.focusClass;
+    }
+    const input = event.target;
+    switch (event.type) {
+      case "focus": {
+        if (input.id === "date") input.type = "date";
+        input.classList.add(focusClass);
+        break;
+      }
+      case "blur": {
+        if (input.value !== "") {
+          input.classList.add(focusClass);
+        } else {
+          if (input.id === "date") {
+            input.type = "text";
+          }
+          input.classList.remove(focusClass);
+        }
+        break;
+      }
+      default: {
+        break;
+      }
+    }
   }
 }
 
@@ -119,29 +147,6 @@ class CheckForm extends CreateForm {
     const btn = document.querySelector(`.${this.options.btnClass}`);
     this.clickHandler = this.clickHandler.bind(this);
     btn.addEventListener('click', this.clickHandler);
-  }
-
-  focusBlurHandler(event) { // handler events
-    console.log(this);
-    const input = event.target;
-    switch (event.type) {
-      case "focus":
-        if (input.id === "date") input.type = "date";
-        input.classList.add("js-input-focus");
-        break;
-      case "blur":
-        if (input.value !== "") {
-          input.classList.add("js-input-focus");
-        } else {
-          if (input.id === "date") {
-            input.type = "text";
-          }
-          input.classList.remove("js-input-focus");
-        }
-        break;
-      default:
-        break;
-    }
   }
 
   cycleObj(name, key, value) {
@@ -386,6 +391,7 @@ let valid = new CheckForm(".validator-wrapper", { // init class
   errorClass: "block__error",
   labelClass: "block__label",
   btnClass: "validator-btn",
+  focusClass: "js-input-focus",
   checkSubstr: [
     {
       id: "name", substr: "karim"
@@ -396,3 +402,5 @@ let valid = new CheckForm(".validator-wrapper", { // init class
   ],
   blackList: ["lol", "kek"]
 });
+
+console.log(valid.options);
