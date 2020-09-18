@@ -142,33 +142,20 @@ class CheckForm extends CreateForm {
     btn.addEventListener('click', this.clickHandler);
   }
 
-  cycleObj(name, key, value) {
-    for (const z in this.validObj) { // cycle on validobj
-      if (this.validObj.hasOwnProperty(z)) { // z - name of field, this.validObj[z] - field
-        for (const y in this.validObj[z]) {
-          if (this.validObj[z].hasOwnProperty(y)) {
-            if (z === name) {
-if (y === key) { this.validObj[z][y] = value; }
-}
+  customObject() { // customization validObj
+    // eslint-disable-next-line no-restricted-syntax
+    for (const key in this.options.custom) {
+      if (this.options.custom.hasOwnProperty.call(this.options.custom, key)) {
+        // eslint-disable-next-line no-restricted-syntax
+        for (const validObjKey in this.validObj) {
+          if (this.validObj.hasOwnProperty.call(this.validObj, validObjKey)) {
+            if (validObjKey === key) {
+              this.validObj[validObjKey] = this.options.custom[key];
+            }
           }
         }
       }
     }
-  }
-
-  customObject() { // customization validObj
-    console.log(this.options.custom);
-    // for (let i = 0; i < custom.length; i++) { // cycle on custom mas
-    //   for (const j in custom[i]) { // cycle on custom mas obj's
-    //     if (custom[i].hasOwnProperty(j)) { // j - name of type input, custom[i] - object witn custom fields
-    //       for (const k in custom[i][j]) { // cycle on obj's fields
-    //         if (custom[i][j].hasOwnProperty(k)) { // k - name of custom key, custom[i][j] - custom object, custom[i][j][k] - custom value
-    //           this.cycleObj(j, k, custom[i][j][k]);
-    //         }
-    //       }
-    //     }
-    //   }
-    // }
   }
 
   showErrorMessage(block) {
@@ -371,14 +358,10 @@ let valid = new CheckForm(".validator-wrapper", { // init class
       class: "btn", type: "submit", text: "submit"
     }
   ],
-  custom: [
-    {
-      nickname: {
-        reg: /^[a-zA-Z]/,
-        maxLength: 11
-    }
+  custom: {
+      nicknameReg: /^[a-zA-Z]/,
+      nicknameMaxLength: 11
   },
-  ],
   errorMessages: true,
   formClass: "validator-form",
   blockClass: "block",
@@ -396,3 +379,4 @@ let valid = new CheckForm(".validator-wrapper", { // init class
   ],
   blackList: ["lol", "kek"]
 });
+console.log(valid.validObj);
