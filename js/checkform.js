@@ -138,8 +138,8 @@ class CheckForm extends CreateForm {
       i.addEventListener('blur', this.focusBlurHandler);
     });
     const btn = document.querySelector(`.${this.options.btnClass}`);
-    this.clickHandler = this.clickHandler.bind(this);
-    btn.addEventListener('click', this.clickHandler);
+    this.validation = this.validation.bind(this);
+    btn.addEventListener('click', this.validation);
   }
 
   customObject() { // customization validObj
@@ -236,7 +236,7 @@ class CheckForm extends CreateForm {
     }
   }
 
-  clickHandler(event) { // validation when click submit
+  validation(event) { // validation when click submit
     event.preventDefault();
     const inputsList = document.querySelectorAll("[data-valid=true]");
     inputsList.forEach((block) => {
@@ -310,15 +310,15 @@ class CheckForm extends CreateForm {
     });
   }
 
-  validOk(funcName) {
-    document.querySelector('.validator-btn').addEventListener('click', function () {
-      const inputsList = document.querySelectorAll("[data-valid=true]");
-      const goodInputs = document.querySelectorAll(".good");
-      if (inputsList.length === goodInputs.length) {
-        funcName();
-      } else return false;
-    });
-  }
+  // validOk(funcName) {
+  //   document.querySelector('.validator-btn').addEventListener('click', function () {
+  //     const inputsList = document.querySelectorAll("[data-valid=true]");
+  //     const goodInputs = document.querySelectorAll(".good");
+  //     if (inputsList.length === goodInputs.length) {
+  //       funcName();
+  //     } else return false;
+  //   });
+  // }
 }
 
 // eslint-disable-next-line no-unused-vars
@@ -379,4 +379,3 @@ let valid = new CheckForm(".validator-wrapper", { // init class
   ],
   blackList: ["lol", "kek"]
 });
-console.log(valid.validObj);
