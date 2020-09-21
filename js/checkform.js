@@ -204,7 +204,7 @@ class CheckForm extends CreateForm {
       }
   }
 
-  regCheck(val, block, reg, minLength = 0, maxLength = 1000) { // function for check regexp
+  regCheck(val, block, reg, minLength, maxLength) { // function for check regexp
     if (val.length < minLength || val.length > maxLength) {
       this.showErrorMessage(block);
     } else if (!reg.test(val)) {
@@ -241,35 +241,40 @@ class CheckForm extends CreateForm {
     const inputsList = document.querySelectorAll("[data-valid=true]");
     inputsList.forEach((block) => {
       let val = block.value;
+      let minLength = 0;
+      let maxLength = 0;
+      let reg = '';
       switch (block.getAttribute("data-type")) { // all inputs should have id
         case "nickname": {
-          let nicknameReg = new RegExp(this.validObj.nicknameReg);
-          this.regCheck(val, block, nicknameReg, this.validObj.nicknameMinLength, this.validObj.nicknameMaxLength);
+          reg = new RegExp(this.validObj.nicknameReg);
+          minLength = this.validObj.nicknameMinLength;
+          maxLength = this.validObj.nicknameMaxLength;
           break;
         }
         case "fullname": {
-          let nameReg = new RegExp(this.validObj.fullNameReg);
-          this.regCheck(val, block, nameReg, this.validObj.fullNameMinLength, this.validObj.fullNameMaxLength);
+          reg = new RegExp(this.validObj.fullNameReg);
+          minLength = this.validObj.fullNameMinLength;
+          maxLength = this.validObj.fullNameMaxLength;
           break;
         }
         case "email": {
-          let emailReg = new RegExp(this.validObj.emailReg);
-          this.regCheck(val, block, emailReg, this.validObj.emailMinLength, this.validObj.emailMaxLength);
+          reg = new RegExp(this.validObj.emailReg);
+          minLength = this.validObj.emailMinLength;
+          maxLength = this.validObj.emailMaxLength;
           break;
         }
         case "password": {
-          let passwordReg = new RegExp(this.validObj.passwordReg);
-          this.regCheck(val, block, passwordReg);
+          reg = new RegExp(this.validObj.passwordReg);
           break;
         }
         case "date": {
-          let dateReg = new RegExp(this.validObj.dateReg);
-          this.regCheck(val, block, dateReg);
+          reg = new RegExp(this.validObj.dateReg);
           break;
         }
         case "tel": {
-          let telReg = new RegExp(this.validObj.telReg);
-          this.regCheck(val, block, telReg, this.validObj.telMinLength, this.validObj.telMaxLength);
+          reg = new RegExp(this.validObj.telReg);
+          minLength = this.validObj.telMinLength;
+          maxLength = this.validObj.telMaxLength;
           break;
         }
         case "checkbox": {
@@ -307,6 +312,7 @@ class CheckForm extends CreateForm {
           break;
         }
       }
+      this.regCheck(val, block, reg, minLength, maxLength);
     });
   }
 
