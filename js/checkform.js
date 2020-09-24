@@ -110,6 +110,15 @@ class CheckForm extends CreateForm {
 
       fileSize: 10025711, // 10mb
       fileType: "image",
+
+      creditNumberVisa: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/, // credit card numbers
+      creditNumberMasterCard: /^(?:5[1-5][0-9]{14})$/,
+      creditNumberAmExp: /^(?:3[47][0-9]{13})$/,
+      creditNumberDiscover: /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/,
+
+      creditData: /^\d{2}[.]\d{2}$/,
+
+      creditBackNum: /^\d{3}/,
     };
     this.render();
     this.setup();
@@ -198,7 +207,6 @@ class CheckForm extends CreateForm {
   }
 
   regCheck(val, block, reg, minLength = 0, maxLength = 1000) { // function for check regexp
-    console.log(reg);
     if (val.length < minLength || val.length > maxLength) {
       this.showErrorMessage(block);
     } else if (!reg.test(val)) {
@@ -305,6 +313,33 @@ class CheckForm extends CreateForm {
           }
           break;
         }
+        case "creditCardNumber": {
+          if (this.validObj.creditNumberAmExp.test(val)) {
+            this.hideErrorMessage(block);
+          } else if (this.validObj.creditNumberDiscover.test(val)) {
+            this.hideErrorMessage(block);
+          } else if (this.validObj.creditNumberMasterCard.test(val)) {
+            this.hideErrorMessage(block);
+          } else if (this.validObj.creditNumberVisa.test(val)) {
+            this.hideErrorMessage(block);
+          } else {
+            this.showErrorMessage(block);
+          }
+          break;
+        }
+        case "creditData": {
+          let reg = new RegExp(this.validObj.creditData);
+          let minLength = 4;
+          this.regCheck(val, block, reg, minLength);
+          break;
+        }
+        case "creditBackNum": {
+          let reg = new RegExp(this.validObj.creditBackNum);
+          let minLength = 3;
+          let maxLength = 3;
+          this.regCheck(val, block, reg, minLength, maxLength);
+          break;
+        }
         default: {
           break;
         }
@@ -347,6 +382,15 @@ let valid = new CheckForm(".validator-wrapper", { // init class
     },
     {
       id: "file", type: "file", class: "block__input", placeholder: "file", label: "file", error: "incorrect file"
+    },
+    {
+      id: "creditCardNumber", type: "text", class: "block__input", placeholder: "credit card number", label: "credit card number", error: "incorrect card number"
+    },
+    {
+      id: "creditData", type: "text", class: "block__input", placeholder: "credit data", label: "credit data", error: "incorrect card data"
+    },
+    {
+      id: "creditBackNum", type: "text", class: "block__input", placeholder: "credit back num", label: "credit back num", error: "incorrect card back num"
     }
 
   ],
@@ -382,4 +426,4 @@ let valid = new CheckForm(".validator-wrapper", { // init class
   blackList: ["lol", "kek"]
 });
 
-console.log(valid.validObj);
+// console.log(valid.validObj);
