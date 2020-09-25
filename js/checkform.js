@@ -83,6 +83,28 @@ class CreateForm {
   }
 }
 
+class Mask extends CreateForm {
+  constructor(el, options) {
+    super(el, options);
+    this.maskedInputs = document.querySelectorAll('.masked');
+  }
+
+  createShell(input) {
+    let placeholder = input.getAttribute('placeholder');
+    input.setAttribute('maxlength', placeholder.length);
+    input.setAttribute('data-placeholder', placeholder);
+
+    let text = `<span class="${this.options.maskClass}">
+      <span aria-hidden="true" id="${input.id}Mask">
+        <i></i>
+        ${placeholder}
+      </span>
+      ${input.outerHTML}
+    </span>`
+    input.outerHTML = text;
+  }
+}
+
 // eslint-disable-next-line no-unused-vars
 class CheckForm extends CreateForm {
   constructor(el, options) {
@@ -415,6 +437,7 @@ let valid = new CheckForm(".validator-wrapper", { // init class
   labelClass: "block__label",
   btnClass: "validator-btn",
   focusClass: "js-input-focus",
+  maskClass: "shell",
   checkSubstr: [
     {
       id: "name", substr: "karim"
