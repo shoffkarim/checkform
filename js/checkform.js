@@ -3,6 +3,14 @@ class CreateForm {
   constructor(el, options) {
     this.el = document.querySelector(el);
     this.options = options;
+    this.renderTemplate();
+  }
+
+  renderTemplate() { // require full form
+    const { renderForm } = this.options;
+    if (renderForm) { // if user use render form
+      this.el.innerHTML = this.getTemplate(this.options);
+    }
   }
 
   getTemplate() { // method what return inputs, button, and full form
@@ -18,12 +26,12 @@ class CreateForm {
       if (this.options.errorMessages) {
         return `<div class="${this.options.blockClass}">
                   <div class="${this.options.errorClass} error-${i.id}">${i.error}</div>
-                  <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
+                  <input class="checkform ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" data-mask="${i.mask}" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
                   <label class="${this.options.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
                   </div>`;
       }
       return `<div class="${this.options.blockClass}">
-                <input class="validator ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
+                <input class="checkform ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
                 <label class="${this.options.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`;
     });
@@ -35,12 +43,12 @@ class CreateForm {
       if (this.options.errorMessages) {
         return `<div class="${this.options.blockClass}">
                   <div class="${this.options.errorClass} error-${i.id}">${i.error}</div>
-                  <textarea class="validator block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
+                  <textarea class="checkform block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
                   <label class="${this.options.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
                 </div>`;
         }
       return `<div class="${this.options.blockClass}">
-                <textarea class="validator block__input ${i.class}" data-valid="true" data-type="${i.id}" placeholder="${i.placeholder}" id="${i.id}"></textarea>
+                <textarea class="checkform block__input ${i.class}" data-valid="true" data-type="${i.id}" placeholder="${i.placeholder}" id="${i.id}"></textarea>
                 <label class="${this.options.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`;
     });
@@ -86,33 +94,40 @@ class CreateForm {
 class Mask extends CreateForm {
   constructor(el, options) {
     super(el, options);
-    this.maskedInputs = document.querySelectorAll('.masked');
+    this.maskedInputs = document.querySelectorAll("[data-mask=true]");
+    this.setupMask(this.maskedInputs);
+  }
+
+  setupMask(inputs) {
+    for (let i = 0; i < inputs.length; i++) {
+      this.createShell(inputs[i]);
+    }
   }
 
   createShell(input) {
     let placeholder = input.getAttribute('placeholder');
     input.setAttribute('maxlength', placeholder.length);
     input.setAttribute('data-placeholder', placeholder);
-
+    console.log(1);
     let text = `<span class="${this.options.maskClass}">
-      <span aria-hidden="true" id="${input.id}Mask">
+      <span class="checkformMask" aria-hidden="true" id="${input.id}Mask">
         <i></i>
         ${placeholder}
       </span>
       ${input.outerHTML}
-    </span>`
+    </span>`;
     input.outerHTML = text;
   }
 }
 
 // eslint-disable-next-line no-unused-vars
-class CheckForm extends CreateForm {
+class CheckForm extends Mask {
   constructor(el, options) {
     super(el, options);
     this.validObj = { // object parameters of validation
       nicknameReg: /^[a-zA-Z]/,
-      nicknameRegMinLength: 1,
-      nicknameRegMaxLength: 15,
+      nicknameMinLength: 1,
+      nicknameMaxLength: 15,
 
       fullNameReg: /^[a-zA-Z]/, // /^[а-яА-ЯёЁ]/,
       fullNameMinLength: 1,
@@ -147,20 +162,19 @@ class CheckForm extends CreateForm {
   }
 
   render() { // require full form
-    const { renderForm } = this.options;
-    this.customObject();
-    if (renderForm) { // if user use render form
-      this.el.innerHTML = this.getTemplate(this.options);
+    const { custom } = this.options;
+    if (custom) {
+      this.customObject();
     }
   }
 
   setup() { // req clickhandler
-    this.focusBlurHandler = this.focusBlurHandler.bind(this);
-    const inputsList = document.querySelectorAll(".validator");
-    inputsList.forEach((i) => {
-      i.addEventListener('focus', this.focusBlurHandler);
-      i.addEventListener('blur', this.focusBlurHandler);
-    });
+    // this.focusBlurHandler = this.focusBlurHandler.bind(this);
+    // const inputsList = document.querySelectorAll(".checkform");
+    // inputsList.forEach((i) => {
+    //   i.addEventListener('focus', this.focusBlurHandler);
+    //   i.addEventListener('blur', this.focusBlurHandler);
+    // });
     const btn = document.querySelector(`.${this.options.btnClass}`);
     this.validation = this.validation.bind(this);
     btn.addEventListener('click', this.validation);
@@ -381,38 +395,38 @@ class CheckForm extends CreateForm {
 }
 
 // eslint-disable-next-line no-unused-vars
-let valid = new CheckForm(".validator-wrapper", { // init class
+let valid = new CheckForm(".checkform-wrapper", { // init class
   renderForm: true,
   inputs: [
     {
-      id: "email", type: "text", class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect email"
+      id: "email", type: "text", class: "block__input", placeholder: "enter your email", label: "enter your email", error: "incorrect email", mask: false
     },
     {
-      id: "fullname", type: "text", class: "block__input", placeholder: "enter your name", label: "enter your name", error: "incorrect name"
+      id: "fullname", type: "text", class: "block__input", placeholder: "enter your name", label: "enter your name", error: "incorrect name", mask: false
     },
     {
-      id: "password", type: "password", class: "block__input", placeholder: "password", label: "password", error: "incorrect password"
+      id: "password", type: "password", class: "block__input", placeholder: "password", label: "password", error: "incorrect password", mask: false
     },
     {
-      id: "tel", type: "tel", class: "block__input", placeholder: "number", label: "number", error: "incorrect number"
+      id: "tel", type: "tel", class: "block__input", placeholder: "+7(xxx)-xxx-xx-xx", label: "number", error: "incorrect number", mask: true
     },
     {
-      id: "date", type: "text", class: "block__input", placeholder: "date", label: "date", error: "incorrect date"
+      id: "date", type: "date", class: "block__input", placeholder: "dd.mm.yyyy", label: "date", error: "incorrect date", mask: false
     }, // must indicate type text for date, for good animation
     {
-      id: "checkbox", type: "checkbox", class: "block__input", placeholder: "checkbox", label: "checkbox", error: "incorrect check"
+      id: "checkbox", type: "checkbox", class: "block__input", placeholder: "checkbox", label: "checkbox", error: "incorrect check", mask: false
     },
     {
-      id: "file", type: "file", class: "block__input", placeholder: "file", label: "file", error: "incorrect file"
+      id: "file", type: "file", class: "block__input", placeholder: "file", label: "file", error: "incorrect file", mask: false
     },
     {
-      id: "creditCardNumber", type: "text", class: "block__input", placeholder: "credit card number", label: "credit card number", error: "incorrect card number"
+      id: "creditCardNumber", type: "text", class: "block__input", placeholder: "xxxx xxxx xxxx xxxx", label: "credit card number", error: "incorrect card number", mask: true
     },
     {
-      id: "creditData", type: "text", class: "block__input", placeholder: "credit data", label: "credit data", error: "incorrect card data"
+      id: "creditData", type: "text", class: "block__input", placeholder: "mm/yy", label: "credit data", error: "incorrect card data", mask: true
     },
     {
-      id: "creditBackNum", type: "text", class: "block__input", placeholder: "credit back num", label: "credit back num", error: "incorrect card back num"
+      id: "creditBackNum", type: "text", class: "block__input", placeholder: "xxx", label: "credit back num", error: "incorrect card back num", mask: true
     }
 
   ],
@@ -431,11 +445,11 @@ let valid = new CheckForm(".validator-wrapper", { // init class
       nicknameMaxLength: 11
   },
   errorMessages: true,
-  formClass: "validator-form",
+  formClass: "checkform-form",
   blockClass: "block",
   errorClass: "block__error",
   labelClass: "block__label",
-  btnClass: "validator-btn",
+  btnClass: "checkform-btn",
   focusClass: "js-input-focus",
   maskClass: "shell",
   checkSubstr: [
@@ -449,4 +463,4 @@ let valid = new CheckForm(".validator-wrapper", { // init class
   blackList: ["lol", "kek"]
 });
 
-// console.log(valid.validObj);
+//console.log(valid.validObj);
