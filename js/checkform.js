@@ -1,8 +1,48 @@
 // eslint-disable-next-line max-classes-per-file
-class CreateForm {
+class Form {
   constructor(el, options) {
     this.el = document.querySelector(el);
     this.options = options;
+    this.validObj = { // object parameters of validation
+      nicknameReg: /^[a-zA-Z]/,
+      nicknameMinLength: 1,
+      nicknameMaxLength: 15,
+
+      fullNameReg: /^[a-zA-Z]/, // /^[а-яА-ЯёЁ]/,
+      fullNameMinLength: 1,
+      fullNameMaxLength: 15,
+
+      emailReg: /^[a-zA-Z]/, // /^(?!.*@.*@.*$)(?!.*@.*--.*..*$)(?!.*@.*-..*$)(?!.*@.*-$)(.*@.+(..{1,11})?)$/,
+      emailMinLength: 1,
+
+      passwordReg: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/, // min 6 chars
+
+      dateReg: /^\d{4}[./-]\d{2}[./-]\d{2}$/, // first type gggg-mm-dd and sec type dd-mm-gggg /^\d{2}[./-]\d{2}[./-]\d{4}$/
+
+      // eslint-disable-next-line no-useless-escape
+      telReg: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, // russian tel and american tel /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
+      telMinLength: 1,
+      telMaxLength: 20,
+
+      fileSize: 10025711, // 10mb
+      fileType: "image",
+
+      creditNumberVisa: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/, // credit card numbers
+      creditNumberMasterCard: /^(?:5[1-5][0-9]{14})$/,
+      creditNumberAmExp: /^(?:3[47][0-9]{13})$/,
+      creditNumberDiscover: /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/,
+
+      creditData: /^\d{2}[.]\d{2}$/,
+
+      creditBackNum: /^\d{3}/,
+    };
+  }
+}
+
+// eslint-disable-next-line no-unused-vars
+class CreateForm extends Form {
+  constructor(el, options) {
+    super(el, options);
     this.renderTemplate();
   }
 
@@ -61,36 +101,35 @@ class CreateForm {
   }
 
   // TODO: new animation
-  focusBlurHandler(event) { // handler events
-    let focusClass = "js-input-focus";
-    if (this.options.focusClass) {
-      focusClass = this.options.focusClass;
-    }
-    const input = event.target;
-    switch (event.type) {
-      case "focus": {
-        if (input.id === "date") input.type = "date";
-        input.classList.add(focusClass);
-        break;
-      }
-      case "blur": {
-        if (input.value !== "") {
-          input.classList.add(focusClass);
-        } else {
-          if (input.id === "date") {
-            input.type = "text";
-          }
-          input.classList.remove(focusClass);
-        }
-        break;
-      }
-      default: {
-        break;
-      }
-    }
-  }
+  // focusBlurHandler(event) { // handler events
+  //   let focusClass = "js-input-focus";
+  //   if (this.options.focusClass) {
+  //     focusClass = this.options.focusClass;
+  //   }
+  //   const input = event.target;
+  //   switch (event.type) {
+  //     case "focus": {
+  //       if (input.id === "date") input.type = "date";
+  //       input.classList.add(focusClass);
+  //       break;
+  //     }
+  //     case "blur": {
+  //       if (input.value !== "") {
+  //         input.classList.add(focusClass);
+  //       } else {
+  //         if (input.id === "date") {
+  //           input.type = "text";
+  //         }
+  //         input.classList.remove(focusClass);
+  //       }
+  //       break;
+  //     }
+  //     default: {
+  //       break;
+  //     }
+  //   }
+  // }
 }
-
 class Mask extends CreateForm {
   constructor(el, options) {
     super(el, options);
@@ -108,7 +147,6 @@ class Mask extends CreateForm {
     let placeholder = input.getAttribute('placeholder');
     input.setAttribute('maxlength', placeholder.length);
     input.setAttribute('data-placeholder', placeholder);
-    console.log(1);
     let text = `<span class="${this.options.maskClass}">
       <span class="checkformMask" aria-hidden="true" id="${input.id}Mask">
         <i></i>
@@ -122,41 +160,8 @@ class Mask extends CreateForm {
 
 // eslint-disable-next-line no-unused-vars
 class CheckForm extends Mask {
-  constructor(el, options) {
-    super(el, options);
-    this.validObj = { // object parameters of validation
-      nicknameReg: /^[a-zA-Z]/,
-      nicknameMinLength: 1,
-      nicknameMaxLength: 15,
-
-      fullNameReg: /^[a-zA-Z]/, // /^[а-яА-ЯёЁ]/,
-      fullNameMinLength: 1,
-      fullNameMaxLength: 15,
-
-      emailReg: /^[a-zA-Z]/, // /^(?!.*@.*@.*$)(?!.*@.*--.*..*$)(?!.*@.*-..*$)(?!.*@.*-$)(.*@.+(..{1,11})?)$/,
-      emailMinLength: 1,
-
-      passwordReg: /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^\w\s]).{6,}/, // min 6 chars
-
-      dateReg: /^\d{4}[./-]\d{2}[./-]\d{2}$/, // first type gggg-mm-dd and sec type dd-mm-gggg /^\d{2}[./-]\d{2}[./-]\d{4}$/
-
-      // eslint-disable-next-line no-useless-escape
-      telReg: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, // russian tel and american tel /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
-      telMinLength: 1,
-      telMaxLength: 20,
-
-      fileSize: 10025711, // 10mb
-      fileType: "image",
-
-      creditNumberVisa: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/, // credit card numbers
-      creditNumberMasterCard: /^(?:5[1-5][0-9]{14})$/,
-      creditNumberAmExp: /^(?:3[47][0-9]{13})$/,
-      creditNumberDiscover: /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/,
-
-      creditData: /^\d{2}[.]\d{2}$/,
-
-      creditBackNum: /^\d{3}/,
-    };
+  constructor(el, options, validObj) {
+    super(el, options, validObj);
     this.render();
     this.setup();
   }
@@ -463,4 +468,4 @@ let valid = new CheckForm(".checkform-wrapper", { // init class
   blackList: ["lol", "kek"]
 });
 
-//console.log(valid.validObj);
+// console.log(valid.validObj);
