@@ -36,11 +36,47 @@ class Form {
 
       creditBackNum: /^\d{3}/,
     };
+    this.classesForm = {
+      formClass: "checkform-form",
+      blockClass: "block",
+      errorClass: "block__error",
+      labelClass: "block__label",
+      btnClass: "checkform-btn",
+      focusClass: "js-input-focus",
+      maskClass: "shell",
+    };
+  }
+}
+
+class CustomClasses extends Form {
+  // TODO: custom classesForm
+}
+
+class CustomObject extends CustomClasses {
+  constructor(el, options, validObj) {
+    super(el, options, validObj);
+    this.customObject();
+  }
+
+  customObject() { // customization validObj
+    // eslint-disable-next-line no-restricted-syntax
+    for (const key in this.options.custom) {
+      if (this.options.custom.hasOwnProperty.call(this.options.custom, key)) {
+        // eslint-disable-next-line no-restricted-syntax
+        for (const validObjKey in this.validObj) {
+          if (this.validObj.hasOwnProperty.call(this.validObj, validObjKey)) {
+            if (validObjKey === key) {
+              this.validObj[validObjKey] = this.options.custom[key];
+            }
+          }
+        }
+      }
+    }
   }
 }
 
 // eslint-disable-next-line no-unused-vars
-class CreateForm extends Form {
+class CreateForm extends CustomObject {
   constructor(el, options) {
     super(el, options);
     this.renderTemplate();
@@ -64,15 +100,15 @@ class CreateForm extends Form {
   getTemplateInput() {
     const input = this.options.inputs.map((i) => { // template of input
       if (this.options.errorMessages) {
-        return `<div class="${this.options.blockClass}">
-                  <div class="${this.options.errorClass} error-${i.id}">${i.error}</div>
+        return `<div class="${this.classesForm.blockClass}">
+                  <div class="${this.classesForm.errorClass} error-${i.id}">${i.error}</div>
                   <input class="checkform ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" data-mask="${i.mask}" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
-                  <label class="${this.options.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
+                  <label class="${this.classesForm.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
                   </div>`;
       }
-      return `<div class="${this.options.blockClass}">
+      return `<div class="${this.classesForm.blockClass}">
                 <input class="checkform ${i.class} ${i.id}" data-type="${i.id}" data-valid="true" type="${i.type}" placeholder="${i.placeholder}" id="${i.id}"/>
-                <label class="${this.options.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
+                <label class="${this.classesForm.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`;
     });
     return input;
@@ -81,22 +117,22 @@ class CreateForm extends Form {
   getTemplateText() {
     const text = this.options.textarea.map((i) => { // template of textarea
       if (this.options.errorMessages) {
-        return `<div class="${this.options.blockClass}">
-                  <div class="${this.options.errorClass} error-${i.id}">${i.error}</div>
+        return `<div class="${this.classesForm.blockClass}">
+                  <div class="${this.classesForm.errorClass} error-${i.id}">${i.error}</div>
                   <textarea class="checkform block__input ${i.class}" data-valid="true" placeholder="${i.placeholder}" id="${i.id}"></textarea>
-                  <label class="${this.options.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
+                  <label class="${this.classesForm.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
                 </div>`;
         }
-      return `<div class="${this.options.blockClass}">
+      return `<div class="${this.classesForm.blockClass}">
                 <textarea class="checkform block__input ${i.class}" data-valid="true" data-type="${i.id}" placeholder="${i.placeholder}" id="${i.id}"></textarea>
-                <label class="${this.options.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
+                <label class="${this.classesForm.labelClass} label-${i.id}" for="${i.id}">${i.label}</label>
               </div>`;
     });
     return text;
   }
 
   getTemplateBtn() {
-    const btn = this.options.btn.map((i) => `<button class="${this.options.btnClass} ${i.class}" type="${i.type}">${i.text}</button>`); // template of button
+    const btn = this.options.btn.map((i) => `<button class="${this.classesForm.btnClass} ${i.class}" type="${i.type}">${i.text}</button>`); // template of button
     return btn;
   }
 
@@ -183,22 +219,6 @@ class CheckForm extends Mask {
     const btn = document.querySelector(`.${this.options.btnClass}`);
     this.validation = this.validation.bind(this);
     btn.addEventListener('click', this.validation);
-  }
-
-  customObject() { // customization validObj
-    // eslint-disable-next-line no-restricted-syntax
-    for (const key in this.options.custom) {
-      if (this.options.custom.hasOwnProperty.call(this.options.custom, key)) {
-        // eslint-disable-next-line no-restricted-syntax
-        for (const validObjKey in this.validObj) {
-          if (this.validObj.hasOwnProperty.call(this.validObj, validObjKey)) {
-            if (validObjKey === key) {
-              this.validObj[validObjKey] = this.options.custom[key];
-            }
-          }
-        }
-      }
-    }
   }
 
   showErrorMessage(block) {
