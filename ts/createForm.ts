@@ -20,7 +20,7 @@ export class CreateForm extends Form {
     maskClass: "shell",
   };
 
-  constructor(el, options) {
+  constructor(el: any, options: any) {
     super(el, options);
     this.renderTemplate();
   }
@@ -40,7 +40,7 @@ export class CreateForm extends Form {
             </form>`;
   }
   private getTemplateInput() {
-    const input: any = this.options.inputs.map((i) => { // template of input
+    const input: any = this.options.inputs.map((i: { id: any; error: any; class: any; mask: any; type: any; placeholder: any; label: any; }) => { // template of input
       if (this.options.errorMessages) {
         return `<div class="${this.classesForm.blockClass}">
                   <div class="${this.classesForm.errorClass} error-${i.id}">${i.error}</div>
@@ -57,7 +57,7 @@ export class CreateForm extends Form {
   }
 
   private getTemplateText() {
-    const text: any = this.options.textarea.map((i) => { // template of textarea
+    const text: any = this.options.textarea.map((i: { id: any; error: any; class: any; placeholder: any; label: any; }) => { // template of textarea
       if (this.options.errorMessages) {
         return `<div class="${this.classesForm.blockClass}">
                   <div class="${this.classesForm.errorClass} error-${i.id}">${i.error}</div>
@@ -74,7 +74,7 @@ export class CreateForm extends Form {
   }
 
   private getTemplateBtn() {
-    const btn: any = this.options.btn.map((i) => `<button class="${this.classesForm.btnClass} ${i.class}" type="${i.type}">${i.text}</button>`); // template of button
+    const btn: any = this.options.btn.map((i: { class: any; type: any; text: any; }) => `<button class="${this.classesForm.btnClass} ${i.class}" type="${i.type}">${i.text}</button>`); // template of button
     return btn;
   }
 }
