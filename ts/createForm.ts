@@ -1,26 +1,8 @@
 import {Form} from './form'
-interface IclassesForm {
-  formClass: string,
-  blockClass : string,
-  errorClass: string,
-  labelClass: string,
-  btnClass: string,
-  focusClass: string,
-  maskClass: string,
-}
+
 export class CreateForm extends Form {
 
-  public classesForm: IclassesForm = {
-    formClass: "checkform-form",
-    blockClass: "block",
-    errorClass: "block__error",
-    labelClass: "block__label",
-    btnClass: "checkform-btn",
-    focusClass: "js-input-focus",
-    maskClass: "shell",
-  };
-
-  constructor(el: any, options: any) {
+  constructor(el: string, options: any) {
     super(el, options);
     this.renderTemplate();
   }

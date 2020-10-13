@@ -3,7 +3,7 @@
 const path = require("path");
 
 module.exports = {
-    entry: "./ts/checkform.ts",
+    entry: "./ts/script.ts",
     devtool: "inline-source-map",
     module: {
         rules: [

@@ -1,7 +1,18 @@
+import {IValidObj} from './IvalidObject'
+import { IClassesForm } from "./IclassesForm";
 export class Form {
   public el: any;
   public options: any;
-  public validObj: object = {
+  public classesForm: IClassesForm = {
+    formClass: "checkform-form",
+    blockClass: "block",
+    errorClass: "block__error",
+    labelClass: "block__label",
+    btnClass: "checkform-btn",
+    focusClass: "js-input-focus",
+    maskClass: "shell",
+  };
+  public validObj: IValidObj = {
     nicknameReg: /^[a-zA-Z]/,
     nicknameMinLength: 1,
     nicknameMaxLength: 15,
