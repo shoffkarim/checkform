@@ -5,4 +5,4 @@ webpack.config.js
 postcss.config.js
 js/prod
 js/mask.js
-ts/checkform.js
+ts/*.js
