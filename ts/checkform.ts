@@ -1,5 +1,4 @@
 import {Form} from './form'
-import { CreateForm } from "./createForm";
 export class CheckForm extends Form{
 
   constructor(el: any, options: any) {
