@@ -1,8 +1,8 @@
 import {IValidObj} from './IvalidObject'
-import { IClassesForm } from "./IclassesForm";
+import {IOptions} from './Ioptions'
+import {IClassesForm} from "./IclassesForm";
 export class Form {
-  public el: any;
-  public options: any;
+  public options: IOptions;
   public classesForm: IClassesForm = {
     formClass: "checkform-form",
     blockClass: "block",
@@ -45,8 +45,7 @@ export class Form {
 
     creditBackNum: /^\d{3}/,
   };
-  constructor(el: any, options: any) {
-    this.el = document.querySelector(el);
+  constructor(options: IOptions) {
     this.options = options;
   }
 }

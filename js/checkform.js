@@ -353,6 +353,7 @@ class CheckForm extends Mask {
         }
         case "file": {
           let file = block.files[0]; // check for empty
+          console.log(block.getAttribute("files"));
           if (val === "") {
             this.showErrorMessage(block);
           } else if (!file.type.startsWith(this.validObj.fileType)) { // check for type of file

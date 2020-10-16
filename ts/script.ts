@@ -1,15 +1,11 @@
 /* eslint-disable no-undef */
 import { CheckForm } from "./checkform";
 // eslint-disable-next-line no-unused-vars
-let valid: CheckForm = new CheckForm(".checkform-wrapper", { // init class
-  custom: [
-    {
-      nickname: {
-      reg: /^[a-zA-Z]/,
-      maxLength: 11
-    }
+let valid: CheckForm = new CheckForm({ // init class
+  custom: {
+    nicknameReg: /^[a-zA-Z]/,
+    nicknameMaxLength: 11
   },
-  ],
   errorMessages: true,
   formClass: "checkform-form",
   blockClass: "block",
