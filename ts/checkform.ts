@@ -3,7 +3,6 @@ export class CheckForm extends Form{
 
   constructor(el: any, options: any) {
     super(el, options);
-    let a: CreateForm = new CreateForm(el, options);
     this.setup();
   }
 
@@ -178,8 +177,8 @@ export class CheckForm extends Form{
           }
           break;
         }
-        case "creditData": {
-          let reg: any = new RegExp(this.validObj.creditData);
+        case "creditDate": {
+          let reg: any = new RegExp(this.validObj.creditDate);
           let minLength: number = 4;
           this.regCheck(val, block, reg, minLength);
           break;

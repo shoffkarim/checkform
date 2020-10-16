@@ -26,7 +26,7 @@ export interface IValidObj {
     creditNumberAmExp: any,
     creditNumberDiscover: any,
 
-    creditData: any,
+    creditDate: any,
 
     creditBackNum:any,
 }

@@ -41,7 +41,7 @@ export class Form {
     creditNumberAmExp: /^(?:3[47][0-9]{13})$/,
     creditNumberDiscover: /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/,
 
-    creditData: /^\d{2}[.]\d{2}$/,
+    creditDate: /^\d{2}[.]\d{2}$/,
 
     creditBackNum: /^\d{3}/,
   };
