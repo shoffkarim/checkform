@@ -10,7 +10,6 @@ export class Form {
     labelClass: "block__label",
     btnClass: "checkform-btn",
     focusClass: "js-input-focus",
-    maskClass: "shell",
   };
   public validObj: IValidObj = {
     nicknameReg: /^[a-zA-Z]/,

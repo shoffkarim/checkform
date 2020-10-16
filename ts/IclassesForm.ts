@@ -5,5 +5,4 @@ export interface IClassesForm {
   labelClass: string,
   btnClass: string,
   focusClass: string,
-  maskClass: string,
 }
