@@ -1,6 +1,6 @@
-import {IValidObj} from './IvalidObject'
-import {IOptions} from './Ioptions'
-import {IClassesForm} from "./IclassesForm";
+import { IValidObj } from './IvalidObject'
+import { IOptions } from './Ioptions'
+import { IClassesForm } from "./IclassesForm";
 export class Form {
   public options: IOptions;
   public classesForm: IClassesForm = {

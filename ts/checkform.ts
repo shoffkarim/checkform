@@ -1,6 +1,7 @@
-import {Form} from './form'
-import {IOptions} from './Ioptions'
-export class CheckForm extends Form{
+
+import { IOptions } from './Ioptions'
+import { CustomValidObj } from "./customValidObj";
+export class CheckForm extends CustomValidObj{
 
   constructor(options: IOptions) {
     super(options);
