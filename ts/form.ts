@@ -1,13 +1,12 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 import IValidObj from "./interfaces/IvalidObject";
-import IOptions from "./interfaces/Ioptions";
-import IClassesForm from "./interfaces/IclassesForm";
+import { IOptions, IOptionsCustomClassesForm } from "./interfaces/Ioptions";
 
 export default class Form {
   public options: IOptions;
 
-  public classesForm: IClassesForm = {
+  public classesForm: IOptionsCustomClassesForm = {
     formClass: "checkform-form",
     blockClass: "block",
     errorClass: "block__error",
@@ -56,9 +55,9 @@ export default class Form {
 
   public showErrorMessage(block: HTMLElement) : void {
     let parent: HTMLElement = block.parentElement;
-    if (this.options.errorClass) {
-      if (parent.querySelector(`.${this.options.errorClass}`)) {
-        let errorBlock: HTMLElement = parent.querySelector(`.${this.options.errorClass}`);
+    if (this.classesForm.errorClass) {
+      if (parent.querySelector(`.${this.classesForm.errorClass}`)) {
+        let errorBlock: HTMLElement = parent.querySelector(`.${this.classesForm.errorClass}`);
         errorBlock.style.opacity = "1";
         block.classList.add("error");
         block.classList.remove("good");
@@ -79,9 +78,9 @@ export default class Form {
 
   public hideErrorMessage(block: HTMLElement) : void {
     let parent: HTMLElement = block.parentElement;
-    if (this.options.errorClass) {
-      if (parent.querySelector(`.${this.options.errorClass}`)) {
-        let errorBlock: HTMLElement = parent.querySelector(`.${this.options.errorClass}`);
+    if (this.classesForm.errorClass) {
+      if (parent.querySelector(`.${this.classesForm.errorClass}`)) {
+        let errorBlock: HTMLElement = parent.querySelector(`.${this.classesForm.errorClass}`);
         errorBlock.style.opacity = "0";
         block.classList.remove("error");
         block.classList.add("good");

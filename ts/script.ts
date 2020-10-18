@@ -5,16 +5,19 @@
 import CheckForm from "./checkform";
 // eslint-disable-next-line no-unused-vars
 let valid: CheckForm = new CheckForm({ // init class
-  custom: {
+  customValid: {
     nicknameReg: /^[a-zA-Z]/,
     nicknameMaxLength: 11
   },
   errorMessages: true,
-  formClass: "checkform-form",
-  blockClass: "block",
-  errorClass: "block__error",
-  labelClass: "block__label",
-  btnClass: "checkform-btn",
+  customClassesForm: {
+    formClass: "checkform-form",
+    blockClass: "block",
+    errorClass: "block__error",
+    labelClass: "block__label",
+    btnClass: "checkform-btn",
+    focusClass: "js-input-focus",
+  },
   checkSubstr: [
     {
       id: "name", substr: "karim"

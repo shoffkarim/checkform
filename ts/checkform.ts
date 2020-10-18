@@ -1,6 +1,6 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
-import IOptions from "./interfaces/Ioptions";
+import { IOptions } from "./interfaces/Ioptions";
 import IValidObj from "./interfaces/IvalidObject";
 import CustomValidObj from "./customValidObj";
 

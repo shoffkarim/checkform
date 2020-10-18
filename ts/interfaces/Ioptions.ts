@@ -1,4 +1,4 @@
-interface IOptionsCustom {
+interface IOptionsCustomValid {
   nicknameReg?: RegExp;
   nicknameMinLength?: number;
   nicknameMaxLength?: number;
@@ -36,14 +36,18 @@ interface IOptionsCheckSubstr {
   substr?: string;
 }
 
-export default interface IOptions {
-  custom: IOptionsCustom;
-  errorMessages: boolean;
+export interface IOptionsCustomClassesForm {
   formClass: string;
   blockClass: string;
   errorClass: string;
   labelClass: string;
   btnClass: string;
+  focusClass: string;
+}
+export interface IOptions {
+  customValid: IOptionsCustomValid;
+  errorMessages: boolean;
+  customClassesForm: IOptionsCustomClassesForm;
   checkSubstr: IOptionsCheckSubstr[];
   blackList: string[];
 }
