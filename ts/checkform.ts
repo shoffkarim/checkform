@@ -1,5 +1,5 @@
 
-import { IOptions } from './Ioptions'
+import { IOptions } from './interfaces/Ioptions'
 import { CustomValidObj } from "./customValidObj";
 export class CheckForm extends CustomValidObj{
 
@@ -13,8 +13,6 @@ export class CheckForm extends CustomValidObj{
     this.validation = this.validation.bind(this);
     btn.addEventListener('click', this.validation);
   }
-
-
 
   public regCheck(val: string, block: HTMLElement, reg: RegExp, minLength: number = 0, maxLength: number = 1000) { // function for check regexp
     if (val.length < minLength || val.length > maxLength) {

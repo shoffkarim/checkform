@@ -1,5 +1,5 @@
 import { Form } from './form'
-import { IOptions } from './Ioptions'
+import { IOptions } from './interfaces/Ioptions'
 
 export class CustomValidObj extends Form{
 
