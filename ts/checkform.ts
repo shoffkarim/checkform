@@ -17,7 +17,7 @@ export default class CheckForm extends CustomValidObj {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.validation = this.validation.bind(this);
     // eslint-disable-next-line @typescript-eslint/unbound-method
-    btn.addEventListener('click', this.validation);
+    btn.addEventListener("click", this.validation);
   }
 
   public regCheck(val: string, block: HTMLElement, reg: RegExp, minLength = 0, maxLength = 1000) :void { // function for check regexp

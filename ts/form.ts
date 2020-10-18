@@ -59,16 +59,16 @@ export default class Form {
     if (this.options.errorClass) {
       if (parent.querySelector(`.${this.options.errorClass}`)) {
         let errorBlock: HTMLElement = parent.querySelector(`.${this.options.errorClass}`);
-        errorBlock.style.opacity = '1';
+        errorBlock.style.opacity = "1";
         block.classList.add("error");
         block.classList.remove("good");
       } else {
         block.classList.add("error");
         block.classList.remove("good");
       }
-    } else if (parent.querySelector('.block__error')) {
-        let errorBlock: HTMLElement = parent.querySelector('.block__error');
-        errorBlock.style.opacity = '1';
+    } else if (parent.querySelector(".block__error")) {
+        let errorBlock: HTMLElement = parent.querySelector(".block__error");
+        errorBlock.style.opacity = "1";
         block.classList.add("error");
         block.classList.remove("good");
       } else {
@@ -82,16 +82,16 @@ export default class Form {
     if (this.options.errorClass) {
       if (parent.querySelector(`.${this.options.errorClass}`)) {
         let errorBlock: HTMLElement = parent.querySelector(`.${this.options.errorClass}`);
-        errorBlock.style.opacity = '0';
+        errorBlock.style.opacity = "0";
         block.classList.remove("error");
         block.classList.add("good");
       } else {
         block.classList.remove("error");
         block.classList.add("good");
       }
-    } else if (parent.querySelector('.block__error')) {
-        let errorBlock: HTMLElement = parent.querySelector('.block__error');
-        errorBlock.style.opacity = '0';
+    } else if (parent.querySelector(".block__error")) {
+        let errorBlock: HTMLElement = parent.querySelector(".block__error");
+        errorBlock.style.opacity = "0";
         block.classList.remove("error");
         block.classList.add("good");
       } else {
