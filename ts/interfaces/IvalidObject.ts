@@ -1,4 +1,4 @@
-export interface IValidObj {
+export default interface IValidObj {
     nicknameReg: RegExp,
     nicknameMinLength: number,
     nicknameMaxLength: number,

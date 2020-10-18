@@ -36,7 +36,7 @@ interface IOptionsCheckSubstr {
   substr?: string;
 }
 
-export interface IOptions {
+export default interface IOptions {
   custom: IOptionsCustom;
   errorMessages: boolean;
   formClass: string;

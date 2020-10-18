@@ -1,4 +1,4 @@
-export interface IClassesForm {
+export default interface IClassesForm {
   formClass: string,
   blockClass : string,
   errorClass: string,

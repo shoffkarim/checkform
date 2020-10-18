@@ -3,6 +3,5 @@ node_modules
 bemto
 webpack.config.js
 postcss.config.js
-js/prod
+js/
 js/mask.js
-ts/*.js

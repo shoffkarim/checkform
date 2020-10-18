@@ -1,8 +1,12 @@
-import { IValidObj } from './interfaces/IvalidObject'
-import { IOptions } from './interfaces/Ioptions'
-import { IClassesForm } from "./interfaces/IclassesForm";
-export class Form {
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import IValidObj from "./interfaces/IvalidObject";
+import IOptions from "./interfaces/Ioptions";
+import IClassesForm from "./interfaces/IclassesForm";
+
+export default class Form {
   public options: IOptions;
+
   public classesForm: IClassesForm = {
     formClass: "checkform-form",
     blockClass: "block",
@@ -11,6 +15,7 @@ export class Form {
     btnClass: "checkform-btn",
     focusClass: "js-input-focus",
   };
+
   public validObj: IValidObj = {
     nicknameReg: /^[a-zA-Z]/,
     nicknameMinLength: 1,
@@ -44,11 +49,12 @@ export class Form {
 
     creditBackNum: /^\d{3}/,
   };
+
   constructor(options: IOptions) {
     this.options = options;
   }
 
-  public showErrorMessage(block: HTMLElement) {
+  public showErrorMessage(block: HTMLElement) : void {
     let parent: HTMLElement = block.parentElement;
     if (this.options.errorClass) {
       if (parent.querySelector(`.${this.options.errorClass}`)) {
@@ -71,7 +77,7 @@ export class Form {
       }
   }
 
-  public hideErrorMessage(block: HTMLElement) {
+  public hideErrorMessage(block: HTMLElement) : void {
     let parent: HTMLElement = block.parentElement;
     if (this.options.errorClass) {
       if (parent.querySelector(`.${this.options.errorClass}`)) {

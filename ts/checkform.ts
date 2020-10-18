@@ -1,20 +1,26 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import IOptions from "./interfaces/Ioptions";
+import IValidObj from "./interfaces/IvalidObject";
+import CustomValidObj from "./customValidObj";
 
-import { IOptions } from './interfaces/Ioptions'
-import { CustomValidObj } from "./customValidObj";
-export class CheckForm extends CustomValidObj{
+export default class CheckForm extends CustomValidObj {
+  validObj: IValidObj;
 
   constructor(options: IOptions) {
     super(options);
     this.setup();
   }
 
-  private setup() {
+  private setup() :void {
     const btn: HTMLElement = document.querySelector(`.${this.classesForm.btnClass}`);
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.validation = this.validation.bind(this);
+    // eslint-disable-next-line @typescript-eslint/unbound-method
     btn.addEventListener('click', this.validation);
   }
 
-  public regCheck(val: string, block: HTMLElement, reg: RegExp, minLength: number = 0, maxLength: number = 1000) { // function for check regexp
+  public regCheck(val: string, block: HTMLElement, reg: RegExp, minLength = 0, maxLength = 1000) :void { // function for check regexp
     if (val.length < minLength || val.length > maxLength) {
       this.showErrorMessage(block);
     } else if (!reg.test(val)) {
@@ -26,8 +32,8 @@ export class CheckForm extends CustomValidObj{
       }
   }
 
-  public checkSubstring(block: HTMLElement, val: string) { // check string for include substr
-    for (let i: number = 0; i < this.options.checkSubstr.length; i++) {
+  public checkSubstring(block: HTMLElement, val: string) : void { // check string for include substr
+    for (let i = 0; i < this.options.checkSubstr.length; i++) {
       if (this.options.checkSubstr[i].id === block.getAttribute("id")) {
         if (val.includes(this.options.checkSubstr[i].substr)) {
           this.hideErrorMessage(block);
@@ -38,59 +44,59 @@ export class CheckForm extends CustomValidObj{
     }
   }
 
-  public checkBlackList(block: HTMLElement, val: string) { // check string for include substr from blacklist
-    for (let i: number = 0; i < this.options.blackList.length; i++) {
+  public checkBlackList(block: HTMLElement, val: string) : void { // check string for include substr from blacklist
+    for (let i = 0; i < this.options.blackList.length; i++) {
       if (val.includes(this.options.blackList[i])) {
         this.showErrorMessage(block);
       }
     }
   }
 
-  private validation(event: Event) { // validation when click submit
+  protected validation(event: Event) : void{ // validation when click submit
     event.preventDefault();
     const inputsList = document.querySelectorAll("[data-valid=true]");
     inputsList.forEach((block: HTMLInputElement) => {
       let val: string = block.getAttribute("value");
       switch (block.getAttribute("data-type")) { // all inputs should have id
         case "nickname": {
-          let reg: RegExp = new RegExp(this.validObj.nicknameReg);
+          let reg = new RegExp(this.validObj.nicknameReg);
           let minLength: number = this.validObj.nicknameMinLength;
           let maxLength: number = this.validObj.nicknameMaxLength;
           this.regCheck(val, block, reg, minLength, maxLength);
           break;
         }
         case "fullname": {
-          let reg: RegExp = new RegExp(this.validObj.fullNameReg);
+          let reg = new RegExp(this.validObj.fullNameReg);
           let minLength: number = this.validObj.fullNameMinLength;
           let maxLength: number = this.validObj.fullNameMaxLength;
           this.regCheck(val, block, reg, minLength, maxLength);
           break;
         }
         case "email": {
-          let reg: RegExp = new RegExp(this.validObj.emailReg);
+          let reg = new RegExp(this.validObj.emailReg);
           let minLength: number = this.validObj.emailMinLength;
           this.regCheck(val, block, reg, minLength);
           break;
         }
         case "password": {
-          let reg: RegExp = new RegExp(this.validObj.passwordReg);
+          let reg = new RegExp(this.validObj.passwordReg);
           this.regCheck(val, block, reg);
           break;
         }
         case "date": {
-          let reg: RegExp = new RegExp(this.validObj.dateReg);
+          let reg = new RegExp(this.validObj.dateReg);
           this.regCheck(val, block, reg);
           break;
         }
         case "tel": {
-          let reg: RegExp = new RegExp(this.validObj.telReg);
+          let reg = new RegExp(this.validObj.telReg);
           let minLength: number = this.validObj.telMinLength;
           let maxLength: number = this.validObj.telMaxLength;
           this.regCheck(val, block, reg, minLength, maxLength);
           break;
         }
         case "checkbox": {
-          let checked: any = block.getAttribute("checked")
+          let checked: unknown = block.getAttribute("checked")
           if (!checked) {
             this.showErrorMessage(block);
           } else {
@@ -136,15 +142,15 @@ export class CheckForm extends CustomValidObj{
           break;
         }
         case "creditDate": {
-          let reg: RegExp = new RegExp(this.validObj.creditDate);
-          let minLength: number = 4;
+          let reg = new RegExp(this.validObj.creditDate);
+          let minLength = 4;
           this.regCheck(val, block, reg, minLength);
           break;
         }
         case "creditBackNum": {
-          let reg: RegExp = new RegExp(this.validObj.creditBackNum);
-          let minLength: number = 3;
-          let maxLength: number = 3;
+          let reg = new RegExp(this.validObj.creditBackNum);
+          let minLength = 3;
+          let maxLength = 3;
           this.regCheck(val, block, reg, minLength, maxLength);
           break;
         }

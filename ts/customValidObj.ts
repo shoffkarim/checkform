@@ -1,11 +1,8 @@
-import { Form } from './form'
-import { IOptions } from './interfaces/Ioptions'
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/extensions */
+import Form from "./form";
 
-export class CustomValidObj extends Form{
-
-  constructor(options: IOptions) {
-    super(options);
-  }
+export default class CustomValidObj extends Form {
 
   // customObject() { // customization validObj
   //   // eslint-disable-next-line no-restricted-syntax
@@ -22,5 +19,4 @@ export class CustomValidObj extends Form{
   //     }
   //   }
   // }
-
 }
