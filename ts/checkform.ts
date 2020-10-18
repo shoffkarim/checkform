@@ -13,51 +13,8 @@ export class CheckForm extends Form{
     btn.addEventListener('click', this.validation);
   }
 
-  private showErrorMessage(block: HTMLElement) {
-    let parent: HTMLElement = block.parentElement;
-    if (this.options.errorClass) {
-      if (parent.querySelector(`.${this.options.errorClass}`)) {
-        let errorBlock: HTMLElement = parent.querySelector(`.${this.options.errorClass}`);
-        errorBlock.style.opacity = '1';
-        block.classList.add("error");
-        block.classList.remove("good");
-      } else {
-        block.classList.add("error");
-        block.classList.remove("good");
-      }
-    } else if (parent.querySelector('.block__error')) {
-        let errorBlock: HTMLElement = parent.querySelector('.block__error');
-        errorBlock.style.opacity = '1';
-        block.classList.add("error");
-        block.classList.remove("good");
-      } else {
-        block.classList.add("error");
-        block.classList.remove("good");
-      }
-  }
 
-  private hideErrorMessage(block: HTMLElement) {
-    let parent: HTMLElement = block.parentElement;
-    if (this.options.errorClass) {
-      if (parent.querySelector(`.${this.options.errorClass}`)) {
-        let errorBlock: HTMLElement = parent.querySelector(`.${this.options.errorClass}`);
-        errorBlock.style.opacity = '0';
-        block.classList.remove("error");
-        block.classList.add("good");
-      } else {
-        block.classList.remove("error");
-        block.classList.add("good");
-      }
-    } else if (parent.querySelector('.block__error')) {
-        let errorBlock: HTMLElement = parent.querySelector('.block__error');
-        errorBlock.style.opacity = '0';
-        block.classList.remove("error");
-        block.classList.add("good");
-      } else {
-        block.classList.remove("error");
-        block.classList.add("good");
-      }
-  }
+
   public regCheck(val: string, block: HTMLElement, reg: RegExp, minLength: number = 0, maxLength: number = 1000) { // function for check regexp
     if (val.length < minLength || val.length > maxLength) {
       this.showErrorMessage(block);
