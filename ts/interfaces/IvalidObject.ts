@@ -1,32 +1,32 @@
 export default interface IValidObj {
-    nicknameReg: RegExp,
-    nicknameMinLength: number,
-    nicknameMaxLength: number,
+    nicknameReg?: RegExp,
+    nicknameMinLength?: number,
+    nicknameMaxLength?: number,
 
-    fullNameReg: RegExp,
-    fullNameMinLength: number,
-    fullNameMaxLength: number,
+    fullNameReg?: RegExp,
+    fullNameMinLength?: number,
+    fullNameMaxLength?: number,
 
-    emailReg: RegExp,
-    emailMinLength: number,
+    emailReg?: RegExp,
+    emailMinLength?: number,
 
-    passwordReg: RegExp,
+    passwordReg?: RegExp,
 
-    dateReg: RegExp,
+    dateReg?: RegExp,
 
-    telReg: RegExp,
-    telMinLength: number,
-    telMaxLength: number,
+    telReg?: RegExp,
+    telMinLength?: number,
+    telMaxLength?: number,
 
-    fileSize: number,
-    fileType: string,
+    fileSize?: number,
+    fileType?: string,
 
-    creditNumberVisa: RegExp,
-    creditNumberMasterCard: RegExp,
-    creditNumberAmExp: RegExp,
-    creditNumberDiscover: RegExp,
+    creditNumberVisa?: RegExp,
+    creditNumberMasterCard?: RegExp,
+    creditNumberAmExp?: RegExp,
+    creditNumberDiscover?: RegExp,
 
-    creditDate: RegExp,
+    creditDate?: RegExp,
 
-    creditBackNum: RegExp,
+    creditBackNum?: RegExp,
 }

@@ -1,12 +1,13 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 import IValidObj from "./interfaces/IvalidObject";
-import { IOptions, IOptionsCustomClassesForm } from "./interfaces/Ioptions";
+import IOptions from "./interfaces/Ioptions";
+import IClassesForm from "./interfaces/IclassesForm";
 
 export default class Form {
   public options: IOptions;
 
-  public classesForm: IOptionsCustomClassesForm = {
+  public classesForm: IClassesForm = {
     formClass: "checkform-form",
     blockClass: "block",
     errorClass: "block__error",

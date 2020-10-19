@@ -1,53 +1,17 @@
-interface IOptionsCustomValid {
-  nicknameReg?: RegExp;
-  nicknameMinLength?: number;
-  nicknameMaxLength?: number;
-
-  fullNameReg?: RegExp;
-  fullNameMinLength?: number;
-  fullNameMaxLength?: number;
-
-  emailReg?: RegExp;
-  emailMinLength?: number;
-
-  passwordReg?: RegExp;
-
-  dateReg?: RegExp;
-
-  telReg?: RegExp;
-  telMinLength?: number;
-  telMaxLength?: number;
-
-  fileSize?: number;
-  fileType?: string;
-
-  creditNumberVisa?: RegExp;
-  creditNumberMasterCard?: RegExp;
-  creditNumberAmExp?: RegExp;
-  creditNumberDiscover?: RegExp;
-
-  creditDate?: RegExp;
-
-  creditBackNum?: RegExp;
-}
+/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
+import IValidObject from "./IvalidObject";
+import IClassesForm from "./IclassesForm";
 
 interface IOptionsCheckSubstr {
   id?: string;
   substr?: string;
 }
 
-export interface IOptionsCustomClassesForm {
-  formClass: string;
-  blockClass: string;
-  errorClass: string;
-  labelClass: string;
-  btnClass: string;
-  focusClass: string;
-}
-export interface IOptions {
-  customValid: IOptionsCustomValid;
+export default interface IOptions {
+  customValid: IValidObject;
   errorMessages: boolean;
-  customClassesForm: IOptionsCustomClassesForm;
+  customClassesForm: IClassesForm;
   checkSubstr: IOptionsCheckSubstr[];
   blackList: string[];
 }

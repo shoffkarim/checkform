@@ -1,18 +1,23 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
-import { IOptions } from "./interfaces/Ioptions";
+import IOptions from "./interfaces/Ioptions";
 import IValidObj from "./interfaces/IvalidObject";
 import CustomValidObj from "./customValidObj";
+import IClassesForm from "./interfaces/IclassesForm";
 
 export default class CheckForm extends CustomValidObj {
   validObj: IValidObj;
 
+  classesForm: IClassesForm;
+
   constructor(options: IOptions) {
     super(options);
+    console.log(this.validObj);
+    console.log(this.classesForm);
     this.setup();
   }
 
-  private setup() :void {
+  private setup() : void {
     const btn: HTMLElement = document.querySelector(`.${this.classesForm.btnClass}`);
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     this.validation = this.validation.bind(this);
@@ -20,7 +25,7 @@ export default class CheckForm extends CustomValidObj {
     btn.addEventListener("click", this.validation);
   }
 
-  public regCheck(val: string, block: HTMLElement, reg: RegExp, minLength = 0, maxLength = 1000) :void { // function for check regexp
+  public regCheck(val: string, block: HTMLElement, reg: RegExp, minLength = 0, maxLength = 1000) : void { // function for check regexp
     if (val.length < minLength || val.length > maxLength) {
       this.showErrorMessage(block);
     } else if (!reg.test(val)) {
