@@ -54,6 +54,16 @@ export default class Form {
     this.options = options;
   }
 
+  /**
+   * customClassesForm
+   */
+  public customClassesForm() : void{
+    if (this.options.customClassesForm) {
+      this.classesForm = Object.assign(this.classesForm, this.options.customClassesForm);
+    }
+    console.log("nothing to custom")
+  }
+
   public showErrorMessage(block: HTMLElement) : void {
     let parent: HTMLElement = block.parentElement;
     if (this.classesForm.errorClass) {

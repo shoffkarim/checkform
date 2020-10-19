@@ -12,8 +12,7 @@ export default class CheckForm extends CustomValidObj {
 
   constructor(options: IOptions) {
     super(options);
-    console.log(this.validObj);
-    console.log(this.classesForm);
+    this.customClassesForm();
     this.setup();
   }
 
