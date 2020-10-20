@@ -60,8 +60,10 @@ export default class Form {
   public customClassesForm() : void{
     if (this.options.customClassesForm) {
       this.classesForm = Object.assign(this.classesForm, this.options.customClassesForm);
+    } else{
+      console.log("nothing to custom in classesForm")
     }
-    console.log("nothing to custom")
+
   }
 
   public showErrorMessage(block: HTMLElement) : void {
