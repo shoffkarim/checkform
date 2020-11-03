@@ -2,7 +2,6 @@
 /* eslint-disable import/extensions */
 import Form from "./form";
 import IValidObj from "./interfaces/IvalidObject";
-import IvalidObject from "./interfaces/IvalidObject";
 
 export default class CustomValidObj extends Form {
   validObj: IValidObj;
@@ -10,7 +9,7 @@ export default class CustomValidObj extends Form {
   /**
    * customValid
    */
-  public customValid() {
+  public customValid(): void {
     if (this.options.customValid) {
       this.validObj = Object.assign(this.validObj, this.options.customValid);
     } else {
