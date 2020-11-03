@@ -52,6 +52,7 @@ export default class Form {
 
   constructor(options: IOptions) {
     this.options = options;
+    this.wrapperClasses();
   }
 
   /**
@@ -63,7 +64,36 @@ export default class Form {
     } else{
       console.log("nothing to custom in classesForm")
     }
+  }
 
+  /**
+   * wrapperClasss
+   */
+  public wrapperClasses() : void {
+    let wrapper: HTMLElement = document.querySelector(".checkform-wrapper");
+    if (this.options.errorMessages === true) {
+      wrapper.classList.add("error-show");
+    } else {
+      wrapper.classList.remove("error-show");
+    }
+  }
+
+  /**
+   * show error message
+   */
+  public showError(block: HTMLElement) : void {
+    let parent: HTMLElement = block.parentElement;
+    parent.classList.remove("good");
+    parent.classList.add("error");
+  }
+
+  /**
+   * hide error message
+   */
+  public hideError(block: HTMLElement) : void {
+    let parent: HTMLElement = block.parentElement;
+    parent.classList.remove("error");
+    parent.classList.add("good");
   }
 
   public showErrorMessage(block: HTMLElement) : void {
