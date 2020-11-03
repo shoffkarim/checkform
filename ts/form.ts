@@ -40,14 +40,14 @@ export default class Form {
     fileSize: 10025711, // 10mb
     fileType: "image",
 
-    creditNumberVisa: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/, // credit card numbers
-    creditNumberMasterCard: /^(?:5[1-5][0-9]{14})$/,
-    creditNumberAmExp: /^(?:3[47][0-9]{13})$/,
-    creditNumberDiscover: /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/,
+    bankNumberVisa: /^(?:4[0-9]{12}(?:[0-9]{3})?)$/, // credit card numbers
+    bankNumberMasterCard: /^(?:5[1-5][0-9]{14})$/,
+    bankNumberAmExp: /^(?:3[47][0-9]{13})$/,
+    bankNumberDiscover: /^(?:6(?:011|5[0-9][0-9])[0-9]{12})$/,
 
-    creditDate: /^\d{2}[.]\d{2}$/,
+    bankDate: /^\d{2}[.]\d{2}$/,
 
-    creditBackNum: /^\d{3}/,
+    bankBackNum: /^\d{3}/,
   };
 
   constructor(options: IOptions) {

@@ -133,13 +133,13 @@ export default class CheckForm extends CustomValidObj {
           break;
         }
         case "creditCardNumber": {
-          if (this.validObj.creditNumberAmExp.test(val)) {
+          if (this.validObj.bankNumberAmExp.test(val)) {
             this.hideErrorMessage(block);
-          } else if (this.validObj.creditNumberDiscover.test(val)) {
+          } else if (this.validObj.bankNumberDiscover.test(val)) {
             this.hideErrorMessage(block);
-          } else if (this.validObj.creditNumberMasterCard.test(val)) {
+          } else if (this.validObj.bankNumberMasterCard.test(val)) {
             this.hideErrorMessage(block);
-          } else if (this.validObj.creditNumberVisa.test(val)) {
+          } else if (this.validObj.bankNumberVisa.test(val)) {
             this.hideErrorMessage(block);
           } else {
             this.showErrorMessage(block);
@@ -147,13 +147,13 @@ export default class CheckForm extends CustomValidObj {
           break;
         }
         case "creditDate": {
-          let reg = new RegExp(this.validObj.creditDate);
+          let reg = new RegExp(this.validObj.bankDate);
           let minLength = 4;
           this.regCheck(val, block, reg, minLength);
           break;
         }
         case "creditBackNum": {
-          let reg = new RegExp(this.validObj.creditBackNum);
+          let reg = new RegExp(this.validObj.bankBackNum);
           let minLength = 3;
           let maxLength = 3;
           this.regCheck(val, block, reg, minLength, maxLength);
