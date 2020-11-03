@@ -61,8 +61,8 @@ export default class CheckForm extends CustomValidObj {
     event.preventDefault();
     const inputsList = document.querySelectorAll("[data-valid=true]");
     inputsList.forEach((block: HTMLInputElement) => {
-      let val: string = block.getAttribute("value");
-      switch (block.getAttribute("data-type")) { // all inputs should have id
+      let val: string = block.value;
+      switch (block.id) { // all inputs should have id
         case "nickname": {
           let reg = new RegExp(this.validObj.nicknameReg);
           let minLength: number = this.validObj.nicknameMinLength;
