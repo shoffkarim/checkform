@@ -11,6 +11,7 @@ let valid: CheckForm = new CheckForm({ // init class
   },
   errorMessages: true,
   customClassesForm: {
+    wrapperClass: "checkform-wrapper",
     formClass: "checkform-form",
     blockClass: "block",
     errorClass: "block__error",

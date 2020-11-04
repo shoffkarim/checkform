@@ -27,11 +27,11 @@ export default class CheckForm extends CustomValidObj {
 
   public regCheck(val: string, block: HTMLElement, reg: RegExp, minLength = 0, maxLength = 1000) : void { // function for check regexp
     if (val.length < minLength || val.length > maxLength) {
-      this.showErrorMessage(block);
+      this.showError(block);
     } else if (!reg.test(val)) {
-        this.showErrorMessage(block);
+        this.showError(block);
       } else {
-        this.hideErrorMessage(block);
+        this.hideError(block);
         this.checkSubstring(block, val);
         this.checkBlackList(block, val);
       }
@@ -41,9 +41,9 @@ export default class CheckForm extends CustomValidObj {
     for (let i = 0; i < this.options.checkSubstr.length; i++) {
       if (this.options.checkSubstr[i].id === block.getAttribute("id")) {
         if (val.includes(this.options.checkSubstr[i].substr)) {
-          this.hideErrorMessage(block);
+          this.hideError(block);
         } else {
-          this.showErrorMessage(block);
+          this.showError(block);
         }
       }
     }
@@ -52,7 +52,7 @@ export default class CheckForm extends CustomValidObj {
   public checkBlackList(block: HTMLElement, val: string) : void { // check string for include substr from blacklist
     for (let i = 0; i < this.options.blackList.length; i++) {
       if (val.includes(this.options.blackList[i])) {
-        this.showErrorMessage(block);
+        this.showError(block);
       }
     }
   }
@@ -103,46 +103,46 @@ export default class CheckForm extends CustomValidObj {
         case "checkbox": {
           let checked: unknown = block.getAttribute("checked")
           if (!checked) {
-            this.showErrorMessage(block);
+            this.showError(block);
           } else {
-            this.hideErrorMessage(block);
+            this.hideError(block);
           }
           break;
         }
         case "file": {
           let file: File = block.files[0]; // check for empty
           if (val === "") {
-            this.showErrorMessage(block);
+            this.showError(block);
           } else if (!file.type.startsWith(this.validObj.fileType)) { // check for type of file
-            this.showErrorMessage(block);
+            this.showError(block);
             if (!(file.size < this.validObj.fileSize)) { // check size file
-              this.showErrorMessage(block);
+              this.showError(block);
             }
           } else {
-            this.hideErrorMessage(block);
+            this.hideError(block);
           }
           break;
         }
         case "textarea": {
           if (val === "") {
-            this.showErrorMessage(block);
+            this.showError(block);
           } else {
-            this.hideErrorMessage(block);
+            this.hideError(block);
             this.checkSubstring(block, val);
           }
           break;
         }
         case "creditCardNumber": {
           if (this.validObj.bankNumberAmExp.test(val)) {
-            this.hideErrorMessage(block);
+            this.hideError(block);
           } else if (this.validObj.bankNumberDiscover.test(val)) {
-            this.hideErrorMessage(block);
+            this.hideError(block);
           } else if (this.validObj.bankNumberMasterCard.test(val)) {
-            this.hideErrorMessage(block);
+            this.hideError(block);
           } else if (this.validObj.bankNumberVisa.test(val)) {
-            this.hideErrorMessage(block);
+            this.hideError(block);
           } else {
-            this.showErrorMessage(block);
+            this.showError(block);
           }
           break;
         }

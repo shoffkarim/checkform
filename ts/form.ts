@@ -8,12 +8,15 @@ export default class Form {
   public options: IOptions;
 
   public classesForm: IClassesForm = {
+    wrapperClass: "checkform-wrapper",
     formClass: "checkform-form",
     blockClass: "block",
     errorClass: "block__error",
     labelClass: "block__label",
     btnClass: "checkform-btn",
     focusClass: "js-input-focus",
+    blockError: "error",
+    blockGood: "good",
   };
 
   public validObj: IValidObj = {
@@ -61,7 +64,7 @@ export default class Form {
   public customClassesForm() : void{
     if (this.options.customClassesForm) {
       this.classesForm = Object.assign(this.classesForm, this.options.customClassesForm);
-    } else{
+    } else {
       console.log("nothing to custom in classesForm")
     }
   }
@@ -70,7 +73,7 @@ export default class Form {
    * wrapperClasss
    */
   public wrapperClasses() : void {
-    let wrapper: HTMLElement = document.querySelector(".checkform-wrapper");
+    let wrapper: HTMLElement = document.querySelector(`.${this.classesForm.wrapperClass}`);
     if (this.options.errorMessages === true) {
       wrapper.classList.add("error-show");
     } else {
@@ -83,8 +86,8 @@ export default class Form {
    */
   public showError(block: HTMLElement) : void {
     let parent: HTMLElement = block.parentElement;
-    parent.classList.remove("good");
-    parent.classList.add("error");
+    parent.classList.remove(`.${this.classesForm.blockGood}`);
+    parent.classList.add(`.${this.classesForm.blockError}`);
   }
 
   /**
@@ -92,53 +95,7 @@ export default class Form {
    */
   public hideError(block: HTMLElement) : void {
     let parent: HTMLElement = block.parentElement;
-    parent.classList.remove("error");
-    parent.classList.add("good");
-  }
-
-  public showErrorMessage(block: HTMLElement) : void {
-    let parent: HTMLElement = block.parentElement;
-    if (this.classesForm.errorClass) {
-      if (parent.querySelector(`.${this.classesForm.errorClass}`)) {
-        let errorBlock: HTMLElement = parent.querySelector(`.${this.classesForm.errorClass}`);
-        errorBlock.style.opacity = "1";
-        block.classList.add("error");
-        block.classList.remove("good");
-      } else {
-        block.classList.add("error");
-        block.classList.remove("good");
-      }
-    } else if (parent.querySelector(".block__error")) {
-        let errorBlock: HTMLElement = parent.querySelector(".block__error");
-        errorBlock.style.opacity = "1";
-        block.classList.add("error");
-        block.classList.remove("good");
-      } else {
-        block.classList.add("error");
-        block.classList.remove("good");
-      }
-  }
-
-  public hideErrorMessage(block: HTMLElement) : void {
-    let parent: HTMLElement = block.parentElement;
-    if (this.classesForm.errorClass) {
-      if (parent.querySelector(`.${this.classesForm.errorClass}`)) {
-        let errorBlock: HTMLElement = parent.querySelector(`.${this.classesForm.errorClass}`);
-        errorBlock.style.opacity = "0";
-        block.classList.remove("error");
-        block.classList.add("good");
-      } else {
-        block.classList.remove("error");
-        block.classList.add("good");
-      }
-    } else if (parent.querySelector(".block__error")) {
-        let errorBlock: HTMLElement = parent.querySelector(".block__error");
-        errorBlock.style.opacity = "0";
-        block.classList.remove("error");
-        block.classList.add("good");
-      } else {
-        block.classList.remove("error");
-        block.classList.add("good");
-      }
+    parent.classList.remove(`.${this.classesForm.blockError}`);
+    parent.classList.add(`.${this.classesForm.blockGood}`);
   }
 }
