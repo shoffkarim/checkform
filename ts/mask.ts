@@ -41,19 +41,20 @@ export default class MaskForm extends Form {
   /**
    * activateMask
    */
-  public activateMask() : void{
-    this.maskInputs = document.querySelectorAll(".mask .checkform__mask")
-    this.maskInputs.forEach(function (i) {
-      i.addEventListener("keyup", function (e) {
-        handleValueChange(e);
-      }, false);
-    })
+  public activateMask() : void {
+    this.maskInputs = document.querySelectorAll(".mask .checkform__mask");
+    for (let i = 0; i < this.maskInputs.length; i++) {
+      console.log(this);
+    }
+    // this.maskInputs.forEach(function (i) {
+    //   i.addEventListener("click", this.handleValueChange)
+    // })
   }
 
   /**
    * handleValueChange
    */
-  public handleValueChange(e: Event) : void {
-    console.log(e, this.classesForm);
-  }
+  // public handleValueChange(event: Event) : void {
+  //   console.log(event, this.classesForm);
+  // }
 }
