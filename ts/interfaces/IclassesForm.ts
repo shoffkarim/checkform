@@ -6,6 +6,7 @@ export default interface IClassesForm {
   labelClass?: string,
   btnClass?: string,
   focusClass?: string,
-  blockError?: string,
-  blockGood?: string,
+  blockErrorClass?: string,
+  blockGoodClass?: string,
+  maskClass?: string,
 }

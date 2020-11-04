@@ -15,8 +15,9 @@ export default class Form {
     labelClass: "block__label",
     btnClass: "checkform-btn",
     focusClass: "js-input-focus",
-    blockError: "error",
-    blockGood: "good",
+    blockErrorClass: "error",
+    blockGoodClass: "good",
+    maskClass: "mask"
   };
 
   public validObj: IValidObj = {
@@ -86,8 +87,8 @@ export default class Form {
    */
   public showError(block: HTMLElement) : void {
     let parent: HTMLElement = block.parentElement;
-    parent.classList.remove(`${this.classesForm.blockGood}`);
-    parent.classList.add(`${this.classesForm.blockError}`);
+    parent.classList.remove(`${this.classesForm.blockGoodClass}`);
+    parent.classList.add(`${this.classesForm.blockErrorClass}`);
   }
 
   /**
@@ -95,7 +96,7 @@ export default class Form {
    */
   public hideError(block: HTMLElement) : void {
     let parent: HTMLElement = block.parentElement;
-    parent.classList.remove(`${this.classesForm.blockError}`);
-    parent.classList.add(`${this.classesForm.blockGood}`);
+    parent.classList.remove(`${this.classesForm.blockErrorClass}`);
+    parent.classList.add(`${this.classesForm.blockGoodClass}`);
   }
 }

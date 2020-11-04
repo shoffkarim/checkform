@@ -1,9 +1,10 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 import Form from "./form";
+import MaskForm from "./mask";
 import IValidObj from "./interfaces/IvalidObject";
 
-export default class CustomValidObj extends Form {
+export default class CustomValidObj extends MaskForm {
   validObj: IValidObj;
 
   /**
