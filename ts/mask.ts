@@ -42,9 +42,12 @@ export default class MaskForm extends Form {
    * activateMask
    */
   public activateMask() : void {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+    this.handleValueChange = this.handleValueChange.bind(this);
     this.maskInputs = document.querySelectorAll(".mask .checkform__mask");
     for (let i = 0; i < this.maskInputs.length; i++) {
-      console.log(this);
+      // eslint-disable-next-line @typescript-eslint/unbound-method
+      this.maskInputs[i].addEventListener("keyup", this.handleValueChange)
     }
     // this.maskInputs.forEach(function (i) {
     //   i.addEventListener("click", this.handleValueChange)
@@ -54,7 +57,43 @@ export default class MaskForm extends Form {
   /**
    * handleValueChange
    */
-  // public handleValueChange(event: Event) : void {
-  //   console.log(event, this.classesForm);
-  // }
+  public handleValueChange(event: KeyboardEvent) : void {
+    let input = <HTMLInputElement>event.srcElement;
+    let id = input.id;
+
+    switch (event.keyCode) { // exclusion of special keys
+      case 20:
+      case 17:
+      case 18:
+      case 16:
+      case 37:
+      case 38:
+      case 39:
+      case 40:
+      case 9:
+        return;
+        break;
+      default:
+        break;
+    }
+
+    input.value = this.handleCurrentValue(event);
+    document.getElementById(`${id}Mask`).innerHTML = this.setValueMask(event);
+  }
+
+  /**
+   * handleCurrentValue
+   */
+  public handleCurrentValue(event: KeyboardEvent) : string {
+    console.log(event, this.classesForm);
+    return '';
+  }
+
+  /**
+   * setValueMask
+   */
+  public setValueMask(event: KeyboardEvent) : string {
+    console.log(event, this.classesForm);
+    return '';
+  }
 }
