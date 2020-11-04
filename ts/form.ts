@@ -86,8 +86,8 @@ export default class Form {
    */
   public showError(block: HTMLElement) : void {
     let parent: HTMLElement = block.parentElement;
-    parent.classList.remove(`.${this.classesForm.blockGood}`);
-    parent.classList.add(`.${this.classesForm.blockError}`);
+    parent.classList.remove(`${this.classesForm.blockGood}`);
+    parent.classList.add(`${this.classesForm.blockError}`);
   }
 
   /**
@@ -95,7 +95,7 @@ export default class Form {
    */
   public hideError(block: HTMLElement) : void {
     let parent: HTMLElement = block.parentElement;
-    parent.classList.remove(`.${this.classesForm.blockError}`);
-    parent.classList.add(`.${this.classesForm.blockGood}`);
+    parent.classList.remove(`${this.classesForm.blockError}`);
+    parent.classList.add(`${this.classesForm.blockGood}`);
   }
 }

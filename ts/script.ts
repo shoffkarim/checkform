@@ -21,7 +21,7 @@ let valid: CheckForm = new CheckForm({ // init class
   },
   checkSubstr: [
     {
-      id: "name", substr: "karim"
+      id: "nickname", substr: "karim"
     },
     {
       id: "email", substr: "k4r1"

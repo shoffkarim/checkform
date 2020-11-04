@@ -30,11 +30,11 @@ export default class CheckForm extends CustomValidObj {
       this.showError(block);
     } else if (!reg.test(val)) {
         this.showError(block);
-      } else {
+    } else {
         this.hideError(block);
         this.checkSubstring(block, val);
         this.checkBlackList(block, val);
-      }
+    }
   }
 
   public checkSubstring(block: HTMLElement, val: string) : void { // check string for include substr
