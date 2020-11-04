@@ -271,3 +271,22 @@
   bottom: 15px;
   left: 0;
 }
+
+.checkform-wrapper .block .mask {
+  position: relative;
+  line-height: 1;
+}
+
+.checkform-wrapper .block .mask span {
+  position: absolute;
+  left: 3px;
+  top: 1px;
+  color: red;
+  pointer-events: none;
+  z-index: -1;
+}
+.checkform-wrapper .block .mask i { /* any of these 3 will work */
+  color: transparent;
+  opacity: 0;
+  visibility: hidden;
+}
