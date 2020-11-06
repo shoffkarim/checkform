@@ -37,7 +37,7 @@ export default class Form {
     dateReg: /^\d{4}[./-]\d{2}[./-]\d{2}$/, // first type gggg-mm-dd and sec type dd-mm-gggg /^\d{2}[./-]\d{2}[./-]\d{4}$/
 
     // eslint-disable-next-line no-useless-escape
-    telReg: /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, // russian tel and american tel /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
+    telReg: /^(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, // russian tel and american tel /^\+?(\d{1,3})?[- .]?\(?(?:\d{2,3})\)?[- .]?\d\d\d[- .]?\d\d\d\d$/,
     telMinLength: 1,
     telMaxLength: 20,
 
@@ -87,6 +87,9 @@ export default class Form {
    */
   public showError(block: HTMLElement) : void {
     let parent: HTMLElement = block.parentElement;
+    if (parent.classList.contains("mask")) {
+      parent = parent.parentElement;
+    }
     parent.classList.remove(`${this.classesForm.blockGoodClass}`);
     parent.classList.add(`${this.classesForm.blockErrorClass}`);
   }
@@ -96,6 +99,9 @@ export default class Form {
    */
   public hideError(block: HTMLElement) : void {
     let parent: HTMLElement = block.parentElement;
+    if (parent.classList.contains("mask")) {
+      parent = parent.parentElement;
+    }
     parent.classList.remove(`${this.classesForm.blockErrorClass}`);
     parent.classList.add(`${this.classesForm.blockGoodClass}`);
   }

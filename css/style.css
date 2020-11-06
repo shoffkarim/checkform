@@ -260,7 +260,7 @@
   background-color: rgba(0, 0, 0, 0.2);
 }
 
-.error ~ .block__error {
+.error .block__error {
   opacity: 1;
   -webkit-transition: all 0.4s;
   -o-transition: all 0.4s;

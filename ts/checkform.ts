@@ -101,7 +101,7 @@ export default class CheckForm extends CustomValidObj {
           break;
         }
         case "checkbox": {
-          let checked: unknown = block.getAttribute("checked")
+          let checked: boolean = block.checked;
           if (!checked) {
             this.showError(block);
           } else {
