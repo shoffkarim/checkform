@@ -21,12 +21,7 @@ export default interface IValidObj {
     fileSize?: number,
     fileType?: string,
 
-    bankNumberVisa?: RegExp,
-    bankNumberMasterCard?: RegExp,
-    bankNumberAmExp?: RegExp,
-    bankNumberDiscover?: RegExp,
-
+    bankNumber?: RegExp,
     bankDate?: RegExp,
-
     bankBackNum?: RegExp,
 }

@@ -132,30 +132,23 @@ export default class CheckForm extends CustomValidObj {
           }
           break;
         }
-        case "creditCardNumber": {
-          if (this.validObj.bankNumberAmExp.test(val)) {
-            this.hideError(block);
-          } else if (this.validObj.bankNumberDiscover.test(val)) {
-            this.hideError(block);
-          } else if (this.validObj.bankNumberMasterCard.test(val)) {
-            this.hideError(block);
-          } else if (this.validObj.bankNumberVisa.test(val)) {
-            this.hideError(block);
-          } else {
-            this.showError(block);
-          }
+        case "bankCardNumber": {
+          let reg = new RegExp(this.validObj.bankNumber);
+          let maxLength: number = 19;
+          let minLength: number = 12;
+          this.regCheck(val, block, reg, minLength, maxLength);
           break;
         }
-        case "creditDate": {
+        case "bankDate": {
           let reg = new RegExp(this.validObj.bankDate);
-          let minLength = 4;
+          let minLength: number = 4;
           this.regCheck(val, block, reg, minLength);
           break;
         }
-        case "creditBackNum": {
+        case "bankBackNum": {
           let reg = new RegExp(this.validObj.bankBackNum);
-          let minLength = 3;
-          let maxLength = 3;
+          let minLength: number = 3;
+          let maxLength: number = 3;
           this.regCheck(val, block, reg, minLength, maxLength);
           break;
         }
