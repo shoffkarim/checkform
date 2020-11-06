@@ -5,12 +5,16 @@ import IOptions from "./interfaces/Ioptions";
 import IClassesForm from "./interfaces/IclassesForm";
 
 export default class MaskForm extends Form {
-  public maskInputs: NodeListOf<HTMLElement> = document.querySelectorAll(".checkform__mask");
+  public maskInputs: NodeListOf<HTMLElement>;
+  public maskedNumber: string;
+  public maskedLetter: string;
 
   classesForm: IClassesForm;
 
   constructor(options: IOptions) {
     super(options);
+    this.maskInputs = document.querySelectorAll(".checkform__mask");
+    this.maskedNumber = "XdDmMyY9";
     this.setupMask();
     this.activateMask();
   }
@@ -49,9 +53,6 @@ export default class MaskForm extends Form {
       // eslint-disable-next-line @typescript-eslint/unbound-method
       this.maskInputs[i].addEventListener("keyup", this.handleValueChange)
     }
-    // this.maskInputs.forEach(function (i) {
-    //   i.addEventListener("click", this.handleValueChange)
-    // })
   }
 
   /**
@@ -72,7 +73,6 @@ export default class MaskForm extends Form {
       case 40:
       case 9:
         return;
-        break;
       default:
         break;
     }
@@ -85,15 +85,35 @@ export default class MaskForm extends Form {
    * handleCurrentValue
    */
   public handleCurrentValue(event: KeyboardEvent) : string {
-    console.log(event, this.classesForm);
-    return '';
+    let input = <HTMLInputElement>event.target;
+    let placeholder: string = input.getAttribute("data-placeholder");
+    let value: string = input.value
+    let placeholderLength: number = placeholder.length
+    let newValue: string = "";
+    let strippedValue: string = value.replace(/\D/g, "");
+
+    for (let i = 0, j = 0; i < placeholderLength; i++) {
+        let isInt: boolean = !isNaN(parseInt(strippedValue[j]));
+        let matchesNumber: boolean = this.maskedNumber.indexOf(placeholder[i]) >= 0;
+
+        if (matchesNumber && isInt) {
+          newValue += strippedValue[j++];
+        } else if (matchesNumber && !isInt) {
+          return newValue;
+        } else {
+          newValue += placeholder[i];
+        }
+    }
+    return newValue;
   }
 
   /**
    * setValueMask
    */
   public setValueMask(event: KeyboardEvent) : string {
-    console.log(event, this.classesForm);
-    return '';
+    let input = <HTMLInputElement>event.target;
+    let value: string = input.value;
+    let placeholder: string = input.getAttribute("data-placeholder");
+    return `<i>${value}</i>${placeholder.substr(value.length)}`;
   }
 }
