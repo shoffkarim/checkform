@@ -1,0 +1,141 @@
+.checkform-wrapper {
+  width: 500px;
+  margin: 0 auto;
+  font-family: "Helvetica";
+  padding: 20px;
+}
+.checkform-form {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+.checkform-btn {
+  background-color: transparent;
+  color: #000000;
+  border: 1px solid #000000;
+  padding: 10px 25px;
+  font-size: 15px;
+  cursor: pointer;
+}
+.checkform-btn:hover, .checkform-btn:focus {
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+  width: calc(50% - 20px);
+  margin-right: 20px;
+  margin-bottom: 20px;
+  position: relative;
+}
+.block input {
+  padding: 5px;
+  padding-bottom: 0px;
+  margin-bottom: 5px;
+  width: 100%;
+  color: #000000;
+  border: none;
+  border-bottom: 1px solid #000000;
+  height: 25px;
+  transition: all 0.4s;
+}
+.block input::-webkit-input-placeholder {
+  color: #000000;
+  opacity: 1;
+}
+.block input::-moz-placeholder {
+  color: #000000;
+  opacity: 1;
+}
+.block input::-ms-input-placeholder {
+  color: #000000;
+  opacity: 1;
+}
+.block input::placeholder {
+  color: #000000;
+  opacity: 1;
+}
+.block input[type=checkbox] {
+  width: auto;
+}
+.block input[type=file] {
+  border-bottom: none;
+}
+.block label {
+  margin-bottom: 5px;
+  color: #000000;
+}
+.block textarea {
+  width: 100%;
+  padding: 5px;
+  margin-bottom: 10px;
+  color: #000000;
+  resize: none;
+  background-color: #ffffff;
+  border: none;
+  border-bottom: 1px solid #000000;
+  height: 100%;
+  transition: all 0.4s;
+}
+.block textarea::-webkit-input-placeholder {
+  color: #000000;
+  opacity: 1;
+}
+.block textarea::-moz-placeholder {
+  color: #000000;
+  opacity: 1;
+}
+.block textarea::-ms-input-placeholder {
+  color: #000000;
+  opacity: 1;
+}
+.block textarea::placeholder {
+  color: #000000;
+  opacity: 1;
+}
+.block__error {
+  width: auto;
+  background: transparent;
+  color: red;
+  font-size: 15px;
+  font-weight: 700;
+  position: absolute;
+  bottom: -15px;
+  opacity: 0;
+  display: block;
+  transition: all 0.5s;
+}
+
+.checkformMask {
+  position: absolute;
+  bottom: 15px;
+  left: 0;
+}
+
+.checkform-wrapper .block .mask {
+  position: relative;
+  line-height: 1;
+}
+
+.checkform-wrapper .block .mask span {
+  position: absolute;
+  left: 3px;
+  top: 1px;
+  color: red;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.error .block__error {
+  opacity: 1;
+  transition: all 0.4s;
+}
+.error input {
+  border-bottom: 1px solid red;
+  transition: all 0.4s;
+}
+.error textarea {
+  border-bottom: 1px solid red;
+  transition: all 0.4s;
+}

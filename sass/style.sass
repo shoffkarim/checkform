@@ -1,0 +1,113 @@
+.checkform
+  &-wrapper
+    width: 500px
+    margin: 0 auto
+    font-family: "Helvetica"
+    padding: 20px
+  &-form
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+  &-btn
+    background-color: transparent
+    color: #000000
+    border: 1px solid #000000
+    padding: 10px 25px
+    font-size: 15px
+    cursor: pointer
+    &:hover, &:focus
+      background-color: rgba(0, 0, 0, 0.2)
+.block
+  display: flex
+  flex-direction: column
+  width: calc(50% - 20px)
+  margin-right: 20px
+  margin-bottom: 20px
+  position: relative
+  input
+    padding: 5px
+    padding-bottom: 0px
+    margin-bottom: 5px
+    width: 100%
+    color: #000000
+    border: none
+    border-bottom: 1px solid #000000
+    height: 25px
+    transition: all 0.4s
+    &::-webkit-input-placeholder
+      color: #000000
+      opacity: 1
+    &::-moz-placeholder
+      color: #000000
+      opacity: 1
+    &::-ms-input-placeholder
+      color: #000000
+      opacity: 1
+    &::placeholder
+      color: #000000
+      opacity: 1
+    &[type="checkbox"]
+      width: auto
+    &[type="file"]
+      border-bottom: none
+  label
+    margin-bottom: 5px
+    color: #000000
+  textarea
+    width: 100%
+    padding: 5px
+    margin-bottom: 10px
+    color: #000000
+    resize: none
+    background-color: #ffffff
+    border: none
+    border-bottom: 1px solid #000000
+    height: 100%
+    transition: all 0.4s
+    &::-webkit-input-placeholder
+      color: #000000
+      opacity: 1
+    &::-moz-placeholder
+      color: #000000
+      opacity: 1
+    &::-ms-input-placeholder
+      color: #000000
+      opacity: 1
+    &::placeholder
+      color: #000000
+      opacity: 1
+  &__error
+    width: auto
+    background: transparent
+    color: red
+    font-size: 15px
+    font-weight: 700
+    position: absolute
+    bottom: -15px
+    opacity: 0
+    display: block
+    transition: all 0.5s
+.checkformMask
+  position: absolute
+  bottom: 15px
+  left: 0
+.checkform-wrapper .block .mask
+  position: relative
+  line-height: 1
+.checkform-wrapper .block .mask span
+  position: absolute
+  left: 3px
+  top: 1px
+  color: red
+  pointer-events: none
+  z-index: -1
+.error
+  .block__error
+    opacity: 1
+    transition: all 0.4s
+  input
+    border-bottom: 1px solid red
+    transition: all 0.4s
+  textarea
+    border-bottom: 1px solid red
+    transition: all 0.4s

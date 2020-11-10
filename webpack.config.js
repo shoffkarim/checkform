@@ -25,7 +25,6 @@ module.exports = {
                 use: [
                     ExtractTextPlugin.loader,
                     'css-loader',
-                    'postcss-loader',
                     {
                         loader: 'sass-loader',
                         options: {
@@ -56,7 +55,7 @@ module.exports = {
     plugins: [
         new uglifyJsPlugin(),
         new ExtractTextPlugin({
-            filename: 'css/main.css'
+            filename: 'style.css'
         }),
         new webpack.ProvidePlugin({
             $: "jquery",
