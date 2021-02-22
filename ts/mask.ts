@@ -6,7 +6,9 @@ import IClassesForm from "./interfaces/IclassesForm";
 
 export default class MaskForm extends Form {
   public maskInputs: NodeListOf<HTMLElement>;
+
   public maskedNumber: string;
+
   public maskedLetter: string;
 
   classesForm: IClassesForm;
@@ -89,11 +91,11 @@ export default class MaskForm extends Form {
     let placeholder: string = input.getAttribute("data-placeholder");
     let value: string = input.value
     let placeholderLength: number = placeholder.length
-    let newValue: string = "";
+    let newValue = "";
     let strippedValue: string = value.replace(/\D/g, "");
 
     for (let i = 0, j = 0; i < placeholderLength; i++) {
-        let isInt: boolean = !isNaN(parseInt(strippedValue[j]));
+        let isInt = !isNaN(parseInt(strippedValue[j]));
         let matchesNumber: boolean = this.maskedNumber.indexOf(placeholder[i]) >= 0;
 
         if (matchesNumber && isInt) {
