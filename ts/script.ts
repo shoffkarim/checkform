@@ -2,7 +2,7 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
 /* eslint-disable no-undef */
-import "./../sass/style.sass"
+import "../sass/style.sass";
 import CheckForm from "./checkform";
 // eslint-disable-next-line no-unused-vars
 let valid: CheckForm = new CheckForm({ // init class

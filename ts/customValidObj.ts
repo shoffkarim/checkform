@@ -1,6 +1,5 @@
 /* eslint-disable import/no-unresolved */
 /* eslint-disable import/extensions */
-import Form from "./form";
 import MaskForm from "./mask";
 import IValidObj from "./interfaces/IvalidObject";
 
