@@ -2,10 +2,10 @@
 /* eslint-disable import/extensions */
 import IOptions from "./interfaces/Ioptions";
 import IValidObj from "./interfaces/IvalidObject";
-import CustomValidObj from "./customValidObj";
 import IClassesForm from "./interfaces/IclassesForm";
+import CustomParam from "./customValidObj";
 
-export default class CheckForm extends CustomValidObj {
+export default class CheckForm extends CustomParam {
   validObj: IValidObj;
 
   classesForm: IClassesForm;
@@ -134,21 +134,21 @@ export default class CheckForm extends CustomValidObj {
         }
         case "bankCardNumber": {
           let reg = new RegExp(this.validObj.bankNumber);
-          let maxLength: number = 19;
-          let minLength: number = 12;
+          let maxLength = 19;
+          let minLength = 12;
           this.regCheck(val, block, reg, minLength, maxLength);
           break;
         }
         case "bankDate": {
           let reg = new RegExp(this.validObj.bankDate);
-          let minLength: number = 4;
+          let minLength = 4;
           this.regCheck(val, block, reg, minLength);
           break;
         }
         case "bankBackNum": {
           let reg = new RegExp(this.validObj.bankBackNum);
-          let minLength: number = 3;
-          let maxLength: number = 3;
+          let minLength = 3;
+          let maxLength = 3;
           this.regCheck(val, block, reg, minLength, maxLength);
           break;
         }

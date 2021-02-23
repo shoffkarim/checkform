@@ -127,15 +127,16 @@
   z-index: -1;
 }
 
-.error .block__error {
-  opacity: 1;
-  transition: all 0.4s;
-}
 .error input {
   border-bottom: 1px solid red;
   transition: all 0.4s;
 }
 .error textarea {
   border-bottom: 1px solid red;
+  transition: all 0.4s;
+}
+
+.error-show .error .block__error {
+  opacity: 1;
   transition: all 0.4s;
 }

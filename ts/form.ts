@@ -57,17 +57,6 @@ export default class Form {
   }
 
   /**
-   * customClassesForm
-   */
-  public customClassesForm() : void{
-    if (this.options.customClassesForm) {
-      this.classesForm = Object.assign(this.classesForm, this.options.customClassesForm);
-    } else {
-      console.log("nothing to custom in classesForm")
-    }
-  }
-
-  /**
    * wrapperClasss
    */
   public wrapperClasses() : void {
