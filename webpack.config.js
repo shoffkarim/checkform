@@ -71,7 +71,7 @@ module.exports = {
         // publicPath: '/',
         // filename: 'prod/script.js'
         filename: "bundle.js",
-        path: path.resolve(__dirname, "dist"),
+        path: path.resolve(__dirname, "demo"),
     },
     devServer: {
         contentBase: './'

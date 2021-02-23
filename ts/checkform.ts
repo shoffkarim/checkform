@@ -3,7 +3,7 @@
 import IOptions from "./interfaces/Ioptions";
 import IValidObj from "./interfaces/IvalidObject";
 import IClassesForm from "./interfaces/IclassesForm";
-import CustomParam from "./customValidObj";
+import CustomParam from "./customParam";
 
 export default class CheckForm extends CustomParam {
   validObj: IValidObj;
