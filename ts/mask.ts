@@ -79,7 +79,7 @@ export default class MaskForm extends Form {
         break;
     }
 
-    input.value = this.handleCurrentValue(event);
+    input.value = `${this.handleCurrentValue(event)}`;
     document.getElementById(`${id}Mask`).innerHTML = this.setValueMask(event);
   }
 
@@ -89,13 +89,14 @@ export default class MaskForm extends Form {
   public handleCurrentValue(event: KeyboardEvent) : string {
     let input = <HTMLInputElement>event.target;
     let placeholder: string = input.getAttribute("data-placeholder");
-    let value: string = input.value
+    let value: string = input.value;
     let placeholderLength: number = placeholder.length
     let newValue = "";
     let strippedValue: string = value.replace(/\D/g, "");
 
     for (let i = 0, j = 0; i < placeholderLength; i++) {
-        let isInt = !isNaN(parseInt(strippedValue[j]));
+        // eslint-disable-next-line no-restricted-globals
+        let isInt = !isNaN(parseInt(strippedValue[j], 10));
         let matchesNumber: boolean = this.maskedNumber.indexOf(placeholder[i]) >= 0;
 
         if (matchesNumber && isInt) {
@@ -112,10 +113,11 @@ export default class MaskForm extends Form {
   /**
    * setValueMask
    */
+  // eslint-disable-next-line class-methods-use-this
   public setValueMask(event: KeyboardEvent) : string {
     let input = <HTMLInputElement>event.target;
     let value: string = input.value;
     let placeholder: string = input.getAttribute("data-placeholder");
-    return `<i>${value}</i>${placeholder.substr(value.length)}`;
+    return `<i>+7${value}</i>${placeholder.substr(value.length)}`;
   }
 }
