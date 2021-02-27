@@ -9,9 +9,9 @@ interface IOptionsCheckSubstr {
 }
 
 export default interface IOptions {
-  customValid: IValidObject;
-  errorMessages: boolean;
-  customClassesForm: IClassesForm;
-  checkSubstr: IOptionsCheckSubstr[];
-  blackList: string[];
+  customValid?: IValidObject;
+  errorMessages?: boolean;
+  customClassesForm?: IClassesForm;
+  checkSubstr?: IOptionsCheckSubstr[];
+  blackList?: string[];
 }

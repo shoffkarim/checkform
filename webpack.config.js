@@ -5,7 +5,6 @@ const ExtractTextPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     entry: './ts/script.ts',
-    devtool: "inline-source-map",
     performance: {
         hints: false
     },
@@ -46,10 +45,6 @@ module.exports = {
                 use: "ts-loader",
                 exclude: /node_modules/,
             },
-            // {
-            //     test: /\.(svg|eot|woff|woff2|ttf)$/,
-            //     loader: 'file-loader'
-            // }
         ]
     },
     plugins: [
@@ -64,12 +59,8 @@ module.exports = {
     ],
     resolve: {
         extensions: [".tsx", ".ts", ".js"]
-        // extensions: ['*', '.js']
     },
     output: {
-        // path: __dirname + '/js',
-        // publicPath: '/',
-        // filename: 'prod/script.js'
         filename: "bundle.js",
         path: path.resolve(__dirname, "demo"),
     },

@@ -7,7 +7,7 @@ import CheckForm from "./checkform";
 // eslint-disable-next-line no-unused-vars
 let valid: CheckForm = new CheckForm({ // init class
   customValid: {
-    nicknameReg: /^[a-zA-Z]/,
+    nicknameReg: /^[а-яА-Я]/,
     nicknameMaxLength: 11
   },
   errorMessages: true,
@@ -21,9 +21,6 @@ let valid: CheckForm = new CheckForm({ // init class
     focusClass: "js-input-focus",
   },
   checkSubstr: [
-    {
-      id: "nickname", substr: "karim"
-    },
     {
       id: "email", substr: "k4r1"
     }

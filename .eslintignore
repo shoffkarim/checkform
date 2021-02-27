@@ -1,5 +1,6 @@
 node_modules
 /.git
+/demo
 bemto
 webpack.config.js
 postcss.config.js
