@@ -1,6 +1,6 @@
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
-import IValidObject from "./IvalidObject";
+import IValidObj from "./IvalidObject";
 import IClassesForm from "./IclassesForm";
 
 interface IOptionsCheckSubstr {
@@ -9,7 +9,7 @@ interface IOptionsCheckSubstr {
 }
 
 export default interface IOptions {
-  customValid?: IValidObject;
+  customValid?: IValidObj;
   errorMessages?: boolean;
   customClassesForm?: IClassesForm;
   checkSubstr?: IOptionsCheckSubstr[];

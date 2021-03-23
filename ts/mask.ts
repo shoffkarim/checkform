@@ -11,7 +11,7 @@ export default class MaskForm extends Form {
 
   public maskedLetter: string;
 
-  classesForm: IClassesForm;
+  public classesForm: IClassesForm;
 
   constructor(options: IOptions) {
     super(options);
